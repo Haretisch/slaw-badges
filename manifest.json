@@ -1,0 +1,53 @@
+{
+  "manifest_version": 2,
+
+  "name": "SlawBadges",
+  "description": "Adds members' house icon as a twitch badge in the chat feed.",
+  "version": "1.0",
+
+  "background": {
+    "scripts": [
+      "src/scripts/helpers.js",
+      "src/scripts/background.js"
+    ],
+    "persistent": false
+  },
+
+  "content_scripts": [{
+    "run_at": "document_end",
+    "js": [
+      "src/scripts/helpers.js",
+      "src/scripts/users.js",
+      "src/scripts/badges.js",
+      "src/scripts/app.js"
+    ],
+    "matches": ["https://www.twitch.tv/*"]
+  }],
+
+  "icons": {
+    "16": "src/assets/i-16.png",
+    "32": "src/assets/i-32.png",
+    "48": "src/assets/i-48.png",
+    "64": "src/assets/i-64.png",
+    "96": "src/assets/i-96.png",
+    "128": "src/assets/i-128.png"
+  },
+
+  "page_action": {
+    "default_icon": "src/assets/i-128.png",
+    "default_title": "SlawBadges"
+  },
+
+  "permissions": [
+    "https://www.twitch.tv/*",
+    "declarativeContent",
+    "tabs",
+    "webNavigation"
+  ],
+
+  "web_accessible_resources": [
+    "src/assets/*.png"
+  ],
+
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlWVKDIggrJ/pY4cAEO5Kzy8cFV2nXBD40+ciO/u/zXNqDbR+2jXuKriVJO8ard/PNxUQmXbHslsgbfKehKCCN6DsFG5evMO4MXDAkL2rzGZhED8gVI8uTVZtO7zq0qa9fpvxTXLRi3UbKj0qEI0pdyil4rTAhQDU82QeffMO9RFxe+b/FHLzjdyqlP2NdgS5zb70l/TIOjmDLjiAfTdxSWSY46MfRmpBK/us7X/7c2VcBL40Qa7twH5aNUaAIN//g/ynIzNQfBPx+lJcNL9SvIvP6coc3Y0B2Ci0NrBcWAJZkiLweAzLnJCUeMXoLuVEZCf13VHOktQ7L86Xi3mfMwIDAQAB"
+}

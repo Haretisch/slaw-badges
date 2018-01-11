@@ -18,6 +18,16 @@ class Users {
         house: 'hs',
         title: 'Cult Leader',
         immortal: true,
+      },
+      slaw_bot: {
+        house: 'hs',
+        title: 'Chub Master',
+        immortal: true,
+      },
+      nightbot: {
+        house: 'hs',
+        title: 'The Finger',
+        immortal: true,
       }
     };
     this.pendingRequests = {};

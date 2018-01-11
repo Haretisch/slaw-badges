@@ -52,7 +52,7 @@ class Badges {
   }
 
   addBadges(comment, user){
-    const badgeContainer = comment.querySelectorAll('span')[0];
+    const badgeContainer = this.findBadgeContainer(comment);
     const houseBadge = system.extension.getURL('src/assets/'+user.house+'.png')
     this.prependBadge(badgeContainer, houseBadge, user.title)
 
@@ -60,6 +60,17 @@ class Badges {
     //  const cupBadge = system.extension.getURL('src/assets/hc.png')
     //  this.prependBadge(badgeContainer, cupBadge, 'House cup!');
     //}
+  }
+
+  findBadgeContainer(comment) {
+    let spanList = comment.querySelectorAll('span'),
+      container = spanList[0];
+
+    if (spanList[0].classList.contains('chat-line__timestamp')) {
+        container = spanList[1];
+    }
+
+    return container;
   }
 
   prependBadge(container, badge, title){

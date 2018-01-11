@@ -28,7 +28,6 @@ class Users {
       version: 'v1',
     };
 
-    localStorage.removeItem('slawCultists')
     if(this.storage = storageAvailable('localStorage')){
       this.users = {...JSON.parse(localStorage.getItem('slawCultists')), ...this.users};
     }

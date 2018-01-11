@@ -2,6 +2,24 @@ function elementIdentifier(elm){
   return elm.localName + (elm.id ? '#'+elm.id : '') + (elm.className && elm.className.split ? '.'+elm.className.split(' ').join('.') : '');
 }
 
+function getContext() {
+  const contexts = [
+    // Order is important
+    {key: 'popout', identifier: '/popout/sirslaw/chat'},
+    {key: 'chat', identifier: '/sirslaw/chat'},
+    {key: 'stream', identifier: '/sirslaw'},
+  ];
+
+  return contexts.find(c => {
+    return window.location.pathname.includes(c.identifier)
+  }).key;
+}
+
+function getSystem() {
+  //Should allow this app to be mostly crossbrowser. Chrome, Opera and Edge (apparently) user chrome, Firefox uses browser
+  return chrome || browser;
+}
+
 function storageAvailable(type) {
   try {
     var storage = window[type],
@@ -24,9 +42,4 @@ function storageAvailable(type) {
       // acknowledge QuotaExceededError only if there's something already stored
       storage.length !== 0;
   }
-}
-
-function getSystem() {
-  //Should allow this app to be mostly crossbrowser. Chrome, Opera and Edge (apparently) user chrome, Firefox uses browser
-  return chrome || browser;
 }

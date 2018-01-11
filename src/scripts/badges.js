@@ -1,6 +1,6 @@
 class Badges {
   constructor() {
-    this.chatOnly = window.location.pathname.includes('sirslaw/chat') && !window.location.pathname.includes('popout');
+    this.chatOnly = context === 'chat';
     this.loaded = false;
 
     // Prepare to observe/listen to mutations in the DOM and react to them;

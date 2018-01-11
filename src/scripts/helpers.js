@@ -1,5 +1,5 @@
 function elementIdentifier(elm){
-  return elm.localName + (elm.id ? '#'+elm.id : '') + (elm.className ? '.'+elm.className.split(' ').join('.') : '');
+  return elm.localName + (elm.id ? '#'+elm.id : '') + (elm.className && elm.className.split ? '.'+elm.className.split(' ').join('.') : '');
 }
 
 function storageAvailable(type) {
@@ -27,5 +27,6 @@ function storageAvailable(type) {
 }
 
 function getSystem() {
+  //Should allow this app to be mostly crossbrowser. Chrome, Opera and Edge (apparently) user chrome, Firefox uses browser
   return chrome || browser;
 }

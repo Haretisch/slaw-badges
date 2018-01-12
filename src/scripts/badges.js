@@ -3,21 +3,6 @@ class Badges {
     this.chatOnly = context === 'chat';
     this.loaded = false;
 
-    // Prepare to observe/listen to mutations in the DOM and react to them;
-    this.twitchObserver = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        // When a big change in the page happens (usually navigation),
-        //  recheck if we want to observeChat, unless we are in a chatOnly window and we already this.loaded
-        let targetIdentifier = this.chatOnly
-          ? "ul.chat-lines"
-          : "div.tw-full-height.tw-flex.tw-flex-nowrap.tw-relative"
-        ;
-        if(elementIdentifier(mutation.target) === targetIdentifier && !this.loaded){
-          this.observeChat();
-        }
-      });
-    });
-
     // Prepare to observe/listen to mutations in the chatbox and react to them;
     this.commentClassName = this.chatOnly ? 'message-line' : 'chat-line__message';
     this.chatObserver = new MutationObserver(mutations => {
@@ -33,17 +18,7 @@ class Badges {
       });
     });
 
-    // manifest.json's `run_at` declaration acts as a DOM ready listener
-    //  when set to "document_end" so the whole script in run only then
-    //console.log('Loading...');
     this.users = new Users();
-
-    //Start observing twitch
-    this.twitch = this.chatOnly
-      ? document.querySelectorAll("body")[0]
-      : document.querySelectorAll("#root div div")[0]
-    ;
-    this.twitchObserver.observe(this.twitch, {childList: true, subtree: true});
 
     this.chat;
     this.observeChat();
@@ -57,7 +32,7 @@ class Badges {
       : document.querySelectorAll(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")[0]
     ;
     //console.log(this.chat);
-    if(this.chat && window.location.pathname.includes('sirslaw')){
+    if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
       //console.log('SlawBadges loaded');
       this.chatObserver.observe(this.chat, {childList: true});
       this.loaded = this.chatOnly;

@@ -19,6 +19,7 @@
       "src/scripts/helpers.js",
       "src/scripts/users.js",
       "src/scripts/badges.js",
+      "src/scripts/points.js",
       "src/scripts/app.js"
     ],
     "matches": ["https://www.twitch.tv/*"]

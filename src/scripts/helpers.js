@@ -5,9 +5,9 @@ function elementIdentifier(elm){
 function getContext() {
   const contexts = [
     // Order is important
-    {key: 'popout', identifier: '/popout/sirslaw/chat'},
-    {key: 'chat', identifier: '/sirslaw/chat'},
-    {key: 'stream', identifier: '/sirslaw'},
+    {key: 'popout', identifier: `/popout/${STREAMER}/chat`},
+    {key: 'chat', identifier: `/${STREAMER}/chat`},
+    {key: 'stream', identifier: `/${STREAMER}`},
   ];
 
   return (contexts.find(c => {

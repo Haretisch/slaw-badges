@@ -10,9 +10,9 @@ function getContext() {
     {key: 'stream', identifier: '/sirslaw'},
   ];
 
-  return contexts.find(c => {
+  return (contexts.find(c => {
     return window.location.pathname.includes(c.identifier)
-  }).key;
+  }) || {key: null}).key;
 }
 
 function getSystem() {

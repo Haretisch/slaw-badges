@@ -13,7 +13,7 @@ class Points {
 
   initialize() {
     //Only initialize if we can't find the added markup
-    if(document.querySelectorAll('#'+this.id)[0]){
+    if(document.querySelectorAll('#' + this.id)[0]){
       return;
     }
     if(this.chatOnly){
@@ -26,8 +26,16 @@ class Points {
     }
   }
 
+  getPoints(){
+    SlawAPI.getPoints(this.username).then(json => {
+      const points = Math.floor(json.currentPoints);
+
+      document.querySelectorAll('#' + this.id + ' .points')[0].innerText =formatNumber(points);
+    });
+  }
+
   getUser(){
-    let container = document.querySelectorAll('#'+this.id)[0];
+    let container = document.querySelectorAll('#' + this.id)[0];
     
     SlawAPI.getFollower(this.username).then(json => {
       const house = HOUSES[json.house.name.toLowerCase()];
@@ -36,28 +44,24 @@ class Points {
 
       container.insertAdjacentHTML('afterBegin',
         '<div class="slaw-points">'
-          + '<i class="tw-tooltip-wrapper badge '+ house +'">'
-            +'<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">'+ title +'</div>'
+          + '<i class="tw-tooltip-wrapper badge ' + house + '">'
+            + '<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
           + '</i>'
-          + '<span class="points '+ house +'">' + formatNumber(points) + '</span>'
+          + '<span class="points ' + house + '">' + formatNumber(points) + '</span>'
         + '</div>'
       );
 
       clearInterval(this.interval);
-      this.interval = window.setInterval(this.getPoints, 600000);
+      this.interval = window.setInterval(this.getPoints.bind(this), 600000);
     }).catch(err => {
       //depending on error, use this.interval to refetch follower
       //  for now don't check for the cause
       clearInterval(this.interval);
-      this.interval = window.setInterval(this.getUser, 360000);
+      this.interval = window.setInterval(this.getUser.bind(this), 360000);
     });
   }
 
-  getPoints(){
-    SlawAPI.getPoints(this.username).then(json => {
-      const points = Math.floor(json.currentPoints);
-
-      document.querySelectorAll('#' + this.id + ' .points')[0].innerText =formatNumber(points);
-    });
+  getUsername() {
+    return this.username || document.querySelectorAll(this.userNameHolder)[0].innerText.toLowerCase();
   }
 }

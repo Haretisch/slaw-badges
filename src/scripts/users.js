@@ -54,7 +54,7 @@ class Users {
       response = {
         ...response,
         house: HOUSES[json.house.name.toLowerCase()],
-        title: 'House '+json.house.name
+        title: 'House ' + json.house.name
       }
       //console.log('got:' + username);
       this.save(username, response);

@@ -47,7 +47,7 @@ class Badges {
 
   addBadges(comment, user){
     const badgeContainer = this.findBadgeContainer(comment);
-    const houseBadge = system.extension.getURL('src/assets/'+user.house+'.png')
+    const houseBadge = system.extension.getURL('src/assets/' + user.house + '.png')
     this.prependBadge(badgeContainer, houseBadge, user.title)
 
     //if(!!user.hc){
@@ -73,10 +73,10 @@ class Badges {
 
   prependBadge(container, badge, title){
     const newBadge =
-      '<div class="tw-tooltip-wrapper tw-inline'+(this.chatOnly ? ' float-left' : '')+'" data-a-target="chat-badge">'
-        +'<img alt="'+title+'" class="chat-badge" src="'+badge+'">'
-        +'<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">'+title+'</div>'
-      +'</div>'
+      '<div class="tw-tooltip-wrapper tw-inline' + (this.chatOnly ? ' float-left' : '') + '" data-a-target="chat-badge">'
+        + '<img alt="' + title + '" class="chat-badge" src="' + badge + '">'
+        + '<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
+      + '</div>'
     ;
 
     container.insertAdjacentHTML('afterbegin', newBadge);

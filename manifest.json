@@ -15,8 +15,13 @@
 
   "content_scripts": [{
     "run_at": "document_end",
+    "css": [
+      "src/styles/main.css"
+    ],
     "js": [
+      "src/scripts/config.js",
       "src/scripts/helpers.js",
+      "src/scripts/api.js",
       "src/scripts/users.js",
       "src/scripts/badges.js",
       "src/scripts/points.js",

@@ -15,6 +15,10 @@ function getContext() {
   }) || {key: null}).key;
 }
 
+function formatNumber(n) {
+  return n.toLocaleString('en-GB');
+}
+
 function getSystem() {
   //Should allow this app to be mostly crossbrowser. Chrome, Opera and Edge (apparently) user chrome, Firefox uses browser
   return chrome || browser;

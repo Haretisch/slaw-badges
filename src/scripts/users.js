@@ -1,10 +1,5 @@
 class Users {
   constructor() {
-    this.houses = {
-      'gryffinclaw': 'h1',
-      'lannistark': 'h2',
-      'ironbeard': 'h3',
-    };
     this.lostChub = {
       house: 'h0', //Lost chubs, not in a house yet.
       title: 'A lost chub',
@@ -32,12 +27,6 @@ class Users {
     };
     this.pendingRequests = {};
 
-    this.API = {
-      auth: '',
-      endpoint: 'https://mighty-citadel-48930.herokuapp.com/api/grizzly/followed',
-      version: 'v1',
-    };
-
     if(this.storage = storageAvailable('localStorage')){
       this.users = {...JSON.parse(localStorage.getItem('slawCultists')), ...this.users};
     }
@@ -61,19 +50,10 @@ class Users {
     //console.log('Fetching: ' + username);
     let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
 
-    const request = new Request(
-      this.API.endpoint + '?name=' + username.toLowerCase(),
-      {method: 'GET', mode: 'cors'}
-    );
-    fetch(request).then(res => {
-      const contentType = res.headers.get('content-type');
-      if(res.ok && contentType && contentType.includes('application/json')){
-        return res.json();
-      }
-    }).then(json => {
+    SlawAPI.getFollower(username).then(json => {
       response = {
         ...response,
-        house: this.houses[json.house.name.toLowerCase()],
+        house: HOUSES[json.house.name.toLowerCase()],
         title: 'House '+json.house.name
       }
       //console.log('got:' + username);

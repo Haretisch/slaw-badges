@@ -8,10 +8,20 @@ $h3 : #122a48;
 }
 
 #slaw-badges-points {
+  &.float-left {
+    display: inline-block;
+    line-height: 3rem;
+
+    .slaw-points {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+
   .slaw-points{
     align-self: center;
 
-  .badge {
+    .badge {
       display: inline-block;
       vertical-align: middle;
       width: 22px;

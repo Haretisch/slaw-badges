@@ -1,3 +1,9 @@
+#slaw-badges-points.float-left {
+  display: inline-block;
+  line-height: 3rem; }
+  #slaw-badges-points.float-left .slaw-points {
+    float: left;
+    margin-right: 5px; }
 #slaw-badges-points .slaw-points {
   align-self: center; }
   #slaw-badges-points .slaw-points .badge {

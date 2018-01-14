@@ -50,7 +50,7 @@ class Users {
     //console.log('Fetching: ' + username);
     let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
 
-    SlawAPI.getFollower(username).then(json => {
+    SlawAPI.getCultist(username).then(json => {
       response = {
         ...response,
         house: HOUSES[json.house.name.toLowerCase()],

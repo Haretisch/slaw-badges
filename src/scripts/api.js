@@ -16,7 +16,7 @@ class SlawAPI{
     });
   }
 
-  static getFollower(username) {
+  static getCultist(username) {
     const endpoint = SlawAPI.config().endpoint;
     const req =  new Request(
       endpoint + '/followed?name=' + username.toLowerCase(),
@@ -24,6 +24,21 @@ class SlawAPI{
     );
 
     return SlawAPI.fetch(req);
+  }
+
+  static getLeaderboard() {
+    const endpoint = SlawAPI.config().endpoint;
+    const req = new Request(
+      endpoint + '/leaderboard',
+      {method: 'GET', mode: 'cors'}
+    );
+
+    //return SlawAPI.fetch(req);
+    return Promise.resolve({
+      h1: Math.random()*10000,
+      h2: Math.random()*10000,
+      h3: Math.random()*10000,
+    });
   }
 
   //Return points ??and title??

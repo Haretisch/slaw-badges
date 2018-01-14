@@ -29,16 +29,11 @@ class SlawAPI{
   static getLeaderboard() {
     const endpoint = SlawAPI.config().endpoint;
     const req = new Request(
-      endpoint + '/leaderboard',
+      endpoint + '/housestats?name=undefined',
       {method: 'GET', mode: 'cors'}
     );
 
-    //return SlawAPI.fetch(req);
-    return Promise.resolve({
-      h1: Math.random()*10000,
-      h2: Math.random()*10000,
-      h3: Math.random()*10000,
-    });
+    return SlawAPI.fetch(req);
   }
 
   //Return points ??and title??

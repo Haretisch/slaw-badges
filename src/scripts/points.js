@@ -24,9 +24,17 @@ class Points {
       let container = document.querySelectorAll('#' + this.id)[0];
 
       SlawAPI.getLeaderboard().then(json => {
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', Math.floor(json.h3)));
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', Math.floor(json.h2)));
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', Math.floor(json.h1)));
+        let gcProfile = json.houseProfiles[0].profiles[0];
+        let lsProfile = json.houseProfiles[1].profiles[0];
+        let ibProfile = json.houseProfiles[2].profiles[0];
+
+        const h1 = Math.floor(gcProfile.points.current + gcProfile.points.tips + gcProfile.points.cheers + gcProfile.points.subscriptions);
+        const h2 = Math.floor(lsProfile.points.current + lsProfile.points.tips + lsProfile.points.cheers + lsProfile.points.subscriptions);
+        const h3 = Math.floor(ibProfile.points.current + ibProfile.points.tips + ibProfile.points.cheers + ibProfile.points.subscriptions);
+
+        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
+        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
+        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
         this.interval = window.setInterval(this.getLeaderboard.bind(this), 300000);
       })
     }else{
@@ -41,10 +49,13 @@ class Points {
 
   getLeaderboard() {
     SlawAPI.getLeaderboard().then(json => {
-      //TODO handle real response
-      const h1 = Math.floor(json.h1);
-      const h2 = Math.floor(json.h2);
-      const h3 = Math.floor(json.h3);
+      let gcProfile = json.houseProfiles[0].profiles[0];
+      let lsProfile = json.houseProfiles[1].profiles[0];
+      let ibProfile = json.houseProfiles[2].profiles[0];
+
+      const h1 = Math.floor(gcProfile.points.current + gcProfile.points.tips + gcProfile.points.cheers + gcProfile.points.subscriptions);
+      const h2 = Math.floor(lsProfile.points.current + lsProfile.points.tips + lsProfile.points.cheers + lsProfile.points.subscriptions);
+      const h3 = Math.floor(ibProfile.points.current + ibProfile.points.tips + ibProfile.points.cheers + ibProfile.points.subscriptions);
 
       document.querySelectorAll('#' + this.id + ' .points.h1')[0].innerText = formatNumber(h1);
       document.querySelectorAll('#' + this.id + ' .points.h2')[0].innerText = formatNumber(h2);
@@ -62,7 +73,7 @@ class Points {
 
   getUser() {
     let container = document.querySelectorAll('#' + this.id)[0];
-    
+
     SlawAPI.getCultist(this.username).then(json => {
       const house = HOUSES[json.house.name.toLowerCase()];
       const title = 'House ' + json.house.name;

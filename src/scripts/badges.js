@@ -66,7 +66,7 @@ class Badges {
 
   getUserInfo(comment){
     let selector = this.chatOnly ? '.from' : '.chat-author__display-name';
-    const username = comment.querySelectorAll(selector)[0].innerHTML.toLowerCase();
+    const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
     this.users.load(username, this.addBadges.bind(this, comment));
   }
 

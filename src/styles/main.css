@@ -3,7 +3,7 @@
   line-height: 3rem; }
   #slaw-badges-points.float-left .slaw-points {
     float: left;
-    margin-right: 5px; }
+    margin-right: 10px; }
 #slaw-badges-points .slaw-points {
   align-self: center; }
   #slaw-badges-points .slaw-points .badge {
@@ -31,3 +31,6 @@
       color: #7f2527; }
     #slaw-badges-points .slaw-points .points.h3 {
       color: #122a48; }
+
+html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
+  color: #dad8de; }

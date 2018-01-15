@@ -2,6 +2,7 @@ $h0 : #000000;
 $h1 : #faae15;
 $h2 : #7f2527;
 $h3 : #122a48;
+$hx_dark : #dad8de;
 
 @mixin badge($house) {
   background: url('chrome-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
@@ -14,7 +15,7 @@ $h3 : #122a48;
 
     .slaw-points {
       float: left;
-      margin-right: 5px;
+      margin-right: 10px;
     }
   }
 
@@ -42,6 +43,20 @@ $h3 : #122a48;
       &.h1 {color: $h1;}
       &.h2 {color: $h2;}
       &.h3 {color: $h3;}
+    }
+  }
+}
+
+html, body {
+  &.tw-theme--dark {
+    #slaw-badges-points {
+      .slaw-points {
+        .points {
+          &.h1, &.h2, &.h3 {
+            color: $hx_dark;
+          }
+        }
+      }
     }
   }
 }

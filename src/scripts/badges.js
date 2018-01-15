@@ -1,16 +1,15 @@
 class Badges {
   constructor() {
-    this.chatOnly = context === 'chat';
     this.loaded = false;
 
     // Prepare to observe/listen to mutations in the chatbox and react to them;
-    this.commentClassName = this.chatOnly ? 'message-line' : 'chat-line__message';
+    this.commentClassName = CHAT_ONLY ? 'message-line' : 'chat-line__message';
     this.chatObserver = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         if(mutation.type === 'childList' && mutation.addedNodes.length === 1){
           //Only want to add badges to actual user messages, not system alerts or w/e;
           if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.contains(this.commentClassName)){
-            if(!this.chatOnly || !mutation.addedNodes[0].classList.contains('admin')){
+            if(!CHAT_ONLY || !mutation.addedNodes[0].classList.contains('admin')){
               this.getUserInfo(mutation.addedNodes[0]);
             }
           }
@@ -27,21 +26,19 @@ class Badges {
   observeChat(){
     // Listen for children (add/remove) mutations only: {childList: true}
     //  If we are on Slaw's page
-    this.chat = this.chatOnly
+    this.chat = CHAT_ONLY
       ? document.querySelectorAll("ul.chat-lines")[0]
       : document.querySelectorAll(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")[0]
     ;
-    //console.log(this.chat);
     if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
-      //console.log('SlawBadges loaded');
       this.chatObserver.observe(this.chat, {childList: true});
-      this.loaded = this.chatOnly;
+      this.loaded = CHAT_ONLY;
     }
   }
 
   getUserInfo(comment){
-    let selector = this.chatOnly ? '.from' : '.chat-author__display-name';
-    const username = comment.querySelectorAll(selector)[0].innerHTML.toLowerCase();
+    let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
+    const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
     this.users.load(username, this.addBadges.bind(this, comment));
   }
 
@@ -57,7 +54,7 @@ class Badges {
   }
 
   findBadgeContainer(comment) {
-    if(this.chatOnly){
+    if(CHAT_ONLY){
       return comment.querySelectorAll('.badges')[0];
     }
 
@@ -73,7 +70,7 @@ class Badges {
 
   prependBadge(container, badge, title){
     const newBadge =
-      '<div class="tw-tooltip-wrapper tw-inline' + (this.chatOnly ? ' float-left' : '') + '" data-a-target="chat-badge">'
+      '<div class="tw-tooltip-wrapper tw-inline' + (CHAT_ONLY ? ' float-left' : '') + '" data-a-target="chat-badge">'
         + '<img alt="' + title + '" class="chat-badge" src="' + badge + '">'
         + '<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
       + '</div>'

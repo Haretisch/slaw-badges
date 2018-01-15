@@ -1,9 +1,8 @@
 class Points {
   constructor() {
     this.id = 'slaw-badges-points';
-    this.chatOnly = context === 'chat';
     this.usernameHolder = 'div.top-nav-user-menu__username p';
-    this.pointsSiblingIdentifier = context === 'chat'
+    this.pointsSiblingIdentifier = CHAT_ONLY
       ? "div.js-chat-buttons.chat-buttons-container.clearfix .chat-interface__viewer-list"
       : "div.chat-input__buttons-container > .tw-flex"
     ;
@@ -16,10 +15,8 @@ class Points {
     if(document.querySelectorAll('#' + this.id)[0]){
       return;
     }
-    if(this.chatOnly){
+    if(CHAT_ONLY){
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
-      // TODO  GET ALL THE POINTS
-      console.log('chat points');
       document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="float-left"></div>');
       let container = document.querySelectorAll('#' + this.id)[0];
 

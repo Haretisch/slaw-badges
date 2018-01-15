@@ -1,0 +1,62 @@
+$h0 : #000000;
+$h1 : #faae15;
+$h2 : #7f2527;
+$h3 : #122a48;
+$hx_dark : #dad8de;
+
+@mixin badge($house) {
+  background: url('chrome-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
+}
+
+#slaw-badges-points {
+  &.float-left {
+    display: inline-block;
+    line-height: 3rem;
+
+    .slaw-points {
+      float: left;
+      margin-right: 10px;
+    }
+  }
+
+  .slaw-points{
+    align-self: center;
+
+    .badge {
+      display: inline-block;
+      vertical-align: middle;
+      width: 22px;
+      height: 18px;
+
+      &.h0 {@include badge('h0');}
+      &.h1 {@include badge('h1');}
+      &.h2 {@include badge('h2');}
+      &.h3 {@include badge('h3');}
+    }
+
+    .points {
+      display: inline-block;
+      vertical-align: middle;
+      font-weight: bold;
+
+      &.h0 {color: $h0;}
+      &.h1 {color: $h1;}
+      &.h2 {color: $h2;}
+      &.h3 {color: $h3;}
+    }
+  }
+}
+
+html, body {
+  &.tw-theme--dark {
+    #slaw-badges-points {
+      .slaw-points {
+        .points {
+          &.h1, &.h2, &.h3 {
+            color: $hx_dark;
+          }
+        }
+      }
+    }
+  }
+}

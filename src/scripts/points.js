@@ -10,6 +10,10 @@ class Points {
     this.interval;
   }
 
+  destructor() {
+    chat.unregisterListener('points');
+  }
+
   initialize() {
     //Only initialize if we can't find the added markup
     if(document.querySelectorAll('#' + this.id)[0]){
@@ -76,6 +80,8 @@ class Points {
       const title = 'House ' + json.house.name;
       const points = Math.floor(json.currentPoints);
 
+      //chat.registerListener('points', this.listener.bind(this));
+
       container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
 
       clearInterval(this.interval);
@@ -86,6 +92,10 @@ class Points {
       clearInterval(this.interval);
       this.interval = window.setInterval(this.getUser.bind(this), 360000);
     });
+  }
+
+  listener(mutation) {
+    //console.log('Points listener');
   }
 
   pointsMarkup(house, title, points) {

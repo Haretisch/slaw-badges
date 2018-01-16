@@ -5,7 +5,11 @@ const system = getSystem();
 
 const CHAT_ONLY = context === 'chat';
 
+let chat;
+
 if(context){
+  chat = new Chat();
+
   const badges = new Badges();
   const points = new Points();
 
@@ -19,7 +23,7 @@ if(context){
         : "div.tw-full-height.tw-flex.tw-flex-nowrap.tw-relative"
       ;
       if(elementIdentifier(mutation.target) === chatIdentifier){
-        badges.observeChat();
+        chat.observeChat();
       }
 
       let chatOptionsIdentifier = CHAT_ONLY

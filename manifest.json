@@ -5,6 +5,12 @@
   "description": "Adds members' house icon as a twitch badge in the chat feed.",
   "version": "2.0.0",
 
+  "applications": {
+    "gecko": {
+      "id": "60b4f87dacc44c65cf2dee115cd5a063037c0acb@slaw-badges"
+    }
+  },
+
   "background": {
     "scripts": [
       "src/scripts/helpers.js",

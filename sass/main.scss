@@ -6,6 +6,11 @@ $hx_dark : #dad8de;
 
 @mixin badge($house) {
   background: url('chrome-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
+  @-moz-document url-prefix() {
+    & {
+        background: url('moz-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
+    }
+  }
 }
 
 #slaw-badges-points {

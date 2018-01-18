@@ -3,7 +3,7 @@
 
   "name": "SlawBadges",
   "description": "Adds members' house icon as a twitch badge in the chat feed.",
-  "version": "2.0.0",
+  "version": "2.1.0",
 
   "applications": {
     "gecko": {
@@ -28,6 +28,7 @@
       "src/scripts/config.js",
       "src/scripts/helpers.js",
       "src/scripts/api.js",
+      "src/scripts/chat.js",
       "src/scripts/users.js",
       "src/scripts/badges.js",
       "src/scripts/points.js",

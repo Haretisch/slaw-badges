@@ -1,45 +1,14 @@
 class Badges {
   constructor() {
-    this.loaded = false;
-
-    // Prepare to observe/listen to mutations in the chatbox and react to them;
     this.commentClassName = CHAT_ONLY ? 'message-line' : 'chat-line__message';
-    this.chatObserver = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if(mutation.type === 'childList' && mutation.addedNodes.length === 1){
-          //Only want to add badges to actual user messages, not system alerts or w/e;
-          if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.contains(this.commentClassName)){
-            if(!CHAT_ONLY || !mutation.addedNodes[0].classList.contains('admin')){
-              this.getUserInfo(mutation.addedNodes[0]);
-            }
-          }
-        }
-      });
-    });
-
     this.users = new Users();
 
-    this.chat;
-    this.observeChat();
+    chat.registerListener('badges', this.listener.bind(this));
   }
 
-  observeChat(){
-    // Listen for children (add/remove) mutations only: {childList: true}
-    //  If we are on Slaw's page
-    this.chat = CHAT_ONLY
-      ? document.querySelectorAll("ul.chat-lines")[0]
-      : document.querySelectorAll(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")[0]
-    ;
-    if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
-      this.chatObserver.observe(this.chat, {childList: true});
-      this.loaded = CHAT_ONLY;
-    }
-  }
-
-  getUserInfo(comment){
-    let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
-    const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
-    this.users.load(username, this.addBadges.bind(this, comment));
+  destructor() {
+    //Destructors aren't really a thing in js, but /shrug
+    chat.unregisterListener('badges');
   }
 
   addBadges(comment, user){
@@ -66,6 +35,21 @@ class Badges {
     }
 
     return container;
+  }
+
+  getUserInfo(comment){
+    let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
+    const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
+    this.users.load(username, this.addBadges.bind(this, comment));
+  }
+
+  listener(mutation) {
+    //Only want to add badges to actual user messages, not system alerts or w/e;
+    if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.contains(this.commentClassName)){
+      if(!CHAT_ONLY || !mutation.addedNodes[0].classList.contains('admin')){
+        this.getUserInfo(mutation.addedNodes[0]);
+      }
+    }
   }
 
   prependBadge(container, badge, title){

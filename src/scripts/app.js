@@ -39,7 +39,7 @@ if(context){
   //Start observing twitch
   const twitch = CHAT_ONLY
     ? document.querySelectorAll("body")[0]
-    : document.querySelectorAll("#root div div")[0]
+    : document.querySelectorAll("#root")[0]
   ;
   twitchObserver.observe(twitch, {childList: true, subtree: true});
 }

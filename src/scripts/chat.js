@@ -30,7 +30,9 @@ class Chat {
       ? document.querySelector("ul.chat-lines")
       : document.querySelector(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")
     ;
+    console.log(this.chat);
     if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
+      console.log('SlawBadges loaded');
       this.chatObserver.observe(this.chat, {childList: true});
       this.chatObserver.observe(document.querySelector(".viewer-card-layer"), {childList: true, subtree: true});
       this.loaded = CHAT_ONLY;

@@ -1,9 +1,11 @@
 // manifest.json's `run_at` declaration acts as a DOM ready listener
 //  when set to "document_end" so the whole script in run only then
+console.log('loading...');
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = false; //context === 'chat';
 let badges, chat, commands, emotes, points, users, features, newApiSocket;
+console.log({context});
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
 const twitchObserver = new MutationObserver(mutations => {

@@ -36,13 +36,17 @@ class Points {
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
+        clearInterval(this.interval);
         this.interval = window.setInterval(this.getLeaderboard.bind(this), 300000);
-      })
+      });
     }else{
-      let username; //Check if user is logged in, or if we can get the username at all
-      if(username = document.querySelectorAll(this.usernameHolder)[0]){
+      //Check if user is logged in, or if we can get the username at all
+      //  and that the sibling, and therefore the expected container, exists before inserting
+      let username = document.querySelectorAll(this.usernameHolder)[0];
+      let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
+      if(username && sibling){
         this.username = username.innerText.toLowerCase();
-        document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="tw-flex tw-flex-row"></div>');
+        sibling.insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="tw-flex tw-flex-row"></div>');
         this.getUser();
       }
     }
@@ -67,8 +71,13 @@ class Points {
   getPoints() {
     SlawAPI.getPoints(this.username).then(json => {
       const points = Math.floor(json.currentPoints);
+      const container = document.querySelectorAll('#' + this.id + ' .points')[0];
 
-      document.querySelectorAll('#' + this.id + ' .points')[0].innerText = formatNumber(points);
+      if(container){
+        container.innerText = formatNumber(points);
+      } else {
+        clearInterval(this.interval);
+      }
     });
   }
 

@@ -26,11 +26,14 @@ if(context){
         chat.observeChat();
       }
 
-      let chatOptionsIdentifier = CHAT_ONLY
-        ? "div.js-chat-buttons.chat-buttons-container.clearfix"
-        : "div.top-nav__nav-items-container.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-flex-shrink-0.tw-flex-nowrap"
+      let chatOptionsIdentifiers = CHAT_ONLY
+        ? ["div.js-chat-buttons.chat-buttons-container.clearfix"]
+        : [
+            "div.top-nav__nav-items-container.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-flex-shrink-0.tw-flex-nowrap",
+            "textarea.tw-textarea.tw-textarea--no-resize"
+          ]
       ;
-      if(elementIdentifier(mutation.target) === chatOptionsIdentifier){
+      if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target))){
         points.initialize();
       }
     });

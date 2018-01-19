@@ -1,5 +1,5 @@
 function elementIdentifier(elm){
-  return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.split(' ').join('.') : '');
+  return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.trim().split(' ').join('.') : '');
 }
 
 function getContext() {

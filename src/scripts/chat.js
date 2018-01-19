@@ -34,12 +34,10 @@ class Chat {
 
   registerListener(id, callback) {
     this.listeners.push({id, callback});
-    console.log(`Registered new Listener ${id}`, this.listeners);
   }
 
   unregisterListener(id) {
     this.listeners = this.listeners.filter(l => l.id !== id);
-    console.log(`Unregistered Listener ${id}`, this.listeners);
   }
 }
 

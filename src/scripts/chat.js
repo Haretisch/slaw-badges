@@ -19,7 +19,11 @@ class Chat {
     this.observeChat();
   }
 
-  observeChat(){
+  disconnect() {
+    this.chatObserver.disconnect();
+  }
+
+  observeChat() {
     // Listen for children (add/remove) mutations only: {childList: true}
     //  If we are on Slaw's page
     this.chat = CHAT_ONLY

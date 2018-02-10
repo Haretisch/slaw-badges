@@ -26,3 +26,7 @@ if(system.declarativeContent){
     initializePageAction(tab);
   });
 }
+
+system.webNavigation.onHistoryStateUpdated.addListener(
+  e => { system.tabs.sendMessage( e.tabId, {action: "contextChange", context: getContext(e.url)} ); }
+);

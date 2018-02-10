@@ -2,7 +2,7 @@ function elementIdentifier(elm){
   return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.trim().split(' ').join('.') : '');
 }
 
-function getContext() {
+function getContext(url) {
   const contexts = [
     // Order is important
     {key: 'popout', identifier: `/popout/${STREAMER}/chat`},
@@ -10,8 +10,10 @@ function getContext() {
     {key: 'stream', identifier: `/${STREAMER}`},
   ];
 
+  let targetUrl = url ? url : window.location.pathname;
+
   return (contexts.find(c => {
-    return window.location.pathname.includes(c.identifier)
+    return targetUrl.includes(c.identifier)
   }) || {key: null}).key;
 }
 

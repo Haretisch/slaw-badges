@@ -10,6 +10,10 @@ class Points {
     this.interval;
   }
 
+  disconnect() {
+    clearInternval(this.interval);
+  }
+
   destructor() {
     chat.unregisterListener('points');
   }

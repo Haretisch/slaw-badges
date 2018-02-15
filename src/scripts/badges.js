@@ -1,7 +1,6 @@
 class Badges {
   constructor() {
     this.commentClassName = CHAT_ONLY ? 'message-line' : 'chat-line__message';
-    this.users = new Users();
 
     chat.registerListener('badges', this.listener.bind(this));
   }
@@ -40,7 +39,7 @@ class Badges {
   getUserInfo(comment){
     let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
     const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
-    this.users.load(username, this.addBadges.bind(this, comment));
+    users.load(username, this.addBadges.bind(this, comment));
   }
 
   listener(mutation) {

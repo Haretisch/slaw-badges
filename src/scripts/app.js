@@ -22,7 +22,8 @@ const twitchObserver = new MutationObserver(mutations => {
       ? ["div.js-chat-buttons.chat-buttons-container.clearfix"]
       : [
           "div.top-nav__nav-items-container.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-flex-shrink-0.tw-flex-nowrap",
-          "textarea.tw-textarea.tw-textarea--no-resize"
+          "textarea.tw-textarea.tw-textarea--no-resize",
+          "div.root-scrollable__wrapper.tw-full-width.tw-relative"
         ]
     ;
     if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target))){

@@ -60,6 +60,10 @@ class Badges {
       + '</div>'
     ;
 
+    //Also find sub badge and move it to first position (second after house badge), just to make things prettier
+    let subBadge = container.querySelector('a[href*="/subscribe?ref=in_chat_subscriber_link"]');
+    container.prepend(subBadge);
+
     container.insertAdjacentHTML('afterbegin', newBadge);
   }
 }

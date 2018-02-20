@@ -1,3 +1,7 @@
+String.prototype.containsOneOf = function(array) {
+    return array.some(s => this.contains(s));
+};
+
 function elementIdentifier(elm){
   return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.trim().split(' ').join('.') : '');
 }

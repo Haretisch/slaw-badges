@@ -1,6 +1,6 @@
 class Badges {
   constructor() {
-    this.commentClassName = CHAT_ONLY ? 'message-line' : 'chat-line__message';
+    this.commentClassName = CHAT_ONLY ? ['message-line'] : ['chat-line__message', 'chat-line__subscribe'];
     this.users = new Users();
 
     chat.registerListener('badges', this.listener.bind(this));
@@ -38,14 +38,21 @@ class Badges {
   }
 
   getUserInfo(comment){
+    let subMessage;
+    if(subMessage = comment.querySelector('chat-line__subscribe--message')){
+      comment = subMessage;
+    }
     let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
-    const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
-    this.users.load(username, this.addBadges.bind(this, comment));
+    let holder;
+    if(holder = comment.querySelectorAll(selector)[0]){
+      const username = holder.innerText.toLowerCase();
+      users.load(username, this.addBadges.bind(this, comment));
+    }
   }
 
   listener(mutation) {
     //Only want to add badges to actual user messages, not system alerts or w/e;
-    if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.contains(this.commentClassName)){
+    if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.containsOneOf(this.commentClassName)){
       if(!CHAT_ONLY || !mutation.addedNodes[0].classList.contains('admin')){
         this.getUserInfo(mutation.addedNodes[0]);
       }

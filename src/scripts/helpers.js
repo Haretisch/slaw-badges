@@ -1,5 +1,5 @@
 String.prototype.containsOneOf = function(array) {
-    return array.some(s => this.contains(s));
+    return array.some(s => this.includes(s));
 };
 
 function elementIdentifier(elm){

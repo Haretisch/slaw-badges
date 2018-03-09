@@ -46,13 +46,13 @@ class Badges {
     let holder;
     if(holder = comment.querySelectorAll(selector)[0]){
       const username = holder.innerText.toLowerCase();
-      users.load(username, this.addBadges.bind(this, comment));
+      this.users.load(username, this.addBadges.bind(this, comment));
     }
   }
 
   listener(mutation) {
     //Only want to add badges to actual user messages, not system alerts or w/e;
-    if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.containsOneOf(this.commentClassName)){
+    if(mutation.addedNodes[0].classList && mutation.addedNodes[0].classList.value.containsOneOf(this.commentClassName)){
       if(!CHAT_ONLY || !mutation.addedNodes[0].classList.contains('admin')){
         this.getUserInfo(mutation.addedNodes[0]);
       }
@@ -69,7 +69,9 @@ class Badges {
 
     //Also find sub badge and move it to first position (second after house badge), just to make things prettier
     let subBadge = container.querySelector('a[href*="/subscribe?ref=in_chat_subscriber_link"]');
-    container.prepend(subBadge);
+    if(subBadge){
+      container.prepend(subBadge);
+    }
 
     container.insertAdjacentHTML('afterbegin', newBadge);
   }

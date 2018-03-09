@@ -12,11 +12,14 @@ const twitchObserver = new MutationObserver(mutations => {
   mutations.forEach(mutation => {
     // When a big change in the page happens (usually navigation),
     //  recheck if we want to observeChat, and do other things
-    let chatIdentifier = CHAT_ONLY
-      ? "ul.chat-lines"
-      : "div.tw-full-height.tw-flex.tw-flex-nowrap.tw-relative"
+    let chatIdentifiers = CHAT_ONLY
+      ? ["ul.chat-lines"]
+      : [
+          "div.tw-full-height.tw-flex.tw-flex-nowrap.tw-relative",
+          "div.tw-full-height.tw-overflow-hidden.tw-flex.tw-flex-nowrap.tw-relative"
+        ]
     ;
-    if(elementIdentifier(mutation.target) === chatIdentifier){
+    if(chatIdentifiers.includes(elementIdentifier(mutation.target))){
       chat.observeChat();
     }
 

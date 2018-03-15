@@ -12,25 +12,25 @@
     width: 22px;
     height: 18px; }
     #slaw-badges-points .slaw-points .badge.h0 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/h0.png") left center no-repeat; }
+      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
   #slaw-badges-points .slaw-points .badge.h0 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/h0.png") left center no-repeat; } }
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; } }
     #slaw-badges-points .slaw-points .badge.h1 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/h1.png") left center no-repeat; }
+      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
   #slaw-badges-points .slaw-points .badge.h1 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/h1.png") left center no-repeat; } }
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; } }
     #slaw-badges-points .slaw-points .badge.h2 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/h2.png") left center no-repeat; }
+      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
   #slaw-badges-points .slaw-points .badge.h2 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/h2.png") left center no-repeat; } }
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; } }
     #slaw-badges-points .slaw-points .badge.h3 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/h3.png") left center no-repeat; }
+      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
   #slaw-badges-points .slaw-points .badge.h3 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/h3.png") left center no-repeat; } }
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
   #slaw-badges-points .slaw-points .points {
     display: inline-block;
     vertical-align: middle;

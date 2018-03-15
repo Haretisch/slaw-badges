@@ -4,6 +4,7 @@ const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = context === 'chat';
 let chat;
+let emotes;
 let badges;
 let points;
 
@@ -55,6 +56,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 function start() {
   if(!chat) chat = new Chat();
+  if(!emotes) emotes = new Emotes();
   if(!badges) badges = new Badges();
   if(!points) points = new Points();
 

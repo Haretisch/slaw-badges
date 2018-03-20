@@ -5,10 +5,10 @@ $h3 : #122a48;
 $hx_dark : #dad8de;
 
 @mixin badge($house) {
-  background: url('chrome-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
+  background: url('chrome-extension://__MSG_@@extension_id__/src/assets/badges/#{$house}/18.png') left center no-repeat;
   @-moz-document url-prefix() {
     & {
-        background: url('moz-extension://__MSG_@@extension_id__/src/assets/#{$house}.png') left center no-repeat;
+        background: url('moz-extension://__MSG_@@extension_id__/src/assets/badges/#{$house}/18.png') left center no-repeat;
     }
   }
 }
@@ -62,6 +62,18 @@ html, body {
           }
         }
       }
+    }
+  }
+}
+
+.slaw-extension {
+  .tw-tooltip {
+    display: none;
+  }
+
+  &:hover {
+    .tw-tooltip {
+      display: block;
     }
   }
 }

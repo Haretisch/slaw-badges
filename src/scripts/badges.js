@@ -12,8 +12,9 @@ class Badges {
 
   addBadges(comment, user){
     const badgeContainer = this.findBadgeContainer(comment);
-    const houseBadge = system.extension.getURL('src/assets/' + user.house + '.png')
-    this.prependBadge(badgeContainer, houseBadge, user.title)
+    const houseBadge = system.extension.getURL('src/assets/badges/' + user.house + '/');
+    //TODO refactor this part to get the url for each badge formats: 18, 36, 72
+    this.prependBadge(badgeContainer, houseBadge, user.title);
 
     //if(!!user.hc){
     //  const cupBadge = system.extension.getURL('src/assets/hc.png')
@@ -60,9 +61,9 @@ class Badges {
   }
 
   prependBadge(container, badge, title){
-    const newBadge =
+    const newBadge = //TODO add srcset=""
       '<div class="tw-tooltip-wrapper tw-inline' + (CHAT_ONLY ? ' float-left' : '') + '" data-a-target="chat-badge">'
-        + '<img alt="' + title + '" class="chat-badge" src="' + badge + '">'
+        + '<img alt="' + title + '" class="chat-badge" src="' + badge + '18.png" srcset="' + badge + '18.png 1x, ' + badge + '36.png 2x, ' + badge + '72.png 4x">'
         + '<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
       + '</div>'
     ;

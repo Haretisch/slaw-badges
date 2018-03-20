@@ -3,7 +3,7 @@
 
   "name": "SlawBadges",
   "description": "Adds members' house icon as a twitch badge in the chat feed.",
-  "version": "2.2.0",
+  "version": "2.3.0",
 
   "applications": {
     "gecko": {
@@ -31,6 +31,7 @@
       "src/scripts/api.js",
       "src/scripts/chat.js",
       "src/scripts/users.js",
+      "src/scripts/emotes.js",
       "src/scripts/badges.js",
       "src/scripts/points.js",
       "src/scripts/filters.js",
@@ -40,19 +41,19 @@
   }],
 
   "icons": {
-    "16": "src/assets/i-16.png",
-    "32": "src/assets/i-32.png",
-    "48": "src/assets/i-48.png",
-    "64": "src/assets/i-64.png",
-    "96": "src/assets/i-96.png",
-    "128": "src/assets/i-128.png"
+    "16": "src/assets/meta/i-16.png",
+    "32": "src/assets/meta/i-32.png",
+    "48": "src/assets/meta/i-48.png",
+    "64": "src/assets/meta/i-64.png",
+    "96": "src/assets/meta/i-96.png",
+    "128": "src/assets/meta/i-128.png"
   },
 
   "page_action": {
     "default_icon": {
-      "16": "src/assets/i-16.png",
-      "32": "src/assets/i-32.png",
-      "128": "src/assets/i-128.png"
+      "16": "src/assets/meta/i-16.png",
+      "32": "src/assets/meta/i-32.png",
+      "128": "src/assets/meta/i-128.png"
     },
     "default_title": "SlawBadges"
   },

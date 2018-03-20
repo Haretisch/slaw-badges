@@ -23,6 +23,11 @@ class Users {
         house: 'hs',
         title: 'The Finger',
         immortal: true,
+      },
+      stay_hydrated_bot: {
+        house: 'hs',
+        title: 'He cares',
+        immortal: true,
       }
     };
     this.pendingRequests = {};

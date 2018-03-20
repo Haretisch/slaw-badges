@@ -3,7 +3,14 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = context === 'chat';
+<<<<<<< HEAD
 let badges, chat, filters, points, users;
+=======
+let chat;
+let emotes;
+let badges;
+let points;
+>>>>>>> feature/emotes
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
 const twitchObserver = new MutationObserver(mutations => {
@@ -53,7 +60,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 function start() {
   if(!chat) chat = new Chat();
+<<<<<<< HEAD
   if(!users) users = new Users();
+=======
+  if(!emotes) emotes = new Emotes();
+>>>>>>> feature/emotes
   if(!badges) badges = new Badges();
   if(!points) points = new Points();
   if(!filters && CHAT_ONLY) filters = new Filters();

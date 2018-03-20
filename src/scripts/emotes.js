@@ -11,14 +11,15 @@ class Emotes {
            + '<div class="balloon balloon--tooltip balloon--up balloon--center mg-t-1">TITLE</div>'
         + '</span>'
 
-      //ELSE
-      : '<span data-a-target="emote-name">'
+      //ELSE (Skip the javascript on-hover-transformation and just output the transformed markup. Added .slaw-extension so the tooltip only shows on hover)
+      : '<div class="tw-tooltip-wrapper tw-inline slaw-extension" data-a-target="emote-name">'
         + '<img class="chat-image chat-line__message--emote tw-inline-block"'
           + ' src="URL28.png"'
           + ' srcset="URL28.png 1x, URL56.png 2x,URL112.png 4x"'
           + ' alt="TITLE"'
         + ' />'
-      + '</span>'
+        + '<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-center" data-a-target="tw-tooltip-label" role="tooltip" style="margin-bottom: 0.9rem" >TITLE</div>'
+      + '</div>'
     ;
 
     chat.registerListener('emotes', this.listener.bind(this));
@@ -31,12 +32,11 @@ class Emotes {
 
   convertEmotes(message) {
     let messageText = message.querySelectorAll(this.messageTextSelector);
-    console.log(messageText);
     messageText.forEach (mt => {
       let text = mt.innerHTML;
 
       this.emotes.map( e => {
-        let pattern = new RegExp(e, 'g');
+        let pattern = new RegExp("\\b" + e + "\\b", 'g');
         text = text.replace(pattern, this.getTemplate.bind(this));
       });
       mt.innerHTML = text;

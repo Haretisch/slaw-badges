@@ -46,3 +46,8 @@
 
 html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
   color: #dad8de; }
+
+.slaw-extension .tw-tooltip {
+  display: none; }
+.slaw-extension:hover .tw-tooltip {
+  display: block; }

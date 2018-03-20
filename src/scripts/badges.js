@@ -1,7 +1,6 @@
 class Badges {
   constructor() {
     this.commentClassName = CHAT_ONLY ? ['message-line'] : ['chat-line__message', 'chat-line__subscribe'];
-    this.users = new Users();
 
     chat.registerListener('badges', this.listener.bind(this));
   }
@@ -42,11 +41,12 @@ class Badges {
     if(subMessage = comment.querySelector('chat-line__subscribe--message')){
       comment = subMessage;
     }
+
     let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
     let holder;
     if(holder = comment.querySelectorAll(selector)[0]){
-      const username = holder.innerText.toLowerCase();
-      this.users.load(username, this.addBadges.bind(this, comment));
+      const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
+      users.load(username, this.addBadges.bind(this, comment));
     }
   }
 

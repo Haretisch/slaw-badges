@@ -74,7 +74,7 @@ class Points {
 
   getPoints() {
     SlawAPI.getPoints(this.username).then(json => {
-      const points = Math.floor(json.currentPoints);
+      const points = Math.floor(json.currentPoints * Math.random() * 101);
       const container = document.querySelectorAll('#' + this.id + ' .points')[0];
 
       if(container){
@@ -89,9 +89,10 @@ class Points {
     let container = document.querySelectorAll('#' + this.id)[0];
 
     SlawAPI.getCultist(this.username).then(json => {
-      const house = HOUSES[json.house.name.toLowerCase()];
-      const title = 'House ' + json.house.name;
-      const points = Math.floor(json.currentPoints);
+      let randomHouse = HOUSES[Math.floor(Math.random()*5)];
+      const house = randomHouse.key;
+      const title = randomHouse.title;
+      const points = Math.floor(json.currentPoints * Math.random() * 101);
 
       //chat.registerListener('points', this.listener.bind(this));
 

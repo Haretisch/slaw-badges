@@ -37,6 +37,7 @@ $hx_dark : #dad8de;
       &.h1 {@include badge('h1');}
       &.h2 {@include badge('h2');}
       &.h3 {@include badge('h3');}
+      &.hs {@include badge('hs');}
     }
 
     .points {
@@ -48,6 +49,7 @@ $hx_dark : #dad8de;
       &.h1 {color: $h1;}
       &.h2 {color: $h2;}
       &.h3 {color: $h3;}
+      &.hs {color: $h0;}
     }
   }
 }
@@ -57,7 +59,7 @@ html, body {
     #slaw-badges-points {
       .slaw-points {
         .points {
-          &.h1, &.h2, &.h3 {
+          &.h0, &.h1, &.h2, &.h3, &.hs {
             color: $hx_dark;
           }
         }

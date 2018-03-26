@@ -31,6 +31,11 @@
 @-moz-document url-prefix() {
   #slaw-badges-points .slaw-points .badge.h3 {
     background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
+    #slaw-badges-points .slaw-points .badge.hs {
+      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/hs/18.png") left center no-repeat; }
+@-moz-document url-prefix() {
+  #slaw-badges-points .slaw-points .badge.hs {
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/hs/18.png") left center no-repeat; } }
   #slaw-badges-points .slaw-points .points {
     display: inline-block;
     vertical-align: middle;
@@ -43,8 +48,10 @@
       color: #7f2527; }
     #slaw-badges-points .slaw-points .points.h3 {
       color: #122a48; }
+    #slaw-badges-points .slaw-points .points.hs {
+      color: #000000; }
 
-html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
+html.tw-theme--dark #slaw-badges-points .slaw-points .points.h0, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, html.tw-theme--dark #slaw-badges-points .slaw-points .points.hs, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h0, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.hs {
   color: #dad8de; }
 
 .slaw-extension .tw-tooltip {

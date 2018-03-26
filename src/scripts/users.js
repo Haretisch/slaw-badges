@@ -10,24 +10,29 @@ class Users {
     this.minAge = 600000; //Time we wait before refetching an unknown user's data or when last attempt at user was unsuccessful (10 minutes)
     this.users = {
       sirslaw: {
-        house: 'hs',
-        title: 'Cult Leader',
+        house: HOUSES[Math.floor(Math.random()*5)].key,
+        title: 'Totally biased',
         immortal: true,
       },
       slaw_bot: {
-        house: 'hs',
-        title: 'Chub Master',
+        house: HOUSES[Math.floor(Math.random()*5)].key,
+        title: 'The only real Slaw here',
         immortal: true,
       },
       nightbot: {
-        house: 'hs',
-        title: 'The Finger',
+        house: HOUSES[Math.floor(Math.random()*5)].key,
+        title: 'WHAT AM I FIGHTING FOR',
         immortal: true,
       },
       stay_hydrated_bot: {
-        house: 'hs',
-        title: 'He cares',
+        house: HOUSES[Math.floor(Math.random()*5)].key,
+        title: 'Water you doing!?!? D:',
         immortal: true,
+      },
+      haretisch: {
+        house: HOUSES[Math.floor(Math.random()*5)].key,
+        title: "Didn't do it",
+        temp: true,
       }
     };
     this.pendingRequests = {};
@@ -48,9 +53,12 @@ class Users {
 
   get(username, callback) {
     this.updateUser(username, {fetching: true});
-    let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
+    let randomHouse = HOUSES[Math.floor(Math.random()*5)];
+    let response = {username, ...this.lostChub, house: randomHouse.key, title: randomHouse.title, age: Date.now()};
+    this.save(username, response);
+    callback(response);
 
-    SlawAPI.getCultist(username).then(json => {
+    /*SlawAPI.getCultist(username).then(json => {
       response = {
         ...response,
         house: HOUSES[json.house.name.toLowerCase()],
@@ -61,7 +69,7 @@ class Users {
     }).catch(err => {
       this.save(username, response);
       callback(response);
-    });
+    });*/
   }
 
   load(username, callback) {
@@ -81,7 +89,8 @@ class Users {
       }
 
       let age = Date.now() - user.age;
-      if((user.house !== 'h0' && age <= this.maxAge) || age <= this.minAge || !!user.immortal) {
+      //if((user.house !== 'h0' && age <= this.maxAge) || age <= this.minAge || !!user.immortal) {
+      if(age <= this.maxAge || !!user.immortal || !!user.temp) {
         return callback(user);
       }
     }

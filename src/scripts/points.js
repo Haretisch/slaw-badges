@@ -19,11 +19,12 @@ class Points {
   }
 
   initialize() {
+    console.log('Init points');
     //Only initialize if we can't find the added markup
-    if(document.querySelectorAll('#' + this.id)[0]){
+    if(this.isStarted()){
       return;
     }
-    if(CHAT_ONLY){
+    if(context === 'chat'){
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
       document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="float-left"></div>');
       let container = document.querySelectorAll('#' + this.id)[0];
@@ -54,6 +55,10 @@ class Points {
         this.getUser();
       }
     }
+  }
+
+  isStarted() {
+    return document.querySelectorAll('#' + this.id)[0];
   }
 
   getLeaderboard() {

@@ -2,7 +2,7 @@
 //  when set to "document_end" so the whole script in run only then
 const system = getSystem();
 let context = getContext();
-let CHAT_ONLY = context === 'chat';
+let CHAT_ONLY = false; //context === 'chat';
 let badges, chat, emotes, filters, points, users;
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
@@ -14,7 +14,9 @@ const twitchObserver = new MutationObserver(mutations => {
       ? ["ul.chat-lines"]
       : [
           "div.tw-full-height.tw-flex.tw-flex-nowrap.tw-relative",
-          "div.tw-full-height.tw-overflow-hidden.tw-flex.tw-flex-nowrap.tw-relative"
+          "div.tw-full-height.tw-overflow-hidden.tw-flex.tw-flex-nowrap.tw-relative",
+          "div.root-scrollable__wrapper.tw-full-width.tw-relative",
+          "div.tw-absolute.tw-bottom-0.tw-left-0.tw-overflow-hidden.tw-right-0.tw-top-0.twilight-minimal-root"
         ]
     ;
     if(chatIdentifiers.includes(elementIdentifier(mutation.target))){
@@ -29,7 +31,7 @@ const twitchObserver = new MutationObserver(mutations => {
           "div.root-scrollable__wrapper.tw-full-width.tw-relative"
         ]
     ;
-    if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target))){
+    if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target)) && !points.isStarted()){
       points.initialize();
     }
   });
@@ -42,7 +44,7 @@ const twitch = CHAT_ONLY
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if(sender.id === system.runtime.id && message.action ==='contextChange'){
     context = message.context;
-    CHAT_ONLY = context === 'chat';
+    CHAT_ONLY = false; //context === 'chat';
     if(context){
       start();
     } else {

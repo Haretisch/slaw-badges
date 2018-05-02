@@ -1,6 +1,7 @@
 #slaw-badges-points.float-left {
   display: inline-block;
-  line-height: 3rem; }
+  line-height: 3rem;
+  width: 100%; }
   #slaw-badges-points.float-left .slaw-points {
     float: left;
     margin-right: 10px; }

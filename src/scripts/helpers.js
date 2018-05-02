@@ -9,8 +9,8 @@ function elementIdentifier(elm){
 function getContext(url) {
   const contexts = [
     // Order is important
-    {key: 'popout', identifier: `/popout/${STREAMER}/chat`},
-    {key: 'chat', identifier: `/${STREAMER}/chat`},
+    {key: 'chat', identifier: `/popout/${STREAMER}/chat`}, //was key:popout, but Twitch changed /chat to this
+    //{key: 'chat', identifier: `/${STREAMER}/chat`},
     {key: 'stream', identifier: `/${STREAMER}`},
   ];
 

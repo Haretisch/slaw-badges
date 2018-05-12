@@ -99,6 +99,7 @@ class Points {
       const points = Math.floor(json.currentPoints);
 
       //chat.registerListener('points', this.listener.bind(this));
+      document.querySelector('.chat-list__lines .simplebar-content').classList.toggle(house);
 
       container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
 

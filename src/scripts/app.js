@@ -3,7 +3,7 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = false; //context === 'chat';
-let badges, chat, emotes, filters, points, users;
+let badges, chat, commands, emotes, points, users;
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
 const twitchObserver = new MutationObserver(mutations => {
@@ -33,6 +33,7 @@ const twitchObserver = new MutationObserver(mutations => {
     ;
     if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target)) && !points.isStarted()){
       points.initialize();
+      commands.initialize();
     }
   });
 });
@@ -42,8 +43,8 @@ const twitch = CHAT_ONLY
 ;
 
 system.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if(sender.id === system.runtime.id){
-    switch(message.action){
+  if(sender.id === system.runtime.id) {
+    switch(message.action) {
       case 'contextChange':
         context = message.context;
         CHAT_ONLY = false; //context === 'chat';
@@ -68,11 +69,11 @@ function start() {
   if(!emotes) emotes = new Emotes();
   if(!badges) badges = new Badges();
   if(!points) points = new Points();
-  //if(!filters && CHAT_ONLY) filters = new Filters();
+  if(!commands) commands = new Commands();
 
   twitchObserver.observe(twitch, {childList: true, subtree: true});
-  if(filters && CHAT_ONLY) filters.register();
   chat.observeChat();
+  commands.initialize();
 }
 
 function stop() {
@@ -82,8 +83,8 @@ function stop() {
   chat.disconnect();
   //stop points fetching
   points.disconnect();
-  //unregister filters
-  //filters.unregister();
+  //unregister commands
+  commands.unregister();
 }
 
 if(context) {

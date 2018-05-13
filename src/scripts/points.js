@@ -136,7 +136,6 @@ class Points {
     const house = HOUSES[this.user.house.name.toLowerCase()];
     system.storage.sync.get('slaw_enableCoatOfArms', data => {
       const show = ('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true;
-      console.log(data, show)
       if(show){
         document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
       }

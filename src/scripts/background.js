@@ -30,3 +30,19 @@ if(system.declarativeContent){
 system.webNavigation.onHistoryStateUpdated.addListener(
   e => { system.tabs.sendMessage( e.tabId, {action: "contextChange", context: getContext(e.url)} ); }
 );
+
+system.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log({message, sender, sendResponse});
+  if(sender.id === system.runtime.id) {
+    switch(message.action) {
+      case 'newTab':
+        system.storage.sync.get('slaw_enableNewTabs', data => {
+          if(('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : true){
+            system.tabs.create({url: message.target});
+          }
+        });
+      default:
+        //do nothing;
+    }
+  }
+});

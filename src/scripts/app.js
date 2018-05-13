@@ -41,14 +41,23 @@ const twitch = CHAT_ONLY
   : document.querySelectorAll("#root")[0]
 ;
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if(sender.id === system.runtime.id && message.action ==='contextChange'){
-    context = message.context;
-    CHAT_ONLY = false; //context === 'chat';
-    if(context){
-      start();
-    } else {
-      stop();
+system.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if(sender.id === system.runtime.id){
+    switch(message.action){
+      case 'contextChange':
+        context = message.context;
+        CHAT_ONLY = false; //context === 'chat';
+        if(context){
+          start();
+        } else {
+          stop();
+        }
+      break;
+      case 'toggleCoatOfArms':
+        points.toggleCoatOfArms(message.display)
+      break;
+      default:
+        //Do nothing
     }
   }
 });
@@ -59,7 +68,7 @@ function start() {
   if(!emotes) emotes = new Emotes();
   if(!badges) badges = new Badges();
   if(!points) points = new Points();
-  if(!filters && CHAT_ONLY) filters = new Filters();
+  //if(!filters && CHAT_ONLY) filters = new Filters();
 
   twitchObserver.observe(twitch, {childList: true, subtree: true});
   if(filters && CHAT_ONLY) filters.register();
@@ -74,7 +83,7 @@ function stop() {
   //stop points fetching
   points.disconnect();
   //unregister filters
-  filters.unregister();
+  //filters.unregister();
 }
 
 if(context) {

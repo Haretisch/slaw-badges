@@ -30,7 +30,6 @@ class Chat {
       ? document.querySelectorAll("ul.chat-lines")[0]
       : document.querySelectorAll(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")[0]
     ;
-    console.log(this.chat);
     if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
       this.chatObserver.observe(this.chat, {childList: true});
       this.loaded = CHAT_ONLY;

@@ -6,12 +6,15 @@ class Points {
       ? "div.js-chat-buttons.chat-buttons-container.clearfix .chat-interface__viewer-list"
       : "div.chat-input__buttons-container > .tw-flex"
     ;
+    this.user;
     this.username;
     this.interval;
   }
 
   disconnect() {
-    clearInternval(this.interval);
+    window.clearInterval(this.interval);
+    document.querySelector('#' + this.id).remove();
+    this.hideHouseCoatOfArms();
   }
 
   destructor() {
@@ -19,7 +22,6 @@ class Points {
   }
 
   initialize() {
-    console.log('Init points');
     //Only initialize if we can't find the added markup
     if(this.isStarted()){
       return;
@@ -41,7 +43,7 @@ class Points {
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
-        clearInterval(this.interval);
+        window.clearInterval(this.interval);
         this.interval = window.setInterval(this.getLeaderboard.bind(this), 300000);
       });
     }else{
@@ -57,8 +59,9 @@ class Points {
     }
   }
 
+
   isStarted() {
-    return document.querySelectorAll('#' + this.id)[0];
+    return document.querySelector('#' + this.id);
   }
 
   getLeaderboard() {
@@ -85,7 +88,7 @@ class Points {
       if(container){
         container.innerText = formatNumber(points);
       } else {
-        clearInterval(this.interval);
+        window.clearInterval(this.interval);
       }
     });
   }
@@ -94,21 +97,22 @@ class Points {
     let container = document.querySelectorAll('#' + this.id)[0];
 
     SlawAPI.getCultist(this.username).then(json => {
+      this.user = json;
       const house = HOUSES[json.house.name.toLowerCase()];
       const title = 'House ' + json.house.name;
       const points = Math.floor(json.currentPoints);
 
       //chat.registerListener('points', this.listener.bind(this));
-      document.querySelector('.chat-list__lines .simplebar-content').classList.toggle(house);
+      this.showHouseCoatOfArms();
 
       container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
 
-      clearInterval(this.interval);
+      window.clearInterval(this.interval);
       this.interval = window.setInterval(this.getPoints.bind(this), 600000);
     }).catch(err => {
       //depending on error, use this.interval to refetch follower
       //  for now don't check for the cause
-      clearInterval(this.interval);
+      window.clearInterval(this.interval);
       this.interval = window.setInterval(this.getUser.bind(this), 360000);
     });
   }
@@ -126,5 +130,24 @@ class Points {
         + '<span class="points ' + house + '">' + formatNumber(points) + '</span>'
       + '</div>'
     ;
+  }
+
+  showHouseCoatOfArms() {
+    const house = HOUSES[this.user.house.name.toLowerCase()];
+    system.storage.sync.get('slaw_enableCoatOfArms', data => {
+      const show = ('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true;
+      console.log(data, show)
+      if(show){
+        document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
+      }
+    });
+  }
+
+  hideHouseCoatOfArms() {
+    document.querySelector('.chat-list__lines .simplebar-content').classList.remove('h1', 'h2', 'h3');
+  }
+
+  toggleCoatOfArms(display) {
+    display ? this.showHouseCoatOfArms() : this.hideHouseCoatOfArms()
   }
 }

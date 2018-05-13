@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "SlawBadges",
-  "description": "Adds members' house icon as a twitch badge in the chat feed.",
+  "description": "Adds members' house icon as a twitch badge and other features in the chat feed.",
   "version": "2018.04.30",
 
   "applications": {
@@ -50,6 +50,7 @@
   },
 
   "page_action": {
+    "default_popup": "src/options/config.html",
     "default_icon": {
       "16": "src/assets/meta/i-16.png",
       "32": "src/assets/meta/i-32.png",
@@ -58,13 +59,16 @@
     "default_title": "SlawBadges"
   },
 
+  "options_page": "src/options/config.html",
+
   "permissions": [
     "https://www.twitch.tv/*",
     "https://mighty-citadel-48930.herokuapp.com/*",
     "declarativeContent",
     "activeTab",
     "tabs",
-    "webNavigation"
+    "webNavigation",
+    "storage"
   ],
 
   "web_accessible_resources": [

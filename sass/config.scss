@@ -2,9 +2,12 @@ $activeColor: #27ae60; //green
 $darkenColor: darken($activeColor, 20%);
 
 body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 12px;
   color: #2c343f;
   width: 350px;
 }
+
 .fieldLine {
   display: flex;
   justify-content: space-between;

@@ -4,9 +4,11 @@ class Commands {
     this.username;
     this.commands = {
       '!giftlink': this.giftlink.bind(this),
-      '!merch': this.merch.bind(this),
-      '!mercheu': this.merch.bind(this, '/eu'),
-      '!tip': this.tip.bind(this),
+      '!merch': this.sirslawtv.bind(this, 'merch'),
+      '!mercheu': this.sirslawtv.bind(this, 'merch/eu'),
+      '!tip': this.sirslawtv.bind(this, 'tip'),
+      '!twitter': this.sirslawtv.bind(this, 'twitter'),
+      '!instagram': this.sirslawtv.bind(this, 'instagram'),
     };
   }
 
@@ -51,18 +53,12 @@ class Commands {
     }
   }
 
-  merch(eu) {
-    eu = eu === '/eu' ? eu : '';
-    system.runtime.sendMessage({
-      action: 'newTab',
-      target: 'https://sirslaw.tv/merch' + eu + '?utm_source=twitchBrowserExtension',
-    });
-  }
-
-  tip() {
-    system.runtime.sendMessage({
-      action: 'newTab',
-      target: 'https://sirslaw.tv/support?utm_source=twitchBrowserExtension',
-    });
+  sirslawtv(path/*, [...args]*/) {
+    if(typeof path === 'string'){
+      system.runtime.sendMessage({
+        action: 'newTab',
+        target: 'https://sirslaw.tv/' + path + '?utm_source=twitchBrowserExtension',
+      });
+    }
   }
 }

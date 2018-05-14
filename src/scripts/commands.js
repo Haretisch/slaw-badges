@@ -4,6 +4,9 @@ class Commands {
     this.username;
     this.commands = {
       '!giftlink': this.giftlink.bind(this),
+      '!merch': this.merch.bind(this),
+      '!mercheu': this.merch.bind(this, '/eu'),
+      '!tip': this.tip.bind(this),
     };
   }
 
@@ -30,7 +33,7 @@ class Commands {
 
       if(!isSystemMessage() && postedByCurrentUser() && hasMessageText() && isUserCommand()) {
         let args = comment.querySelector('span[data-a-target=chat-message-text]').innerText.split(' ');
-        let command = args.splice(0, 1).join();
+        let command = args.splice(0, 1).join().toLowerCase();
 
         if(command in this.commands){
           this.commands[command](args);
@@ -41,10 +44,25 @@ class Commands {
 
   giftlink([giftee]) {
     if(typeof giftee === 'string'){
-        system.runtime.sendMessage({
-          action: 'newTab',
-          target: 'https://www.twitch.tv/products/sirslaw/ticket?no-mobile-redirect=true&recipient=' + giftee,
-        });
+      system.runtime.sendMessage({
+        action: 'newTab',
+        target: 'https://www.twitch.tv/products/sirslaw/ticket?no-mobile-redirect=true&recipient=' + giftee,
+      });
     }
+  }
+
+  merch(eu) {
+    eu = eu === '/eu' ? eu : '';
+    system.runtime.sendMessage({
+      action: 'newTab',
+      target: 'https://sirslaw.tv/merch' + eu + '?utm_source=twitchBrowserExtension',
+    });
+  }
+
+  tip() {
+    system.runtime.sendMessage({
+      action: 'newTab',
+      target: 'https://sirslaw.tv/support?utm_source=twitchBrowserExtension',
+    });
   }
 }

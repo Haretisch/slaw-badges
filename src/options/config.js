@@ -11,7 +11,7 @@ system.storage.sync.get('slaw_enableNewTabs', data => {
   enableNewTabs.checked = ('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : true;
 });
 system.storage.sync.get('slaw_enableChubTracker', data => {
-  enableChubTracker.checked = ('slaw_enableChubTracker' in data) ? data.slaw_enableNewTabs : true;
+  enableChubTracker.checked = ('slaw_enableChubTracker' in data) ? data.slaw_enableChubTracker : true;
 });
 
 enableBackground.onchange = event => {

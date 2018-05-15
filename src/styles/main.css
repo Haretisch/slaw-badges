@@ -57,13 +57,15 @@ html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--
   position: relative; }
   .chat-list__lines .simplebar-content:before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    width: 100%;
+    bottom: 0;
+    width: 370px;
     height: 100%;
     z-index: -1;
-    opacity: 0.17; }
+    opacity: 0.17;
+    pointer-events: none; }
   .chat-list__lines .simplebar-content.h1:before {
     background: transparent url("chrome-extension://__MSG_@@extension_id__/src/assets/backgrounds/h1.png") no-repeat right center;
     background-size: contain;
@@ -85,3 +87,5 @@ html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--
 @-moz-document url-prefix() {
   .chat-list__lines .simplebar-content.h3:before {
     background: transparent url("moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/h3.png") no-repeat right center; } }
+.right-column--theatre .chat-list__lines .simplebar-content:before {
+  width: 339px; }

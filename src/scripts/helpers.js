@@ -1,6 +1,6 @@
-String.prototype.containsOneOf = function(array) {
-    return array.some(s => this.includes(s));
-};
+Array.prototype.randomElement = function () {
+    return this[Math.floor(Math.random() * this.length)]
+}
 
 Object.prototype.find = function(path) {
   path = path.split('.');
@@ -9,6 +9,10 @@ Object.prototype.find = function(path) {
       obj = obj[path[i]];
   };
   return obj;
+};
+
+String.prototype.containsOneOf = function(array) {
+    return array.some(s => this.includes(s));
 };
 
 function elementIdentifier(elm){

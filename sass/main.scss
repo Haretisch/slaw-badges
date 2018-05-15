@@ -91,21 +91,33 @@ html, body {
 }
 
 .chat-list__lines {
-    .simplebar-content {
-        position: relative;
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.17;
-        }
-
-      &.h1 { &:before { @include background('h1'); } }
-      &.h2 { &:before { @include background('h2'); } }
-      &.h3 { &:before { @include background('h3'); } }
+  .simplebar-content {
+    position: relative;
+    &:before {
+      content: "";
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 370px;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.17;
+      pointer-events: none;
     }
+
+    &.h1 { &:before { @include background('h1'); } }
+    &.h2 { &:before { @include background('h2'); } }
+    &.h3 { &:before { @include background('h3'); } }
+  }
+}
+
+.right-column--theatre {
+  .chat-list__lines {
+    .simplebar-content {
+      &:before {
+        width: 339px;
+      }
+    }
+  }
 }

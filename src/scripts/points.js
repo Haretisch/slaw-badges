@@ -12,9 +12,9 @@ class Points {
   }
 
   disconnect() {
+    this.hideHouseCoatOfArms();
     window.clearInterval(this.interval);
     document.querySelector('#' + this.id).remove();
-    this.hideHouseCoatOfArms();
   }
 
   destructor() {
@@ -27,6 +27,11 @@ class Points {
       return;
     }
     if(context === 'chat'){
+      //Get a random Coat of Arms for chat only view, until we can get a way to know who's logged in
+      this.user = {house: {name: Object.keys(HOUSES).randomElement()}};
+      console.log(this.user);
+      this.showHouseCoatOfArms();
+
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
       document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="float-left"></div>');
       let container = document.querySelectorAll('#' + this.id)[0];
@@ -134,11 +139,13 @@ class Points {
 
   showHouseCoatOfArms() {
     const house = HOUSES[this.user.house.name.toLowerCase()];
-    system.storage.sync.get('slaw_enableCoatOfArms', data => {
-      if(('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true) {
-        document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
-      }
-    });
+    if(context){
+      system.storage.sync.get('slaw_enableCoatOfArms', data => {
+        if(('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true) {
+          document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
+        }
+      });
+    }
   }
 
   hideHouseCoatOfArms() {

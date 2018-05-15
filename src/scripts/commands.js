@@ -16,6 +16,10 @@ class Commands {
     chat.unregisterListener('commands');
   }
 
+  disconnect() {
+    this.destructor();
+  }
+
   initialize() {
     //Check if user is logged in, or if we can get the username at all
     let username = document.querySelector(this.usernameHolder);

@@ -85,7 +85,7 @@ function stop() {
   //stop points fetching
   points.disconnect();
   //unregister commands
-  commands.unregister();
+  commands.disconnect();
 }
 
 if(context) {

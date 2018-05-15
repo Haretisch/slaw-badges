@@ -2,6 +2,15 @@ String.prototype.containsOneOf = function(array) {
     return array.some(s => this.includes(s));
 };
 
+Object.prototype.find = function(path) {
+  path = path.split('.');
+  let obj = this;
+  for (let i = 0; i < path.length ; i++){
+      obj = obj[path[i]];
+  };
+  return obj;
+};
+
 function elementIdentifier(elm){
   return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.trim().split(' ').join('.') : '');
 }

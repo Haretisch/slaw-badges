@@ -38,13 +38,6 @@ class SlawAPI{
 
   //Return points ??and title??
   static getPoints(username) {
-    const endpoint = SlawAPI.config().endpoint;
-    const req =  new Request(
-      //For now the enpoints for followers and points are the same
-      endpoint + '/followed?name=' + username.toLowerCase(),
-      {method: 'GET', mode: 'cors'}
-    );
-
-    return SlawAPI.fetch(req);
+    return this.getCultist(username);
   }
 }

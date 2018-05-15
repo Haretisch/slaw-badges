@@ -46,7 +46,7 @@ class Users {
     }
   }
 
-  get(username, callback) {
+  get({username, UserName}, callback, user) {
     this.updateUser(username, {fetching: true});
     let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
 
@@ -56,6 +56,10 @@ class Users {
         house: HOUSES[json.house.name.toLowerCase()],
         title: 'House ' + json.house.name
       }
+      if(json.status === 'not_found' && !user.greeted){
+        chat.greet(UserName);
+        response.greeted = true;
+      }
       this.save(username, response);
       callback(response);
     }).catch(err => {
@@ -64,7 +68,7 @@ class Users {
     });
   }
 
-  load(username, callback) {
+  load({username, UserName}, callback) {
     let user = null;
     if(typeof(callback) !== 'function') {
       callback = user => user;
@@ -86,7 +90,7 @@ class Users {
       }
     }
 
-    this.get(username, callback);
+    this.get({username, UserName}, callback, user);
   }
 
   save(username, user) {

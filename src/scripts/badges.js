@@ -46,8 +46,8 @@ class Badges {
     let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
     let holder;
     if(holder = comment.querySelectorAll(selector)[0]){
-      const username = comment.querySelectorAll(selector)[0].innerText.toLowerCase();
-      users.load(username, this.addBadges.bind(this, comment));
+      const username = comment.querySelectorAll(selector)[0].innerText;
+      users.load({username: username.toLowerCase(), UserName: username}, this.addBadges.bind(this, comment));
     }
   }
 

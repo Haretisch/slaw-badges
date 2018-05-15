@@ -59,6 +59,10 @@
     "default_title": "SlawBadges"
   },
 
+  "options_ui": {
+    "page": "src/options/config.html"
+  },
+
   "options_page": "src/options/config.html",
 
   "permissions": [

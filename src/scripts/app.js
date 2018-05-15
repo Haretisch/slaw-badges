@@ -3,7 +3,7 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = false; //context === 'chat';
-let badges, chat, commands, emotes, points, users;
+let badges, chat, commands, emotes, points, users, features;
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
 const twitchObserver = new MutationObserver(mutations => {
@@ -54,11 +54,11 @@ system.runtime.onMessage.addListener((message, sender, sendResponse) => {
           stop();
         }
       break;
-      case 'toggleCoatOfArms':
-        points.toggleCoatOfArms(message.display)
-      break;
       default:
-        //Do nothing
+        if(typeof features.find(message.action) === 'function') {
+          let f = features.find(message.action.split('.')[0]);
+          features.find(message.action).bind(f)(message);
+        }
     }
   }
 });
@@ -70,6 +70,7 @@ function start() {
   if(!badges) badges = new Badges();
   if(!points) points = new Points();
   if(!commands) commands = new Commands();
+  features = {badges, chat, commands, emotes, points, users};
 
   twitchObserver.observe(twitch, {childList: true, subtree: true});
   chat.observeChat();

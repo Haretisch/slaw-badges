@@ -135,8 +135,7 @@ class Points {
   showHouseCoatOfArms() {
     const house = HOUSES[this.user.house.name.toLowerCase()];
     system.storage.sync.get('slaw_enableCoatOfArms', data => {
-      const show = ('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true;
-      if(show){
+      if(('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true) {
         document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
       }
     });
@@ -146,7 +145,7 @@ class Points {
     document.querySelector('.chat-list__lines .simplebar-content').classList.remove('h1', 'h2', 'h3');
   }
 
-  toggleCoatOfArms(display) {
+  toggleCoatOfArms({display}) {
     display ? this.showHouseCoatOfArms() : this.hideHouseCoatOfArms()
   }
 }

@@ -37,7 +37,7 @@ system.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch(message.action) {
       case 'newTab':
         system.storage.sync.get('slaw_enableNewTabs', data => {
-          if(('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : true){
+          if(('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : true) {
             system.tabs.create({url: message.target});
           }
         });

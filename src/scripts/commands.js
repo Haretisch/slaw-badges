@@ -48,7 +48,7 @@ class Commands {
     if(typeof giftee === 'string'){
       system.runtime.sendMessage({
         action: 'newTab',
-        target: 'https://www.twitch.tv/products/sirslaw/ticket?no-mobile-redirect=true&recipient=' + giftee,
+        target: `https://www.twitch.tv/products/sirslaw/ticket?no-mobile-redirect=true&recipient=${giftee}`,
       });
     }
   }
@@ -57,7 +57,7 @@ class Commands {
     if(typeof path === 'string'){
       system.runtime.sendMessage({
         action: 'newTab',
-        target: 'https://sirslaw.tv/' + path + '?utm_source=twitchBrowserExtension',
+        target: `https://sirslaw.tv/${path}?utm_source=twitchBrowserExtension`,
       });
     }
   }

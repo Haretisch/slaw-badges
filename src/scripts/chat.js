@@ -43,5 +43,21 @@ class Chat {
   unregisterListener(id) {
     this.listeners = this.listeners.filter(l => l.id !== id);
   }
+
+  greet(username) {
+    system.storage.sync.get('slaw_enableChubTracker', data => {
+      if(('slaw_enableChubTracker' in data) ? data.slaw_enableChubTracker : true) {
+        let message = ''
+          + '<div class="tw-mg-y-05 tw-pd-r-2 tw-pd-y-05 user-notice-line">'
+            + '<div class="tw-c-text-alt-2">'
+              + `<span class="tw-c-text tw-strong">${username}</span> is new here. Show them some ${emotes.forceChannelEmote('sirsLove')}!`
+            + '</div>'
+          + '</div>'
+        ;
+
+        document.querySelector('.simplebar-content div[role=log]').insertAdjacentHTML('beforeEnd', message);
+      }
+    });
+  }
 }
 

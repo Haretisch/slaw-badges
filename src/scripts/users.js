@@ -51,14 +51,17 @@ class Users {
     let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
 
     SlawAPI.getCultist(username).then(json => {
+      user = (user||{greeted:false});
+      if(json.status === 'not_found' && !user.greeted){
+        chat.greet(UserName);
+        response.greeted = true;
+        console.log(response);
+      }
+
       response = {
         ...response,
         house: HOUSES[json.house.name.toLowerCase()],
         title: 'House ' + json.house.name
-      }
-      if(json.status === 'not_found' && !user.greeted){
-        chat.greet(UserName);
-        response.greeted = true;
       }
       this.save(username, response);
       callback(response);

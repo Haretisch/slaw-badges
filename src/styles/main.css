@@ -4,12 +4,13 @@
   font-style: normal;
   src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
   src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); }
-@font-face {
-  font-family: 'icomoon-ff';
-  font-weight: normal;
-  font-style: normal;
-  src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
-  src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); }
+@-moz-document url-prefix() {
+  @font-face {
+    font-family: 'icomoon';
+    font-weight: normal;
+    font-style: normal;
+    src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
+    src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); } }
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
@@ -22,9 +23,7 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
-@-moz-document url-prefix() {
-  [class^="icon-"], [class*=" icon-"] {
-    font-family: 'icomoon-ff' !important; } }
+
 .icon-dice:before {
   content: "\e915"; }
 

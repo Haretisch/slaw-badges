@@ -1,3 +1,33 @@
+@font-face {
+  font-family: 'icomoon';
+  font-weight: normal;
+  font-style: normal;
+  src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
+  src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); }
+@font-face {
+  font-family: 'icomoon-ff';
+  font-weight: normal;
+  font-style: normal;
+  src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
+  src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); }
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+@-moz-document url-prefix() {
+  [class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon-ff' !important; } }
+.icon-dice:before {
+  content: "\e915"; }
+
 #slaw-badges-points.float-left {
   display: inline-block;
   line-height: 3rem;
@@ -44,6 +74,17 @@
       color: #7f2527; }
     #slaw-badges-points .slaw-points .points.h3 {
       color: #122a48; }
+
+#slaw-badges-gamble {
+  max-height: 30px; }
+  #slaw-badges-gamble .slaw-gamble {
+    align-self: center; }
+    #slaw-badges-gamble .slaw-gamble .gamble {
+      font-size: 24px;
+      display: inline-block;
+      vertical-align: middle; }
+      #slaw-badges-gamble .slaw-gamble .gamble.off {
+        color: #303030; }
 
 html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
   color: #dad8de; }

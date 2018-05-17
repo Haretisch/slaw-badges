@@ -11,6 +11,17 @@ Object.prototype.find = function(path) {
   return obj;
 };
 
+Object.prototype.toQueryString = function(startQueryString = true) {
+  let qs = startQueryString ? '?' : '';
+  let params = [];
+
+  Object.keys(this).forEach(prop => {
+    params.push(`${prop}=${this[prop]}`);
+  })
+
+  return qs + params.join('&');
+}
+
 String.prototype.containsOneOf = function(array) {
     return array.some(s => this.includes(s));
 };

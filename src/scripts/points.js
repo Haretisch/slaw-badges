@@ -1,6 +1,7 @@
 class Points {
   constructor() {
-    this.id = 'slaw-badges-points';
+    this.pId = 'slaw-badges-points';
+    this.gId = 'slaw-badges-gamble';
     this.usernameHolder = 'div.top-nav-user-menu__username p';
     this.pointsSiblingIdentifier = CHAT_ONLY
       ? "div.js-chat-buttons.chat-buttons-container.clearfix .chat-interface__viewer-list"
@@ -14,7 +15,8 @@ class Points {
   disconnect() {
     this.hideHouseCoatOfArms();
     window.clearInterval(this.interval);
-    document.querySelector('#' + this.id).remove();
+    document.querySelector(`#${this.gId}`).remove();
+    document.querySelector(`#${this.pId}`).remove();
   }
 
   destructor() {
@@ -33,8 +35,8 @@ class Points {
       this.showHouseCoatOfArms();
 
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
-      document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="float-left"></div>');
-      let container = document.querySelectorAll('#' + this.id)[0];
+      document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="float-left"></div>`);
+      let container = document.querySelectorAll(`#${this.pId}`)[0];
 
       SlawAPI.getLeaderboard().then(json => {
         let gcProfile = json.houseProfiles[0].profiles[0];
@@ -58,7 +60,8 @@ class Points {
       let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
       if(username && sibling){
         this.username = username.innerText.toLowerCase();
-        sibling.insertAdjacentHTML('afterEnd', '<div id="' + this.id + '" class="tw-flex tw-flex-row"></div>');
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);
         this.getUser();
       }
     }
@@ -66,7 +69,7 @@ class Points {
 
 
   isStarted() {
-    return document.querySelector('#' + this.id);
+    return document.querySelector(`#${this.pId}`);
   }
 
   getLeaderboard() {
@@ -79,16 +82,24 @@ class Points {
       const h2 = Math.floor(lsProfile.points.current + lsProfile.points.tips + lsProfile.points.cheers + lsProfile.points.subscriptions);
       const h3 = Math.floor(ibProfile.points.current + ibProfile.points.tips + ibProfile.points.cheers + ibProfile.points.subscriptions);
 
-      document.querySelectorAll('#' + this.id + ' .points.h1')[0].innerText = formatNumber(h1);
-      document.querySelectorAll('#' + this.id + ' .points.h2')[0].innerText = formatNumber(h2);
-      document.querySelectorAll('#' + this.id + ' .points.h3')[0].innerText = formatNumber(h3);
+      document.querySelectorAll(`#${this.pId}.points.h1`)[0].innerText = formatNumber(h1);
+      document.querySelectorAll(`#${this.pId}.points.h2`)[0].innerText = formatNumber(h2);
+      document.querySelectorAll(`#${this.pId}.points.h3`)[0].innerText = formatNumber(h3);
     });
+  }
+
+
+  getGamble() {
+    //SlawAPI.getGamble(this.username).then(json => {
+      //show the things
+      this.updateGambleDOM('on');
+    //});
   }
 
   getPoints() {
     SlawAPI.getPoints(this.username).then(json => {
       const points = Math.floor(json.currentPoints);
-      const container = document.querySelectorAll('#' + this.id + ' .points')[0];
+      const container = document.querySelector(`#${this.pId} .points`);
 
       if(container){
         container.innerText = formatNumber(points);
@@ -99,7 +110,8 @@ class Points {
   }
 
   getUser() {
-    let container = document.querySelectorAll('#' + this.id)[0];
+    let pContainer = document.querySelector(`#${this.pId}`);
+    let gContainer = document.querySelector(`#${this.gId}`);
 
     SlawAPI.getCultist(this.username).then(json => {
       this.user = json;
@@ -110,10 +122,15 @@ class Points {
       //chat.registerListener('points', this.listener.bind(this));
       this.showHouseCoatOfArms();
 
-      container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
+      gContainer.insertAdjacentHTML('afterBegin', this.gambleMarkup('on'));
+      pContainer.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
+      gContainer.addEventListener('click', this.toggleGamble.bind(this));
 
       window.clearInterval(this.interval);
-      this.interval = window.setInterval(this.getPoints.bind(this), 600000);
+      this.interval = window.setInterval(() => {
+        this.getPoints.bind(this);
+        this.getGamble.bind(this);
+      }, 600000);
     }).catch(err => {
       //depending on error, use this.interval to refetch follower
       //  for now don't check for the cause
@@ -126,13 +143,51 @@ class Points {
     //console.log('Points listener');
   }
 
+  gambleMarkup(status) {
+    let label = this.getGambleTitle(status);
+
+    return ''
+      + '<div class="slaw-gamble">'
+        + '<button aria-label="Gamble settings" class="tw-button-icon" data-a-target="gamble-settings">'
+         + '<span class="tw-button-icon__icon">'
+            + `<i class="tw-tooltip-wrapper gamble icon-dice ${status}">`
+              + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${label}</div>`
+            + '</i>'
+          + '</span>'
+        + '</button>'
+      + '</div>'
+    ;
+  }
+
+  getGambleTitle(status) {
+    return status === 'on'
+      ? 'Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood.'
+      : "I’ll never gamble again!"
+    ;
+  }
+
+  updateGambleDOM(status) {
+    let gambleIcon = document.querySelector(`#${this.gId} .gamble`);
+    gambleIcon.classList.remove('on', 'off');
+    gambleIcon.classList.add(status);
+
+    document.querySelector(`#${this.gId} .title`).innerHTML = this.getGambleTitle(status);
+  }
+
+  toggleGamble() {
+    document.querySelector(`#${this.gId} button`).blur();
+    let newState = document.querySelector(`#${this.gId} i`).className.includes('off');
+    //SlawAPI.setGambleSetting(this.user.username, newState)
+    this.updateGambleDOM(newState ? 'on' : 'off');
+  }
+
   pointsMarkup(house, title, points) {
     return ''
       + '<div class="slaw-points">'
-        + '<i class="tw-tooltip-wrapper badge ' + house + '">'
-          + '<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
+        + `<i class="tw-tooltip-wrapper badge ${house}">`
+          + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${title}</div>`
         + '</i>'
-        + '<span class="points ' + house + '">' + formatNumber(points) + '</span>'
+        + `<span class="points ${house}">${formatNumber(points)}</span>`
       + '</div>'
     ;
   }

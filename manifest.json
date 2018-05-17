@@ -76,7 +76,8 @@
   ],
 
   "web_accessible_resources": [
-    "src/assets/*.png"
+    "src/assets/*.png",
+    "src/assets/fonts/*"
   ],
 
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlWVKDIggrJ/pY4cAEO5Kzy8cFV2nXBD40+ciO/u/zXNqDbR+2jXuKriVJO8ard/PNxUQmXbHslsgbfKehKCCN6DsFG5evMO4MXDAkL2rzGZhED8gVI8uTVZtO7zq0qa9fpvxTXLRi3UbKj0qEI0pdyil4rTAhQDU82QeffMO9RFxe+b/FHLzjdyqlP2NdgS5zb70l/TIOjmDLjiAfTdxSWSY46MfRmpBK/us7X/7c2VcBL40Qa7twH5aNUaAIN//g/ynIzNQfBPx+lJcNL9SvIvP6coc3Y0B2Ci0NrBcWAJZkiLweAzLnJCUeMXoLuVEZCf13VHOktQ7L86Xi3mfMwIDAQAB"

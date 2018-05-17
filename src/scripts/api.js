@@ -2,7 +2,7 @@ class SlawAPI{
   static config() {
     return {
       auth: '',
-      endpoint: 'https://mighty-citadel-48930.herokuapp.com/api/grizzly',
+      address: 'https://mighty-citadel-48930.herokuapp.com/api/grizzly',
       version: 'v1',
     };
   }
@@ -16,28 +16,42 @@ class SlawAPI{
     });
   }
 
-  static getCultist(username) {
-    const endpoint = SlawAPI.config().endpoint;
-    const req =  new Request(
-      endpoint + '/followed?name=' + username.toLowerCase(),
-      {method: 'GET', mode: 'cors'}
+  static get(endpoint, data) {
+    return SlawAPI.fetch(
+      new Request(
+        SlawAPI.config().address + endpoint + data.toQueryString(),
+        {method: 'GET', mode: 'cors'}
+      )
     );
+  }
 
-    return SlawAPI.fetch(req);
+  static post(enpoint, body) {
+    return SlawAPI.fetch(
+      new Request(
+        SlawAPI.config().address + endpoint,
+        {method: 'POST', mode: 'cors', body}
+      )
+    );
+  }
+
+  static getCultist(username) {
+    return SlawAPI.get('/followed', {name: username.toLowerCase()});
   }
 
   static getLeaderboard() {
-    const endpoint = SlawAPI.config().endpoint;
-    const req = new Request(
-      endpoint + '/housestats?name=undefined',
-      {method: 'GET', mode: 'cors'}
-    );
-
-    return SlawAPI.fetch(req);
+    return SlawAPI.get('/housestats', {name: 'undefined'});
   }
 
-  //Return points ??and title??
   static getPoints(username) {
-    return this.getCultist(username);
+    //Waiting for points endpoint
+    return SlawAPI.getCultist(username);
+  }
+
+  static getGambleSetting(username) {
+    return SlawAPI.get('/gamble', {name: username.toLowerCase()});
+  }
+
+  static setGambleSetting(username, setting) {
+    return SlawAPI.post('/gamble', {user: username.toLowerCase(), gamble: setting});
   }
 }

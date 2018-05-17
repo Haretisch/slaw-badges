@@ -1,0 +1,1 @@
+sass --sourcemap=none --watch sass/main.scss:src/styles/main.css sass/config.scss:src/options/config.css

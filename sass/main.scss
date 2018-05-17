@@ -82,6 +82,10 @@ $dark_grey : #303030;
       &.off {
         color: $dark_grey;
       }
+
+      .tw-tooltip {
+        font-family: Arial;
+      }
     }
   }
 }

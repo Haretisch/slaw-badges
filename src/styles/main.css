@@ -85,6 +85,8 @@
       vertical-align: middle; }
       #slaw-badges-gamble .slaw-gamble .gamble.off {
         color: #303030; }
+      #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip {
+        font-family: Arial; }
 
 html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
   color: #dad8de; }

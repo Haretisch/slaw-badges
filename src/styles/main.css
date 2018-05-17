@@ -79,6 +79,7 @@
   #slaw-badges-gamble .slaw-gamble {
     align-self: center; }
     #slaw-badges-gamble .slaw-gamble .gamble {
+      position: relative;
       font-size: 24px;
       display: inline-block;
       vertical-align: middle; }

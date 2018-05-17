@@ -147,10 +147,10 @@ class Points {
     let label = this.getGambleTitle(status);
 
     return ''
-      + '<div class="slaw-gamble">'
+      + '<div class="slaw-gamble tw-tooltip-wrapper">'
         + '<button aria-label="Gamble settings" class="tw-button-icon" data-a-target="gamble-settings">'
          + '<span class="tw-button-icon__icon">'
-            + `<i class="tw-tooltip-wrapper gamble icon-dice ${status}">`
+            + `<i class="gamble icon-dice ${status}">`
               + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${label}</div>`
             + '</i>'
           + '</span>'
@@ -162,7 +162,7 @@ class Points {
   getGambleTitle(status) {
     return status === 'on'
       ? 'Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood.'
-      : "I’ll never gamble again!"
+      : "I'm never gamble again,<br />(Guilty feet have got...)"
     ;
   }
 

@@ -28,6 +28,11 @@ class Users {
         house: 'hs',
         title: 'He cares',
         immortal: true,
+      },
+      pretzelrocks: {
+        house: 'hs',
+        title: 'Musically inclined',
+        immortal: true,
       }
     };
     this.pendingRequests = {};

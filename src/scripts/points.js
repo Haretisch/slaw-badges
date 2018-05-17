@@ -161,8 +161,8 @@ class Points {
 
   getGambleTitle(status) {
     return status === 'on'
-      ? 'Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood.'
-      : "I'm never gamble again,<br />(Guilty feet have got...)"
+      ? "<strong>Gambled IN</strong><br /><br />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood."
+      : "<strong>Gambled OUT</strong><br /><br />I'm never gamble again,<br />(Guilty feet have got...)"
     ;
   }
 

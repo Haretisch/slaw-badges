@@ -85,6 +85,11 @@ $dark_grey : #303030;
 
       .tw-tooltip {
         font-family: Arial;
+
+        hr {
+          border: 0.5px #ffffff solid;
+          margin-bottom: 5px;
+        }
       }
     }
   }
@@ -97,6 +102,18 @@ html, body {
         .points {
           &.h1, &.h2, &.h3 {
             color: $hx_dark;
+          }
+        }
+      }
+    }
+
+    #slaw-badges-gamble {
+      .slaw-gamble {
+        .gamble {
+          .tw-tooltip {
+            hr {
+              border-color:#0e0c13;
+            }
           }
         }
       }

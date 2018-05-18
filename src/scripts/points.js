@@ -151,7 +151,7 @@ class Points {
         + '<button aria-label="Gamble settings" class="tw-button-icon" data-a-target="gamble-settings">'
          + '<span class="tw-button-icon__icon">'
             + `<i class="gamble icon-dice ${status}">`
-              + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${label}</div>`
+              + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-center" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${label}</div>`
             + '</i>'
           + '</span>'
         + '</button>'
@@ -161,8 +161,8 @@ class Points {
 
   getGambleTitle(status) {
     return status === 'on'
-      ? "<strong>Gambled IN</strong><br /><br />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood."
-      : "<strong>Gambled OUT</strong><br /><br />I'm never gamble again,<br />(Guilty feet have got...)"
+      ? "<strong>Gambled IN</strong><hr />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood."
+      : "<strong>Gambled OUT</strong><hr />I'm never gamble again,<br />(Guilty feet have got...)"
     ;
   }
 
@@ -185,7 +185,7 @@ class Points {
     return ''
       + '<div class="slaw-points">'
         + `<i class="tw-tooltip-wrapper badge ${house}">`
-          + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${title}</div>`
+          + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-center" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${title}</div>`
         + '</i>'
         + `<span class="points ${house}">${formatNumber(points)}</span>`
       + '</div>'

@@ -9,6 +9,7 @@ class Commands {
       '!tip': this.sirslawtv.bind(this, 'tip'),
       '!twitter': this.sirslawtv.bind(this, 'twitter'),
       '!instagram': this.sirslawtv.bind(this, 'instagram'),
+      '!podcast': this.sirslawtv.bind(this, 'podcast'),
     };
   }
 

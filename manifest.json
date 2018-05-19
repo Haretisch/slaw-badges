@@ -27,6 +27,7 @@
     ],
     "js": [
       "src/scripts/config.js",
+      "src/scripts/timer.js",
       "src/scripts/helpers.js",
       "src/scripts/api.js",
       "src/scripts/chat.js",

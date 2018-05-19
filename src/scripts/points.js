@@ -10,6 +10,15 @@ class Points {
     this.user;
     this.username;
     this.interval;
+    this.gambleTimerSelector = "slaw-gamble-timer"
+    this.gambleTimer = new Timer(15 * 60); // 15 Minutes by default
+    this.gambleTimer.onTick((minutes, seconds) => {
+      if(this.gambleTimer.running) {
+        seconds = ('0' + seconds).slice(-2);
+        document.querySelector(`.${this.gambleTimerSelector}`).innerText = `${minutes}:${seconds}`;
+      }
+    });
+    this.gambleTimer.onEnd(() => {this.updateGambleDOM('off')});
   }
 
   disconnect() {
@@ -122,12 +131,15 @@ class Points {
       //chat.registerListener('points', this.listener.bind(this));
       this.showHouseCoatOfArms();
 
+      //TODO set status properly and start timer with proper duration;
       gContainer.insertAdjacentHTML('afterBegin', this.gambleMarkup('on'));
+      this.updateGambleDOM('off');
       pContainer.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
       gContainer.addEventListener('click', this.toggleGamble.bind(this));
 
       window.clearInterval(this.interval);
       this.interval = window.setInterval(() => {
+        //TODO might be the same endpoint
         this.getPoints.bind(this);
         this.getGamble.bind(this);
       }, 600000);
@@ -161,7 +173,7 @@ class Points {
 
   getGambleTitle(status) {
     return status === 'on'
-      ? "<strong>Gambled IN</strong><hr />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood."
+      ? `<strong>Gambled IN</strong><br />For: <span class="${this.gambleTimerSelector}">15:00</span><hr />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood.`
       : "<strong>Gambled OUT</strong><hr />I'm never gamble again,<br />(Guilty feet have got...)"
     ;
   }
@@ -172,6 +184,17 @@ class Points {
     gambleIcon.classList.add(status);
 
     document.querySelector(`#${this.gId} .title`).innerHTML = this.getGambleTitle(status);
+
+    switch(status) {
+      case 'on':
+        //TODO get duration from userObject or default to 15 * 60
+        //Using 10 for testing purpose
+        this.gambleTimer.updateDuration(10);
+        this.gambleTimer.start();
+        break;
+      default:
+        this.gambleTimer.stop();
+    }
   }
 
   toggleGamble() {

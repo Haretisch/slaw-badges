@@ -12,7 +12,7 @@ class Points {
     this.username;
     this.interval;
     this.gambleTimerSelector = "slaw-gamble-timer"
-    this.gambleTimer = new Timer(15 * 60); // 15 Minutes by default
+    this.gambleTimer = new SlawTimer(15 * 60); // 15 Minutes by default
     this.gambleTimer.onTick((minutes, seconds) => {
       if(this.gambleTimer.running) {
         seconds = ('0' + seconds).slice(-2);
@@ -86,11 +86,11 @@ class Points {
           rouletteChannel.on(`roulette_participants:status_change:${usernameText}`, body => {
             console.log(body)
             let isOn = body.current_participant;
-            this.updateGambleDOM(isOn ? 'on' : 'off');
+            this.updateGambleDOM(isOn ? 'on' : 'off', parseInt(body.time_remaining_in_ms / 1000));
           })
         }
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);//Gamble
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);//Points
         this.getUser();
       }
     }
@@ -115,14 +115,6 @@ class Points {
       document.querySelectorAll(`#${this.pId}.points.h2`)[0].innerText = formatNumber(h2);
       document.querySelectorAll(`#${this.pId}.points.h3`)[0].innerText = formatNumber(h3);
     });
-  }
-
-
-  getGamble() {
-    //SlawAPI.getGamble(this.username).then(json => {
-      //show the things
-      // this.updateGambleDOM('on');
-    //});
   }
 
   getPoints() {
@@ -152,16 +144,13 @@ class Points {
       this.showHouseCoatOfArms();
 
       //TODO set status properly and start timer with proper duration;
-      gContainer.insertAdjacentHTML('afterBegin', this.gambleMarkup('on'));
-      this.updateGambleDOM('off');
+      gContainer.insertAdjacentHTML('afterBegin', this.gambleMarkup('off'));
       pContainer.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
       gContainer.addEventListener('click', this.toggleGamble.bind(this));
 
       window.clearInterval(this.interval);
       this.interval = window.setInterval(() => {
-        //TODO might be the same endpoint
         this.getPoints.bind(this);
-        this.getGamble.bind(this);
       }, 600000);
     }).catch(err => {
       //depending on error, use this.interval to refetch follower
@@ -198,7 +187,7 @@ class Points {
     ;
   }
 
-  updateGambleDOM(status) {
+  updateGambleDOM(status, duration) {
     let gambleIcon = document.querySelector(`#${this.gId} .gamble`);
     gambleIcon.classList.remove('on', 'off');
     gambleIcon.classList.add(status);
@@ -207,9 +196,7 @@ class Points {
 
     switch(status) {
       case 'on':
-        //TODO get duration from userObject or default to 15 * 60
-        //Using 10 for testing purpose
-        this.gambleTimer.updateDuration(10);
+        this.gambleTimer.updateDuration(duration);
         this.gambleTimer.start();
         break;
       default:
@@ -220,14 +207,11 @@ class Points {
   toggleGamble() {
     document.querySelector(`#${this.gId} button`).blur();
     let newState = document.querySelector(`#${this.gId} i`).className.includes('off');
-    //SlawAPI.setGambleSetting(this.user.username, newState)
-    // this.updateGambleDOM(newState ? 'on' : 'off');
     let rc = this.rouletteChannel,
         username = this.username;
     if (rc && username) {
       rc.push(`roulette_participants:change_gamble_status:${username}`, {})
     }
-
   }
 
   pointsMarkup(house, title, points) {
@@ -246,6 +230,7 @@ class Points {
     if(context){
       system.storage.sync.get('slaw_enableCoatOfArms', data => {
         if(('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true) {
+          this.hideHouseCoatOfArms();
           document.querySelector('.chat-list__lines .simplebar-content').classList.add(house);
         }
       });

@@ -46,12 +46,4 @@ class SlawAPI{
     //Waiting for points endpoint
     return SlawAPI.getCultist(username);
   }
-
-  static getGambleSetting(username) {
-    return SlawAPI.get('/gamble', {name: username.toLowerCase()});
-  }
-
-  static setGambleSetting(username, setting) {
-    return SlawAPI.post('/gamble', {user: username.toLowerCase(), gamble: setting});
-  }
 }

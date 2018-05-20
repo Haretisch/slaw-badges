@@ -1,4 +1,4 @@
-class Timer {
+class SlawTimer {
   constructor (duration, granularity) {
     this.duration = duration;
     this.granularity = granularity || 1000;

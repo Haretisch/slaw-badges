@@ -71,12 +71,13 @@ class Points {
           console.log("what are we going on")
           let rouletteChannel = apiSocket.channel(`roulette_participants:v0:${usernameText}`);
           rouletteChannel.join().receive("ok", body => {
-            this.rouletteChannel = rouletteChannel
-            rouletteChannel.on(`roulette_participants:status_change:${usernameText}`, body => {
-              console.log(body)
-              let isOn = body.current_participant;
-              this.updateGambleDOM(isOn ? 'on' : 'off');
-            })
+            // do nothing
+          })
+          this.rouletteChannel = rouletteChannel
+          rouletteChannel.on(`roulette_participants:status_change:${usernameText}`, body => {
+            console.log(body)
+            let isOn = body.current_participant;
+            this.updateGambleDOM(isOn ? 'on' : 'off');
           })
         }
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);

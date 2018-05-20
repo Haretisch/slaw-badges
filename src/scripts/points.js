@@ -1,5 +1,5 @@
 class Points {
-  constructor() {
+  constructor(socketBuilder) {
     this.pId = 'slaw-badges-points';
     this.gId = 'slaw-badges-gamble';
     this.usernameHolder = 'div.top-nav-user-menu__username p';
@@ -7,6 +7,7 @@ class Points {
       ? "div.js-chat-buttons.chat-buttons-container.clearfix .chat-interface__viewer-list"
       : "div.chat-input__buttons-container > .tw-flex"
     ;
+    this.socketBuilder = socketBuilder;
     this.user;
     this.username;
     this.interval;
@@ -24,6 +25,7 @@ class Points {
   disconnect() {
     this.hideHouseCoatOfArms();
     window.clearInterval(this.interval);
+    // this.socketBuilder.disconnect();
     document.querySelector(`#${this.gId}`).remove();
     document.querySelector(`#${this.pId}`).remove();
   }
@@ -68,7 +70,25 @@ class Points {
       let username = document.querySelectorAll(this.usernameHolder)[0];
       let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
       if(username && sibling){
-        this.username = username.innerText.toLowerCase();
+        let usernameText = username.innerText.toLowerCase();
+        this.username = usernameText;
+
+        let apiSocket = this.socketBuilder.currentSocket(username);
+        console.log(apiSocket)
+        this.apiSocket = apiSocket;
+        if (!this.rouletteChannel) {
+          console.log("what are we going on")
+          let rouletteChannel = apiSocket.channel(`roulette_participants:v0:${usernameText}`);
+          rouletteChannel.join().receive("ok", body => {
+            // do nothing
+          })
+          this.rouletteChannel = rouletteChannel
+          rouletteChannel.on(`roulette_participants:status_change:${usernameText}`, body => {
+            console.log(body)
+            let isOn = body.current_participant;
+            this.updateGambleDOM(isOn ? 'on' : 'off');
+          })
+        }
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);
         this.getUser();
@@ -101,7 +121,7 @@ class Points {
   getGamble() {
     //SlawAPI.getGamble(this.username).then(json => {
       //show the things
-      this.updateGambleDOM('on');
+      // this.updateGambleDOM('on');
     //});
   }
 
@@ -201,7 +221,13 @@ class Points {
     document.querySelector(`#${this.gId} button`).blur();
     let newState = document.querySelector(`#${this.gId} i`).className.includes('off');
     //SlawAPI.setGambleSetting(this.user.username, newState)
-    this.updateGambleDOM(newState ? 'on' : 'off');
+    // this.updateGambleDOM(newState ? 'on' : 'off');
+    let rc = this.rouletteChannel,
+        username = this.username;
+    if (rc && username) {
+      rc.push(`roulette_participants:change_gamble_status:${username}`, {})
+    }
+
   }
 
   pointsMarkup(house, title, points) {

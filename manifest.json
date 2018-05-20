@@ -30,6 +30,8 @@
       "src/scripts/timer.js",
       "src/scripts/helpers.js",
       "src/scripts/api.js",
+      "src/scripts/phoenix.js",
+      "src/scripts/newapisocket.js",
       "src/scripts/chat.js",
       "src/scripts/users.js",
       "src/scripts/emotes.js",
@@ -69,6 +71,7 @@
   "permissions": [
     "https://www.twitch.tv/*",
     "https://mighty-citadel-48930.herokuapp.com/*",
+    "https://api.sirlsaw.com/*",
     "declarativeContent",
     "activeTab",
     "tabs",

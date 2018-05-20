@@ -34,10 +34,17 @@ class Chat {
       this.chatObserver.observe(this.chat, {childList: true});
       this.loaded = CHAT_ONLY;
     }
+
+    this.registerListener('cleanupGreetings', this.cleanupGreetings);
   }
 
   registerListener(id, callback) {
-    this.listeners.push({id, callback});
+    let i = this.listeners.findIndex(e => {return e.id === id});
+    if(i > -1) {
+      this.listeners[i].callback = callback;
+    } else {
+      this.listeners.push({id, callback});
+    }
   }
 
   unregisterListener(id) {
@@ -48,7 +55,7 @@ class Chat {
     system.storage.sync.get('slaw_enableChubTracker', data => {
       if(('slaw_enableChubTracker' in data) ? data.slaw_enableChubTracker : true) {
         let message = ''
-          + '<div class="tw-mg-y-05 tw-pd-r-2 tw-pd-y-05 user-notice-line">'
+          + '<div class="tw-mg-y-05 tw-pd-r-2 tw-pd-y-05 user-notice-line slaw-greet">'
             + '<div class="tw-c-text-alt-2">'
               + `<span class="tw-c-text tw-strong">${username}</span> is new here. Show them some ${emotes.forceChannelEmote('sirsLove')}!`
             + '</div>'
@@ -59,5 +66,15 @@ class Chat {
       }
     });
   }
-}
 
+  cleanupGreetings() {
+    let chatList = document.querySelector('.chat-list__lines div[role="log"]');
+    //Twitch chat keeps up to 192 messages
+    if(chatList.childNodes.length >= 192) {
+      let oldestMessage = chatList.firstChild;
+      if(oldestMessage && oldestMessage.classList.contains('slaw-greet')) {
+        oldestMessage.remove();
+      }
+    }
+  }
+}

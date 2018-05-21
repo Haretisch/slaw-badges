@@ -9,7 +9,7 @@ class NewApiSocket {
 
   currentSocket(username) {
     if (this.currentApiSocket) { return this.currentApiSocket }
-    console.log("what are we even?")
+    //console.log("what are we even?")
     let socket = new Socket("wss://api.sirslaw.com/socket",
       {
         params: {user: username || ''}

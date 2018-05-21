@@ -3,7 +3,11 @@ class SlawAPI{
     return {
       auth: '',
       address: 'https://mighty-citadel-48930.herokuapp.com/api/grizzly',
-      version: 'v1',
+      channels: {
+        roulette: 'roulette_participants:$v:$username',
+        user_data: 'user_data:$v'
+      },
+      version: 'v0',
     };
   }
 
@@ -45,5 +49,56 @@ class SlawAPI{
   static getPoints(username) {
     //Waiting for points endpoint
     return SlawAPI.getCultist(username);
+  }
+
+  static channelConnect(apiSocket, channelName, parameters, callbacks) {
+    let pattern = new RegExp("\\$(\\w+)\\b", 'g');
+    let connectionString = SlawAPI.config().channels[channelName]
+      .replace(pattern, (match, param) => {
+        if(param === 'v') {
+          return SlawAPI.config().version;
+        } else if(parameters[param]) {
+          return parameters[param];
+        } else {
+          throw `Missing parameter "${match}" for connection to "${channelName}"`;
+        }
+      })
+    ;
+
+    let channel = apiSocket.channel(connectionString);
+    channel.join().receive('ok', body => {
+      if(typeof callbacks.onOpen === 'function') {
+        callbacks.onOpen(body);
+      }
+    });
+
+    SlawAPI.channelAddListener(channel, callbacks);
+
+    return channel;
+  }
+
+  static channelAddListener(channel, callbacks) {
+    let connectionName = channel.topic.substring(0, channel.topic.indexOf(':'));
+
+    for(let callback in callbacks) {
+      if(callback === 'onOpen') { continue; }
+      if(typeof callbacks[callback].func === 'function') {
+        let f = callbacks[callback];
+        let listenerString = `${connectionName}:${callback}`;
+        if(f.endpoint) {listenerString += `:${f.endpoint}`}
+
+        channel.on(listenerString, body => {
+          f.func(body);
+        });
+      }
+    }
+  }
+
+  static channelPush(channel, action, endpoint, body = {}) {
+    let connectionName = channel.topic.substring(0, channel.topic.indexOf(':'));
+    let pushString = `${connectionName}:${action}`;
+    if(endpoint) {pushString += `:${endpoint}`}
+
+    channel.push(pushString, body);
   }
 }

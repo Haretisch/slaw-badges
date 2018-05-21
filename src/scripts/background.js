@@ -32,7 +32,6 @@ system.webNavigation.onHistoryStateUpdated.addListener(
 );
 
 system.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log({message, sender, sendResponse});
   if(sender.id === system.runtime.id) {
     switch(message.action) {
       case 'newTab':

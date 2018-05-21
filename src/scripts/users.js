@@ -60,7 +60,6 @@ class Users {
       if(json.status === 'not_found' && !user.greeted){
         chat.greet(UserName);
         response.greeted = true;
-        console.log(response);
       }
 
       response = {

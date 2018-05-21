@@ -69,8 +69,7 @@ class Chat {
 
   cleanupGreetings() {
     let chatList = document.querySelector('.chat-list__lines div[role="log"]');
-    //Twitch chat keeps up to 192 messages
-    if(chatList.childNodes.length >= 192) {
+    if(chatList.childNodes.length >= 149) {
       let oldestMessage = chatList.firstChild;
       if(oldestMessage && oldestMessage.classList.contains('slaw-greet')) {
         oldestMessage.remove();

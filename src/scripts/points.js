@@ -11,6 +11,7 @@ class Points {
     this.user;
     this.username;
     this.interval;
+
     this.gambleTimerSelector = "slaw-gamble-timer"
     this.gambleTimer = new SlawTimer(15 * 60); // 15 Minutes by default
     this.gambleTimer.onTick((minutes, seconds) => {
@@ -19,7 +20,7 @@ class Points {
         document.querySelector(`.${this.gambleTimerSelector}`).innerText = `${minutes}:${seconds}`;
       }
     });
-    this.gambleTimer.onEnd(() => {this.updateGambleDOM('off')});
+    this.gambleTimer.onEnd(() => {this.updateGambleDOM()});
   }
 
   disconnect() {
@@ -42,7 +43,6 @@ class Points {
     if(context === 'chat'){
       //Get a random Coat of Arms for chat only view, until we can get a way to know who's logged in
       this.user = {house: {name: Object.keys(HOUSES).randomElement()}};
-      console.log(this.user);
       this.showHouseCoatOfArms();
 
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
@@ -70,35 +70,49 @@ class Points {
       let username = document.querySelectorAll(this.usernameHolder)[0];
       let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
       if(username && sibling){
-        let usernameText = username.innerText.toLowerCase();
-        this.username = usernameText;
-
-        let apiSocket = this.socketBuilder.currentSocket(username);
-        console.log(apiSocket)
-        this.apiSocket = apiSocket;
-        if (!this.rouletteChannel) {
-          console.log("what are we going on")
-          let rouletteChannel = apiSocket.channel(`roulette_participants:v0:${usernameText}`);
-          rouletteChannel.join().receive("ok", body => {
-            // do nothing
-          })
-          this.rouletteChannel = rouletteChannel
-          rouletteChannel.on(`roulette_participants:status_change:${usernameText}`, body => {
-            console.log(body)
-            let isOn = body.current_participant;
-            this.updateGambleDOM(isOn ? 'on' : 'off', parseInt(body.time_remaining_in_ms / 1000));
-          })
-        }
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);//Gamble
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);//Points
-        this.getUser();
+
+        this.username = username.innerText.toLowerCase();
+        this.socketConnections();
+        //this.getUser();
       }
     }
   }
 
+  socketConnections() {
+    this.apiSocket = this.socketBuilder.currentSocket(this.username);
+
+    if (!this.rouletteChannel) {
+      this.rouletteChannel = SlawAPI.channelConnect(
+        this.apiSocket,
+        'roulette', // Channel Key
+        {username: this.username}, // Channel parameters
+        { // Channel callbacks
+          status_change: {
+            endpoint: this.username,
+            func: this.updateGambleDOM.bind(this),
+          },
+        }
+      );
+    }
+
+    if (!this.userChannel) {
+      this.userChannel = SlawAPI.channelConnect(
+        this.apiSocket,
+        'user_data', // Channel Key
+        null, // Channel parameters
+        { // Channel callbacks
+          [this.username]: {
+            func: this.updatePointsDOM.bind(this),
+          },
+        }
+      );
+    }
+  }
 
   isStarted() {
-    return document.querySelector(`#${this.pId}`);
+    return document.querySelector(`#${this.pId}`) || document.querySelector(`#${this.gId}`);
   }
 
   getLeaderboard() {
@@ -117,7 +131,7 @@ class Points {
     });
   }
 
-  getPoints() {
+  /*getPoints() {
     SlawAPI.getPoints(this.username).then(json => {
       const points = Math.floor(json.currentPoints);
       const container = document.querySelector(`#${this.pId} .points`);
@@ -158,7 +172,7 @@ class Points {
       window.clearInterval(this.interval);
       this.interval = window.setInterval(this.getUser.bind(this), 360000);
     });
-  }
+  }*/
 
   listener(mutation) {
     //console.log('Points listener');
@@ -187,7 +201,23 @@ class Points {
     ;
   }
 
-  updateGambleDOM(status, duration) {
+  initGambleDOM() {
+    let container = document.querySelector(`#${this.gId}`);
+    container.insertAdjacentHTML('afterBegin', this.gambleMarkup('off'));
+    container.addEventListener('click', this.toggleGamble.bind(this));
+  }
+
+  updateGambleDOM(body, status = 'off', duration = 0) {
+    let container = document.querySelector(`#${this.gId}`);
+    if(!container.childNodes.length) {
+      this.initGambleDOM();
+    }
+
+    if(body) {
+      status = body.current_participant ? 'on' : 'off';
+      duration = parseInt(body.time_remaining_in_ms / 1000);
+    }
+
     let gambleIcon = document.querySelector(`#${this.gId} .gamble`);
     gambleIcon.classList.remove('on', 'off');
     gambleIcon.classList.add(status);
@@ -206,11 +236,9 @@ class Points {
 
   toggleGamble() {
     document.querySelector(`#${this.gId} button`).blur();
-    let newState = document.querySelector(`#${this.gId} i`).className.includes('off');
-    let rc = this.rouletteChannel,
-        username = this.username;
-    if (rc && username) {
-      rc.push(`roulette_participants:change_gamble_status:${username}`, {})
+
+    if (this.rouletteChannel && this.username) {
+      SlawAPI.channelPush(this.rouletteChannel, 'change_gamble_status', this.username);
     }
   }
 
@@ -225,8 +253,41 @@ class Points {
     ;
   }
 
-  showHouseCoatOfArms() {
-    const house = HOUSES[this.user.house.name.toLowerCase()];
+  initPointsDOM(house, title, points) {
+    let container = document.querySelector(`#${this.pId}`);
+    container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
+
+    //Also show Coat of Arms
+    this.showHouseCoatOfArms();
+  }
+
+  updatePointsDOM(body) {
+    if(this.user && this.user.house.name !== body.house.name) {
+      // House has changed! update Coat of Arms and Points className;
+      this.changeUserHouse(this.user.house.name, body.house.name);
+    }
+
+    this.user = body;
+    let house = HOUSES[body.house.name.toLowerCase()];
+    let title = `House ${body.house.name}`;
+    let points = Math.floor(body.points.current);
+
+    let container = document.querySelector(`#${this.pId}`);
+    if(!container.childNodes.length) {
+      this.initPointsDOM(house, title, points);
+    }
+
+    container = document.querySelector(`#${this.pId} .points`);
+    if(container){
+      container.innerText = formatNumber(points);
+    } else {
+      // this.socketBuilder.disconnect(); ??
+    }
+  }
+
+  showHouseCoatOfArms(house = '') {
+    house = (HOUSES[house.toLowerCase()] || HOUSES[this.user.house.name.toLowerCase()]);
+
     if(context){
       system.storage.sync.get('slaw_enableCoatOfArms', data => {
         if(('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true) {
@@ -243,5 +304,25 @@ class Points {
 
   toggleCoatOfArms({display}) {
     display ? this.showHouseCoatOfArms() : this.hideHouseCoatOfArms()
+  }
+
+  changeUserHouse(oldHouse, newHouse) {
+    let oldClass = HOUSES[oldHouse.toLowerCase()];
+    let newClass = HOUSES[newHouse.toLowerCase()];
+
+    let badge = document.querySelector(`#${this.pId} .badge`);
+    let title = document.querySelector(`#${this.pId} .title`);
+    let points = document.querySelector(`#${this.pId} .points`);
+
+    //Isn't updating properly
+    this.showHouseCoatOfArms(newHouse);
+
+    badge.classList.remove(oldClass);
+    badge.classList.add(newClass);
+    title.innerText = `House ${newHouse}`;
+
+    points.classList.remove(oldClass);
+    points.classList.add(newClass);
+
   }
 }

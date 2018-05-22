@@ -101,7 +101,7 @@ class Points {
       this.userChannel = SlawAPI.channelConnect(
         this.apiSocket,
         'user_data', // Channel Key
-        null, // Channel parameters
+        {username: this.username}, // Channel parameters
         { // Channel callbacks
           [this.username]: {
             func: this.updatePointsDOM.bind(this),

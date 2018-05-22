@@ -65,7 +65,7 @@ class SlawAPI{
       })
     ;
 
-    let channel = apiSocket.channel(connectionString);
+    let channel = apiSocket.channel(connectionString, parameters || {});
     channel.join().receive('ok', body => {
       if(typeof callbacks.onOpen === 'function') {
         callbacks.onOpen(body);

@@ -138,3 +138,10 @@ html.tw-theme--dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr, bod
     background: transparent url("moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/h3.png") no-repeat right center; } }
 .right-column--theatre .chat-list__lines .simplebar-content:before {
   width: 339px; }
+
+.viewer-card__banner .viewer-card__display-name {
+  max-width: 180px; }
+.viewer-card__banner div[data-a-target="chat-badge"] {
+  align-self: center;
+  height: 25px;
+  pointer-events: none; }

@@ -164,3 +164,15 @@ html, body {
     }
   }
 }
+
+.viewer-card__banner {
+  .viewer-card__display-name {
+    max-width: 180px;
+  }
+
+  div[data-a-target="chat-badge"] {
+    align-self: center;
+    height: 25px;
+    pointer-events: none;
+  }
+}

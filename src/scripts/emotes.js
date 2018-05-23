@@ -3,7 +3,10 @@ class Emotes {
     this.commentClassName = CHAT_ONLY ? ['message-line'] : ['chat-line__message', 'chat-line__subscribe'];
     this.messageTextSelector = CHAT_ONLY ? '.message' : 'span[data-a-target="chat-message-text"]';
     this.emotes = [ //Emotes should be available in 3 sizes, 28, 56 and 112 pixels-squared
-      'GC','LS', 'IB', 'sirsChallenge'
+      'GC', 'GCHD',
+      'LS', 'LSHD',
+      'IB', 'IBHD',
+      'sirsChallenge',
     ];
     this.channelEmotes = {
       'sirsLove': '793552',

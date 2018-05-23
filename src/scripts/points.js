@@ -47,7 +47,9 @@ class Points {
 
       //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
       document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="float-left"></div>`);
-      let container = document.querySelectorAll(`#${this.pId}`)[0];
+      this.apiSocket = this.socketBuilder.currentSocket('');
+      this.socketLeaderboard();
+      /*let container = document.querySelectorAll(`#${this.pId}`)[0];
 
       SlawAPI.getLeaderboard().then(json => {
         let gcProfile = json.houseProfiles[0].profiles[0];
@@ -63,51 +65,22 @@ class Points {
         container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
         window.clearInterval(this.interval);
         this.interval = window.setInterval(this.getLeaderboard.bind(this), 300000);
-      });
+      });*/
     }else{
       //Check if user is logged in, or if we can get the username at all
       //  and that the sibling, and therefore the expected container, exists before inserting
       let username = document.querySelectorAll(this.usernameHolder)[0];
       let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
       if(username && sibling){
+        this.username = username.innerText.toLowerCase();
+        this.apiSocket = this.socketBuilder.currentSocket(this.username);
+
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);//Gamble
         sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);//Points
 
-        this.username = username.innerText.toLowerCase();
-        this.socketConnections();
-        //this.getUser();
+        this.socketRoulette();
+        this.socketUser();
       }
-    }
-  }
-
-  socketConnections() {
-    this.apiSocket = this.socketBuilder.currentSocket(this.username);
-
-    if (!this.rouletteChannel) {
-      this.rouletteChannel = SlawAPI.channelConnect(
-        this.apiSocket,
-        'roulette', // Channel Key
-        {username: this.username}, // Channel parameters
-        { // Channel callbacks
-          status_change: {
-            endpoint: this.username,
-            func: this.updateGambleDOM.bind(this),
-          },
-        }
-      );
-    }
-
-    if (!this.userChannel) {
-      this.userChannel = SlawAPI.channelConnect(
-        this.apiSocket,
-        'user_data', // Channel Key
-        {username: this.username}, // Channel parameters
-        { // Channel callbacks
-          [this.username]: {
-            func: this.updatePointsDOM.bind(this),
-          },
-        }
-      );
     }
   }
 
@@ -115,67 +88,35 @@ class Points {
     return document.querySelector(`#${this.pId}`) || document.querySelector(`#${this.gId}`);
   }
 
-  getLeaderboard() {
-    SlawAPI.getLeaderboard().then(json => {
-      let gcProfile = json.houseProfiles[0].profiles[0];
-      let lsProfile = json.houseProfiles[1].profiles[0];
-      let ibProfile = json.houseProfiles[2].profiles[0];
-
-      const h1 = Math.floor(gcProfile.points.current + gcProfile.points.tips + gcProfile.points.cheers + gcProfile.points.subscriptions);
-      const h2 = Math.floor(lsProfile.points.current + lsProfile.points.tips + lsProfile.points.cheers + lsProfile.points.subscriptions);
-      const h3 = Math.floor(ibProfile.points.current + ibProfile.points.tips + ibProfile.points.cheers + ibProfile.points.subscriptions);
-
-      document.querySelectorAll(`#${this.pId}.points.h1`)[0].innerText = formatNumber(h1);
-      document.querySelectorAll(`#${this.pId}.points.h2`)[0].innerText = formatNumber(h2);
-      document.querySelectorAll(`#${this.pId}.points.h3`)[0].innerText = formatNumber(h3);
-    });
-  }
-
-  /*getPoints() {
-    SlawAPI.getPoints(this.username).then(json => {
-      const points = Math.floor(json.currentPoints);
-      const container = document.querySelector(`#${this.pId} .points`);
-
-      if(container){
-        container.innerText = formatNumber(points);
-      } else {
-        window.clearInterval(this.interval);
-      }
-    });
-  }
-
-  getUser() {
-    let pContainer = document.querySelector(`#${this.pId}`);
-    let gContainer = document.querySelector(`#${this.gId}`);
-
-    SlawAPI.getCultist(this.username).then(json => {
-      this.user = json;
-      const house = HOUSES[json.house.name.toLowerCase()];
-      const title = 'House ' + json.house.name;
-      const points = Math.floor(json.currentPoints);
-
-      //chat.registerListener('points', this.listener.bind(this));
-      this.showHouseCoatOfArms();
-
-      //TODO set status properly and start timer with proper duration;
-      gContainer.insertAdjacentHTML('afterBegin', this.gambleMarkup('off'));
-      pContainer.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
-      gContainer.addEventListener('click', this.toggleGamble.bind(this));
-
-      window.clearInterval(this.interval);
-      this.interval = window.setInterval(() => {
-        this.getPoints.bind(this);
-      }, 600000);
-    }).catch(err => {
-      //depending on error, use this.interval to refetch follower
-      //  for now don't check for the cause
-      window.clearInterval(this.interval);
-      this.interval = window.setInterval(this.getUser.bind(this), 360000);
-    });
-  }*/
-
   listener(mutation) {
     //console.log('Points listener');
+  }
+
+  initLeaderboardDOM(h1, h2, h3) {
+    let container = document.querySelector(`#${this.pId}`);
+    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
+    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
+    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
+  }
+
+  updateLeaderboardDOM(body) {
+    let keys = Object.keys(body);
+    let gc = keys.map(k => {if(body[k].houseName === 'Gryffinclaw'){ return body[k]; }}).filter(i => !!i)[0];
+    let ls = keys.map(k => {if(body[k].houseName === 'Lannistark'){ return body[k]; }}).filter(i => !!i)[0];
+    let ib = keys.map(k => {if(body[k].houseName === 'Ironbeard'){ return body[k]; }}).filter(i => !!i)[0];
+
+    let h1 = Math.floor(gc.points.current + gc.points.tips + gc.points.cheers + gc.points.subscriptions);
+    let h2 = Math.floor(ls.points.current + ls.points.tips + ls.points.cheers + ls.points.subscriptions);
+    let h3 = Math.floor(ib.points.current + ib.points.tips + ib.points.cheers + ib.points.subscriptions);
+
+    let container = document.querySelector(`#${this.pId}`);
+    if(!container.childNodes.length) {
+      this.initLeaderboardDOM(h1, h2, h3);
+    }
+
+    container.querySelectorAll(".points.h1")[0].innerText = formatNumber(h1);
+    container.querySelectorAll(".points.h2")[0].innerText = formatNumber(h2);
+    container.querySelectorAll(".points.h3")[0].innerText = formatNumber(h3);
   }
 
   gambleMarkup(status) {
@@ -323,6 +264,52 @@ class Points {
 
     points.classList.remove(oldClass);
     points.classList.add(newClass);
+  }
 
+  socketLeaderboard() {
+    if (!this.leaderboardChannel) {
+      this.leaderboardChannel = SlawAPI.channelConnect(
+        this.apiSocket,
+        'houses', // Channel Key
+        null, // Channel parameters
+        { // Channel callbacks
+          update: {
+            path: 'house_points:update',
+            func: this.updateLeaderboardDOM.bind(this),
+          },
+        }
+      );
+    }
+  }
+
+  socketRoulette() {
+    if (!this.rouletteChannel) {
+      this.rouletteChannel = SlawAPI.channelConnect(
+        this.apiSocket,
+        'roulette', // Channel Key
+        {username: this.username}, // Channel parameters
+        { // Channel callbacks
+          status_change: {
+            endpoint: this.username,
+            func: this.updateGambleDOM.bind(this),
+          },
+        }
+      );
+    }
+  }
+
+  socketUser() {
+    if (!this.userChannel) {
+      this.userChannel = SlawAPI.channelConnect(
+        this.apiSocket,
+        'user_data', // Channel Key
+        {username: this.username}, // Channel parameters
+        { // Channel callbacks
+          [this.username]: {
+            func: this.updatePointsDOM.bind(this),
+          },
+        }
+      );
+    }
   }
 }

@@ -5,7 +5,8 @@ class SlawAPI{
       address: 'https://mighty-citadel-48930.herokuapp.com/api/grizzly',
       channels: {
         roulette: 'roulette_participants:$v:$username',
-        user_data: 'user_data:$v'
+        user_data: 'user_data:$v',
+        houses: 'houses:$v',
       },
       version: 'v0',
     };
@@ -83,9 +84,16 @@ class SlawAPI{
     for(let callback in callbacks) {
       if(callback === 'onOpen') { continue; }
       if(typeof callbacks[callback].func === 'function') {
+        let listenerString;
         let f = callbacks[callback];
-        let listenerString = `${connectionName}:${callback}`;
-        if(f.endpoint) {listenerString += `:${f.endpoint}`}
+        if(f.path){
+          listenerString = f.path;
+        } else {
+          listenerString = `${connectionName}:${callback}`;
+          if(f.endpoint) {
+            listenerString += `:${f.endpoint}`;
+          }
+        }
 
         channel.on(listenerString, body => {
           f.func(body);

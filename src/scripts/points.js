@@ -49,23 +49,6 @@ class Points {
       document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="float-left"></div>`);
       this.apiSocket = this.socketBuilder.currentSocket('');
       this.socketLeaderboard();
-      /*let container = document.querySelectorAll(`#${this.pId}`)[0];
-
-      SlawAPI.getLeaderboard().then(json => {
-        let gcProfile = json.houseProfiles[0].profiles[0];
-        let lsProfile = json.houseProfiles[1].profiles[0];
-        let ibProfile = json.houseProfiles[2].profiles[0];
-
-        const h1 = Math.floor(gcProfile.points.current + gcProfile.points.tips + gcProfile.points.cheers + gcProfile.points.subscriptions);
-        const h2 = Math.floor(lsProfile.points.current + lsProfile.points.tips + lsProfile.points.cheers + lsProfile.points.subscriptions);
-        const h3 = Math.floor(ibProfile.points.current + ibProfile.points.tips + ibProfile.points.cheers + ibProfile.points.subscriptions);
-
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
-        container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
-        window.clearInterval(this.interval);
-        this.interval = window.setInterval(this.getLeaderboard.bind(this), 300000);
-      });*/
     }else{
       //Check if user is logged in, or if we can get the username at all
       //  and that the sibling, and therefore the expected container, exists before inserting

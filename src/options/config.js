@@ -8,7 +8,7 @@ system.storage.sync.get('slaw_enableCoatOfArms', data => {
   enableBackground.checked = ('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true;
 });
 system.storage.sync.get('slaw_enableNewTabs', data => {
-  enableNewTabs.checked = ('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : true;
+  enableNewTabs.checked = ('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : false;
 });
 system.storage.sync.get('slaw_enableChubTracker', data => {
   enableChubTracker.checked = ('slaw_enableChubTracker' in data) ? data.slaw_enableChubTracker : true;

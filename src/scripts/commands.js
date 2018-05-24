@@ -11,6 +11,7 @@ class Commands {
       '!instagram': this.sirslawtv.bind(this, 'instagram'),
       '!podcast': this.sirslawtv.bind(this, 'podcast'),
       '!slawcast': this.sirslawtv.bind(this, 'podcast'),
+      '!charity' : this.stjudelink.bind(this),
     };
   }
 
@@ -66,5 +67,12 @@ class Commands {
         target: `https://sirslaw.tv/${path}?utm_source=twitchBrowserExtension`,
       });
     }
+  }
+
+  stjudelink() {
+    system.runetime.sendMessage({
+      action: 'newTab',
+      target: 'https://tiltify.com/@sirslaw/sirslaws-charity-event-may-2018/donate'
+    });
   }
 }

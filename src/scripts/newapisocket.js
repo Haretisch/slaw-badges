@@ -20,12 +20,12 @@ class NewApiSocket {
     socket.connect();
     socket.onOpen( () => {
       connected = true
-      console.log("Websockets opened...")
+      //console.log("Websockets opened...")
     })
     socket.onClose( (event) => {
-      console.log("close")
+      //console.log("close")
       connected = false
-      console.log(event)
+      //console.log(event)
     })
     socket.onError( (arg) => {
       console.log("socket error")

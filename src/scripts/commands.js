@@ -44,7 +44,7 @@ class Commands {
         let args = comment.querySelector('span[data-a-target=chat-message-text]').innerText.split(' ');
         let command = args.splice(0, 1).join().toLowerCase();
 
-        if(command in this.commands){
+        if(command in this.commands) {
           this.commands[command](args);
         }
       }
@@ -52,7 +52,7 @@ class Commands {
   }
 
   giftlink([giftee]) {
-    if(typeof giftee === 'string'){
+    if(typeof giftee === 'string') {
       system.runtime.sendMessage({
         action: 'newTab',
         target: `https://www.twitch.tv/products/sirslaw/ticket?no-mobile-redirect=true&recipient=${giftee}`,
@@ -61,7 +61,7 @@ class Commands {
   }
 
   sirslawtv(path/*, [...args]*/) {
-    if(typeof path === 'string'){
+    if(typeof path === 'string') {
       system.runtime.sendMessage({
         action: 'newTab',
         target: `https://sirslaw.tv/${path}?utm_source=twitchBrowserExtension`,
@@ -70,7 +70,7 @@ class Commands {
   }
 
   stjudelink() {
-    system.runetime.sendMessage({
+    system.runtime.sendMessage({
       action: 'newTab',
       target: 'https://tiltify.com/@sirslaw/sirslaws-charity-event-may-2018/donate'
     });

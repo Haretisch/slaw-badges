@@ -38,7 +38,7 @@ function getContext(url) {
     {key: 'stream', identifier: `/${STREAMER}`},
   ];
 
-  let targetUrl = url ? url : window.location.pathname;
+  let targetUrl = url ? url : window.location.pathname.toLowerCase();
 
   return (contexts.find(c => {
     return targetUrl.includes(c.identifier)

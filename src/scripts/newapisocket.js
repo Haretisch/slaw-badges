@@ -9,7 +9,7 @@ class NewApiSocket {
 
   currentSocket(username) {
     if (this.currentApiSocket) { return this.currentApiSocket }
-    //console.log("what are we even?")
+    console.log("what are we even?")
     let socket = new Socket("wss://api.sirslaw.com/socket",
       {
         params: {user: username || ''}
@@ -20,7 +20,7 @@ class NewApiSocket {
     socket.connect();
     socket.onOpen( () => {
       connected = true
-      //console.log("Websockets opened...")
+      console.log("Websockets opened...")
     })
     socket.onClose( (event) => {
       //console.log("close")

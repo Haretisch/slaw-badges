@@ -11,7 +11,7 @@ class Commands {
       '!instagram': this.sirslawtv.bind(this, 'instagram'),
       '!podcast': this.sirslawtv.bind(this, 'podcast'),
       '!slawcast': this.sirslawtv.bind(this, 'podcast'),
-      '!charity' : this.stjudelink.bind(this),
+      '!charity' : this.sirslawtv.bind(this, 'charity'),
     };
   }
 

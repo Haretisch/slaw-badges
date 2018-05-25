@@ -26,9 +26,14 @@ const twitchObserver = new MutationObserver(mutations => {
     let chatOptionsIdentifiers = CHAT_ONLY
       ? ["div.js-chat-buttons.chat-buttons-container.clearfix"]
       : [
+          //Username
+          "div.top-nav__nav-items-container.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-flex-nowrap.tw-flex-shrink-0",
           "div.top-nav__nav-items-container.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-flex-shrink-0.tw-flex-nowrap",
+          "div.tw-align-items-stretch.tw-flex.tw-flex-grow-1.tw-full-height.tw-relative",
+          //Chat box area
           "textarea.tw-textarea.tw-textarea--no-resize",
-          "div.root-scrollable__wrapper.tw-full-width.tw-relative"
+          "div.root-scrollable__wrapper.tw-full-width.tw-relative",
+          "div.chat-list__lines.tw-flex-grow-1.scrollable-area",
         ]
     ;
     if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target)) && !points.isStarted()){

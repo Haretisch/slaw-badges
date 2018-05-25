@@ -121,7 +121,7 @@ class Points {
   getGambleTitle(status) {
     return status === 'on'
       ? `<strong>Gambled IN</strong><br />For: <span class="${this.gambleTimerSelector}">15:00</span><hr />Glintering gold.<br />Trinkets and baubles...<br />Paid for in blood.`
-      : "<strong>Gambled OUT</strong><hr />I'm never gamble again,<br />(Guilty feet have got...)"
+      : "<strong>Gambled OUT</strong><hr />I'm never gonna gamble again,<br />(Guilty feet have got...)"
     ;
   }
 

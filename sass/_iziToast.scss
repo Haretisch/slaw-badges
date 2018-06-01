@@ -1,0 +1,71 @@
+/*Custom styles foriziToasts*/
+
+.iziToast-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 20px 30px !important;
+
+  &.iziToast-wrapper-topLeft {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &.iziToast-wrapper-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &.iziToast-wrapper-topRight {
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  &.iziToast-wrapper-bottomLeft {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &.iziToast-wrapper-bottom {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  &.iziToast-wrapper-bottomRight {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .iziToast-capsule {
+    display: inline-block;
+    pointer-events: all;
+
+    .iziToast {
+      display: inline-flex;
+      padding: 0 18px 0;
+
+      .iziToast-body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-self: center;
+
+        .iziToast-texts {
+          padding: 0;
+          margin: 0;
+          align-self: center;
+
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

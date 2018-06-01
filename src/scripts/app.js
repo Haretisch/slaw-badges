@@ -3,7 +3,7 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = false; //context === 'chat';
-let badges, chat, commands, emotes, points, users, features, newApiSocket;
+let badges, chat, commands, emotes, points, users, features, newApiSocket, toasts;
 
 // Prepare to observe/listen to mutations in the DOM and react to them;
 const twitchObserver = new MutationObserver(mutations => {
@@ -39,6 +39,7 @@ const twitchObserver = new MutationObserver(mutations => {
     if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target)) && !points.isStarted()){
       points.initialize();
       commands.initialize();
+      //toasts.toast('This is a test!');
     }
   });
 });
@@ -74,9 +75,10 @@ function start() {
   if(!users) users = new Users();
   if(!emotes) emotes = new Emotes();
   if(!badges) badges = new Badges();
+  if(!toasts) toasts = new Toasts();
   if(!points) points = new Points(newApiSocket);
   if(!commands) commands = new Commands();
-  features = {badges, chat, commands, emotes, points, users, newApiSocket};
+  features = {badges, chat, commands, emotes, newApiSocket, points, users, toasts};
 
   twitchObserver.observe(twitch, {childList: true, subtree: true});
   chat.observeChat();

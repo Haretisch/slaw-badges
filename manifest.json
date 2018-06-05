@@ -3,7 +3,7 @@
 
   "name": "SlawBadges",
   "description": "Adds members' house icon as a twitch badge and other features in the chat feed.",
-  "version": "2018.05.24",
+  "version": "2018.6.4",
 
   "applications": {
     "gecko": {

@@ -8,6 +8,7 @@ class Points {
       : "div.chat-input__buttons-container > .tw-flex"
     ;
     this.socketBuilder = socketBuilder;
+    this.leaderboard;
     this.user;
     this.username;
     this.interval;
@@ -58,8 +59,8 @@ class Points {
         this.username = username.innerText.toLowerCase();
         this.apiSocket = this.socketBuilder.currentSocket(this.username);
 
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="tw-flex tw-flex-row"></div>`);//Gamble
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="tw-flex tw-flex-row"></div>`);//Points
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="slaw-flex tw-flex-row"></div>`);//Gamble
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="slaw-flex tw-flex-row"></div>`);//Points
 
         this.socketRoulette();
         this.socketUser();
@@ -83,10 +84,14 @@ class Points {
   }
 
   updateLeaderboardDOM(body) {
-    let keys = Object.keys(body);
-    let gc = keys.map(k => {if(body[k].houseName === 'Gryffinclaw'){ return body[k]; }}).filter(i => !!i)[0];
-    let ls = keys.map(k => {if(body[k].houseName === 'Lannistark'){ return body[k]; }}).filter(i => !!i)[0];
-    let ib = keys.map(k => {if(body[k].houseName === 'Ironbeard'){ return body[k]; }}).filter(i => !!i)[0];
+    if(body) {
+      this.leaderboard = body;
+    }
+
+    let keys = Object.keys(this.leaderboard);
+    let gc = keys.map(k => {if(this.leaderboard[k].houseName === 'Gryffinclaw'){ return this.leaderboard[k]; }}).filter(i => !!i)[0];
+    let ls = keys.map(k => {if(this.leaderboard[k].houseName === 'Lannistark'){ return this.leaderboard[k]; }}).filter(i => !!i)[0];
+    let ib = keys.map(k => {if(this.leaderboard[k].houseName === 'Ironbeard'){ return this.leaderboard[k]; }}).filter(i => !!i)[0];
 
     let h1 = Math.floor(gc.points.current + gc.points.tips + gc.points.cheers + gc.points.subscriptions);
     let h2 = Math.floor(ls.points.current + ls.points.tips + ls.points.cheers + ls.points.subscriptions);
@@ -140,6 +145,8 @@ class Points {
     if(body) {
       status = body.current_participant ? 'on' : 'off';
       duration = parseInt(body.time_remaining_in_ms / 1000);
+    } else {
+      status = this.gambleTimer.running ? 'on' : 'off';
     }
 
     let gambleIcon = document.querySelector(`#${this.gId} .gamble`);
@@ -150,8 +157,10 @@ class Points {
 
     switch(status) {
       case 'on':
-        this.gambleTimer.updateDuration(duration);
-        this.gambleTimer.start();
+        if(!this.gambleTime.running) {
+          this.gambleTimer.updateDuration(duration);
+          this.gambleTimer.start();
+        }
         break;
       default:
         this.gambleTimer.stop();
@@ -186,15 +195,18 @@ class Points {
   }
 
   updatePointsDOM(body) {
-    if(this.user && this.user.house.name !== body.house.name) {
+    if(this.user && body && this.user.house.name !== body.house.name) {
       // House has changed! update Coat of Arms and Points className;
       this.changeUserHouse(this.user.house.name, body.house.name);
     }
 
-    this.user = body;
-    let house = HOUSES[body.house.name.toLowerCase()];
-    let title = `House ${body.house.name}`;
-    let points = Math.floor(body.points.current);
+    if(body) {
+      this.user = body;
+    }
+
+    let house = HOUSES[this.user.house.name.toLowerCase()];
+    let title = `House ${this.user.house.name}`;
+    let points = Math.floor(this.user.points.current);
 
     let container = document.querySelector(`#${this.pId}`);
     if(!container.childNodes.length) {
@@ -262,6 +274,8 @@ class Points {
           },
         }
       );
+    } else {
+      this.updateLeaderboardDOM();
     }
   }
 
@@ -278,6 +292,8 @@ class Points {
           },
         }
       );
+    } else {
+      this.updateGambleDOM();
     }
   }
 
@@ -293,6 +309,8 @@ class Points {
           },
         }
       );
+    } else {
+      this.updatePointsDOM();
     }
   }
 }

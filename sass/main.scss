@@ -27,6 +27,10 @@ $dark_grey : #303030;
   background-attachment: fixed;
 }
 
+.slaw-flex {
+  display: flex!important;
+}
+
 #slaw-badges-points {
   &.float-left {
     display: inline-block;

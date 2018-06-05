@@ -28,6 +28,9 @@
 .icon-dice:before {
   content: "\e915"; }
 
+.slaw-flex {
+  display: flex !important; }
+
 #slaw-badges-points.float-left {
   display: inline-block;
   line-height: 3rem;

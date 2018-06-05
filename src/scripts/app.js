@@ -34,6 +34,7 @@ const twitchObserver = new MutationObserver(mutations => {
           "textarea.tw-textarea.tw-textarea--no-resize",
           "div.root-scrollable__wrapper.tw-full-width.tw-relative",
           "div.chat-list__lines.tw-flex-grow-1.scrollable-area",
+          "div.chat-input.tw-pd-b-2.tw-pd-x-2",
         ]
     ;
     if(chatOptionsIdentifiers.includes(elementIdentifier(mutation.target)) && !points.isStarted()){

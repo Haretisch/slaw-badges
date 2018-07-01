@@ -1,6 +1,6 @@
 class Badges {
   constructor() {
-    this.commentClassName = CHAT_ONLY ? ['message-line'] : ['chat-line__message', 'chat-line__subscribe'];
+    this.commentClassName = ['chat-line__message', 'chat-line__subscribe'];
 
     chat.registerListener('badges', this.listener.bind(this));
   }
@@ -24,7 +24,7 @@ class Badges {
 
   badge(badge, title) {
     return ''
-      + '<div class="tw-tooltip-wrapper tw-inline viewer-card-drag-cancel' + (CHAT_ONLY ? ' float-left' : '') + '" data-a-target="chat-badge">'
+      + '<div class="tw-tooltip-wrapper tw-inline viewer-card-drag-cancel" data-a-target="chat-badge">'
         + '<img alt="' + title + '" class="chat-badge" src="' + badge + '18.png" srcset="' + badge + '18.png 1x, ' + badge + '36.png 2x, ' + badge + '72.png 4x">'
         + '<div class="tw-tooltip tw-tooltip--up tw-tooltip--align-left" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">' + title + '</div>'
       + '</div>'
@@ -34,10 +34,6 @@ class Badges {
   findBadgeContainer(container) {
     if(container.classList.contains('viewer-card__banner')){
       return container;
-    }
-
-    if(CHAT_ONLY){
-      return container.querySelectorAll('.badges')[0];
     }
 
     let spanList = container.querySelectorAll('span');
@@ -56,7 +52,7 @@ class Badges {
       comment = subMessage;
     }
 
-    let selector = CHAT_ONLY ? '.from' : '.chat-author__display-name';
+    let selector = '.chat-author__display-name';
     let holder;
     if(holder = comment.querySelectorAll(selector)[0]){
       const username = comment.querySelectorAll(selector)[0].textContent;
@@ -85,7 +81,7 @@ class Badges {
     //Only want to add badges to actual user messages, not system alerts or w/e;
     let classList = mutation.addedNodes[0].classList;
     if(classList && classList.value.containsOneOf(this.commentClassName)){
-      if(!CHAT_ONLY || !classList.contains('admin')){
+      if(!classList.contains('admin')){
         this.getUserInfo(mutation.addedNodes[0]);
       }
     }

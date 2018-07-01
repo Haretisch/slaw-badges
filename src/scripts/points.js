@@ -3,10 +3,7 @@ class Points {
     this.pId = 'slaw-badges-points';
     this.gId = 'slaw-badges-gamble';
     this.usernameHolder = 'div.top-nav-user-menu__username p';
-    this.pointsSiblingIdentifier = CHAT_ONLY
-      ? "div.js-chat-buttons.chat-buttons-container.clearfix .chat-interface__viewer-list"
-      : "div.chat-input__buttons-container > .tw-flex"
-    ;
+    this.pointsSiblingIdentifier = "div.chat-input__buttons-container > .tw-flex";
     this.socketBuilder = socketBuilder;
     this.leaderboard;
     this.user;
@@ -37,25 +34,21 @@ class Points {
   }
 
   initialize() {
-    //Only initialize if we can't find the added markup
-    if(this.isStarted()){
-      return;
-    }
-    if(context === 'chat'){
-      //Get a random Coat of Arms for chat only view, until we can get a way to know who's logged in
-      this.user = {house: {name: Object.keys(HOUSES).randomElement()}};
-      this.showHouseCoatOfArms();
+    this.waitForMarkup(CHAT_ONLY).then(({username, sibling}) => {
+      //Only initialize if we can't find the added markup
+      if(this.isStarted()){
+        return;
+      }
+      if(CHAT_ONLY){
+        //Get a random Coat of Arms for chat only view, until we can get a way to know who's logged in
+        this.user = {house: {name: Object.keys(HOUSES).randomElement()}};
+        this.showHouseCoatOfArms();
 
-      //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
-      document.querySelectorAll(this.pointsSiblingIdentifier)[0].insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="float-left"></div>`);
-      this.apiSocket = this.socketBuilder.currentSocket('');
-      this.socketLeaderboard();
-    }else{
-      //Check if user is logged in, or if we can get the username at all
-      //  and that the sibling, and therefore the expected container, exists before inserting
-      let username = document.querySelectorAll(this.usernameHolder)[0];
-      let sibling = document.querySelectorAll(this.pointsSiblingIdentifier)[0];
-      if(username && sibling){
+        //For now this Slaw's place. Since we can't confirm who's accessing this page assume it's him and show all houses' points.
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="float-left"></div>`);
+        this.apiSocket = this.socketBuilder.currentSocket('');
+        this.socketLeaderboard();
+      }else{
         this.username = username.innerText.toLowerCase();
         this.apiSocket = this.socketBuilder.currentSocket(this.username);
 
@@ -65,7 +58,7 @@ class Points {
         this.socketRoulette();
         this.socketUser();
       }
-    }
+    });
   }
 
   isStarted() {
@@ -157,7 +150,7 @@ class Points {
 
     switch(status) {
       case 'on':
-        if(!this.gambleTime.running) {
+        if(!this.gambleTimer.running) {
           this.gambleTimer.updateDuration(duration);
           this.gambleTimer.start();
         }
@@ -312,5 +305,21 @@ class Points {
     } else {
       this.updatePointsDOM();
     }
+  }
+
+  waitForMarkup(chatOnly) {
+    return new Promise(resolve => {
+      const wait = () => {
+        let ps = document.querySelector(this.pointsSiblingIdentifier);
+        let un = chatOnly ? true : document.querySelector(this.usernameHolder)
+        ;
+        if(un && ps) {
+          resolve({username: un, sibling: ps});
+        } else {
+          window.requestAnimationFrame(wait);
+        }
+      };
+      wait();
+    });
   }
 }

@@ -1,9 +1,9 @@
 class Chat {
   constructor() {
-    this.loaded = false;
     this.listeners = [
       //{id: unique_listener_id, callback: callback_function()}
     ]
+    this.chatIdentifier = ".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height";
 
     this.chatObserver = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
@@ -24,17 +24,14 @@ class Chat {
   }
 
   observeChat() {
-    // Listen for children (add/remove) mutations only: {childList: true}
-    //  If we are on Slaw's page
-    this.chat = CHAT_ONLY
-      ? document.querySelector("ul.chat-lines")
-      : document.querySelector(".chat-list__lines .simplebar-scroll-content .simplebar-content .tw-full-height")
-    ;
-    if(!this.loaded && this.chat && window.location.pathname.includes(STREAMER)){
-      this.chatObserver.observe(this.chat, {childList: true});
-      this.chatObserver.observe(document.querySelector(".viewer-card-layer"), {childList: true, subtree: true});
-      this.loaded = CHAT_ONLY;
-    }
+    this.waitForMarkup().then(chat => {
+      // Listen for children (add/remove) mutations only: {childList: true}
+      //  If we are on Slaw's page
+      if(window.location.pathname.includes(STREAMER)){
+        this.chatObserver.observe(chat, {childList: true});
+        this.chatObserver.observe(document.querySelector(".viewer-card-layer"), {childList: true, subtree: true});
+      }
+    });
 
     this.registerListener('cleanupGreetings', this.cleanupGreetings);
   }
@@ -76,5 +73,19 @@ class Chat {
         oldestMessage.remove();
       }
     }
+  }
+
+  waitForMarkup() {
+    return new Promise(resolve => {
+      const wait = () => {
+        let elm = document.querySelector(this.chatIdentifier);
+        if(elm) {
+          resolve(elm);
+        } else {
+          window.requestAnimationFrame(wait);
+        }
+      };
+      wait();
+    });
   }
 }

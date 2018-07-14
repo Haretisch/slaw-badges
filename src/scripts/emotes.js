@@ -8,7 +8,9 @@ class Emotes {
       'IB', 'IBHD',
       'sirsChallenge',
       'sirsMiss',
+      'sirsFab',
       'sirsFab1', 'sirsFab2', 'sirsFab3', 'sirsFab4',
+      'sirsLips',
       'sirsLips1', 'sirsLips2', 'sirsLips3', 'sirsLips4',
     ];
     this.channelEmotes = {

@@ -40,6 +40,7 @@ function start() {
   chat.observeChat();
   points.initialize();
   commands.initialize();
+  emotes.initialize();
 }
 
 function stop() {

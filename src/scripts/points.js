@@ -9,6 +9,13 @@ class Points {
     this.user;
     this.username;
     this.interval;
+    this.flags = {
+      subscriber: 'Subscriber',
+      notifications: 'Notifications On',
+      hosting: 'Hosting',
+      following: 'Following',
+    }
+    this.flagsKeys = Object.keys(this.flags).sort();
 
     this.gambleTimerSelector = "slaw-gamble-timer"
     this.gambleTimer = new SlawTimer(15 * 60); // 15 Minutes by default
@@ -197,8 +204,13 @@ class Points {
       this.user = body;
     }
 
+    let multiplier = Math.pow(2, this.flagsKeys.filter(f => body.pointFlags[f]).length);
+
     let house = HOUSES[this.user.house.name.toLowerCase()];
-    let title = `House ${this.user.house.name}`;
+    let title = `Points multiplier x${multiplier}`;
+    this.flagsKeys.forEach(flag => {
+      title += `<br/ ><span style="display: inline-block; width: 10px;">${body.pointFlags[flag] ? '✓' : ''}</span> ${this.flags[flag]}`;
+    });
     let points = Math.floor(this.user.points.current);
 
     let container = document.querySelector(`#${this.pId}`);

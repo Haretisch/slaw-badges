@@ -26,6 +26,10 @@ String.prototype.containsOneOf = function(array) {
     return array.some(s => this.includes(s));
 };
 
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 function elementIdentifier(elm){
   return elm.localName + (elm.id ? '#' + elm.id : '') + (elm.className && elm.className.split ? '.' + elm.className.trim().split(' ').join('.') : '');
 }

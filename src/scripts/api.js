@@ -7,6 +7,8 @@ class SlawAPI{
         roulette: 'roulette_participants:$v:$username',
         user_data: 'user_data:$v',
         houses: 'houses:$v',
+        creature: 'creature_attack:$v',
+        house_raids: 'house_raid:$v'
       },
       version: 'v0',
     };

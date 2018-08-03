@@ -41,7 +41,7 @@ class Points {
   }
 
   initialize() {
-    this.waitForMarkup(CHAT_ONLY).then(({username, sibling}) => {
+    return this.waitForMarkup(CHAT_ONLY).then(({username, sibling}) => {
       //Only initialize if we can't find the added markup
       if(this.isStarted()){
         return;

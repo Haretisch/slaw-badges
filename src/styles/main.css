@@ -95,9 +95,9 @@
           border: 0.5px #ffffff solid;
           margin-bottom: 5px; }
 
-html.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, html.tw-theme--dark #slaw-badges-points .slaw-points .points.h3, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h1, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h2, body.tw-theme--dark #slaw-badges-points .slaw-points .points.h3 {
+html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3 {
   color: #dad8de; }
-html.tw-theme--dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr, body.tw-theme--dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr {
+html.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr, body.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr {
   border-color: #0e0c13; }
 
 .slaw-extension .tw-tooltip {

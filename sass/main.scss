@@ -27,22 +27,7 @@ $dark_grey : #303030;
   background-attachment: fixed;
 }
 
-.slaw-flex {
-  display: flex!important;
-}
-
-#slaw-badges-points {
-  &.float-left {
-    display: inline-block;
-    line-height: 3rem;
-    width: 100%;
-
-    .slaw-points {
-      float: left;
-      margin-right: 10px;
-    }
-  }
-
+@mixin slawPoints() {
   .slaw-points {
     align-self: center;
 
@@ -71,10 +56,31 @@ $dark_grey : #303030;
   }
 }
 
-#slaw-badges-gamble {
+.slaw-flex {
+  display: flex!important;
+}
+
+#slaw-badges-points {
+  &.float-left {
+    display: inline-block;
+    line-height: 3rem;
+    width: 100%;
+
+    .slaw-points {
+      float: left;
+      margin-right: 10px;
+    }
+  }
+
+  @include slawPoints();
+}
+
+#slaw-badges-gamble,
+#slaw-badges-lboard {
   max-height: 30px;
 
-  .slaw-gamble {
+  .slaw-gamble,
+  .slaw-lboard {
     align-self: center;
 
     .gamble {
@@ -94,6 +100,21 @@ $dark_grey : #303030;
           border: 0.5px #ffffff solid;
           margin-bottom: 5px;
         }
+      }
+    }
+
+    .icon-lboard {
+      position: relative;
+      font-size: 16px;
+      display: inline-block;
+      vertical-align: middle;
+
+      @include slawPoints();
+      .slaw-points {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 3px 0;
       }
     }
   }
@@ -117,6 +138,24 @@ html, body {
           .tw-tooltip {
             hr {
               border-color:#0e0c13;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+body {
+  &:not(.tw-root--theme-dark) {
+    #slaw-badges-lboard {
+      .slaw-lboard {
+        .icon-lboard {
+          .slaw-points {
+            .points {
+              &.h1, &.h2, &.h3 {
+                color: $hx_dark;
+              }
             }
           }
         }

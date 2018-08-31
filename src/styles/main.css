@@ -28,6 +28,9 @@
 .icon-dice:before {
   content: "\e915"; }
 
+.icon-lboard:before {
+  content: "\e902"; }
+
 .slaw-flex {
   display: flex !important; }
 
@@ -78,27 +81,146 @@
     #slaw-badges-points .slaw-points .points.h3 {
       color: #122a48; }
 
-#slaw-badges-gamble {
+#slaw-badges-gamble,
+#slaw-badges-lboard {
   max-height: 30px; }
-  #slaw-badges-gamble .slaw-gamble {
+  #slaw-badges-gamble .slaw-gamble,
+  #slaw-badges-gamble .slaw-lboard,
+  #slaw-badges-lboard .slaw-gamble,
+  #slaw-badges-lboard .slaw-lboard {
     align-self: center; }
-    #slaw-badges-gamble .slaw-gamble .gamble {
+    #slaw-badges-gamble .slaw-gamble .gamble,
+    #slaw-badges-gamble .slaw-lboard .gamble,
+    #slaw-badges-lboard .slaw-gamble .gamble,
+    #slaw-badges-lboard .slaw-lboard .gamble {
       position: relative;
       font-size: 24px;
       display: inline-block;
       vertical-align: middle; }
-      #slaw-badges-gamble .slaw-gamble .gamble.off {
+      #slaw-badges-gamble .slaw-gamble .gamble.off,
+      #slaw-badges-gamble .slaw-lboard .gamble.off,
+      #slaw-badges-lboard .slaw-gamble .gamble.off,
+      #slaw-badges-lboard .slaw-lboard .gamble.off {
         color: #303030; }
-      #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip {
+      #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip,
+      #slaw-badges-gamble .slaw-lboard .gamble .tw-tooltip,
+      #slaw-badges-lboard .slaw-gamble .gamble .tw-tooltip,
+      #slaw-badges-lboard .slaw-lboard .gamble .tw-tooltip {
         font-family: Arial; }
-        #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr {
+        #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr,
+        #slaw-badges-gamble .slaw-lboard .gamble .tw-tooltip hr,
+        #slaw-badges-lboard .slaw-gamble .gamble .tw-tooltip hr,
+        #slaw-badges-lboard .slaw-lboard .gamble .tw-tooltip hr {
           border: 0.5px #ffffff solid;
           margin-bottom: 5px; }
+    #slaw-badges-gamble .slaw-gamble .icon-lboard,
+    #slaw-badges-gamble .slaw-lboard .icon-lboard,
+    #slaw-badges-lboard .slaw-gamble .icon-lboard,
+    #slaw-badges-lboard .slaw-lboard .icon-lboard {
+      position: relative;
+      font-size: 16px;
+      display: inline-block;
+      vertical-align: middle; }
+      #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points,
+      #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points,
+      #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points,
+      #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points {
+        align-self: center; }
+        #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge,
+        #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge,
+        #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge,
+        #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge {
+          display: inline-block;
+          vertical-align: middle;
+          width: 22px;
+          height: 18px; }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h0,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h0,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h0,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h0 {
+            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; }
+@-moz-document url-prefix() {
+  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h0,
+  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h0,
+  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h0,
+  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h0 {
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; } }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h1,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h1,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h1,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h1 {
+            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; }
+@-moz-document url-prefix() {
+  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h1,
+  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h1,
+  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h1,
+  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h1 {
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; } }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h2,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h2,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h2,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h2 {
+            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; }
+@-moz-document url-prefix() {
+  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h2,
+  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h2,
+  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h2,
+  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h2 {
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; } }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h3,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h3,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h3,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h3 {
+            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; }
+@-moz-document url-prefix() {
+  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h3,
+  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h3,
+  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h3,
+  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h3 {
+    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
+        #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points,
+        #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points,
+        #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points,
+        #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points {
+          display: inline-block;
+          vertical-align: middle;
+          font-weight: bold; }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h0,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h0,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h0,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h0 {
+            color: #000000; }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h1,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h1,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h1,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h1 {
+            color: #faae15; }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h2,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h2,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h2,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h2 {
+            color: #7f2527; }
+          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h3,
+          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h3,
+          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h3,
+          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h3 {
+            color: #122a48; }
+      #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points,
+      #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points,
+      #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points,
+      #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 3px 0; }
 
 html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3 {
   color: #dad8de; }
 html.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr, body.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr {
   border-color: #0e0c13; }
+
+body:not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h1, body:not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h2, body:not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h3 {
+  color: #dad8de; }
 
 .slaw-extension .tw-tooltip {
   display: none; }

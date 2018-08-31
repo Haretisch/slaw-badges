@@ -1,6 +1,7 @@
 class Points {
   constructor(socketBuilder) {
     this.pId = 'slaw-badges-points';
+    this.lId = 'slaw-badges-lboard';
     this.gId = 'slaw-badges-gamble';
     this.usernameHolder = 'div.top-nav-user-menu__username p';
     this.pointsSiblingIdentifier = "div.chat-input__buttons-container > .tw-flex";
@@ -59,11 +60,13 @@ class Points {
         this.username = username.innerText.toLowerCase();
         this.apiSocket = this.socketBuilder.currentSocket(this.username);
 
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="slaw-flex tw-flex-row"></div>`);//Gamble
-        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="slaw-flex tw-flex-row"></div>`);//Points
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.gId}" class="slaw-flex tw-flex-row"></div>`);// Gamble
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.lId}" class="slaw-flex tw-flex-row"></div>`);// Leaderboard
+        sibling.insertAdjacentHTML('afterEnd', `<div id="${this.pId}" class="slaw-flex tw-flex-row"></div>`);// Points
 
         this.socketRoulette();
         this.socketUser();
+        this.socketLeaderboard();
       }
     });
   }
@@ -77,10 +80,14 @@ class Points {
   }
 
   initLeaderboardDOM(h1, h2, h3) {
-    let container = document.querySelector(`#${this.pId}`);
-    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
-    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
-    container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
+    if(CHAT_ONLY) {
+      let container = document.querySelector(`#${this.pId}`);
+      container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h3', 'House Ironbeard', h3));
+      container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h2', 'House Lannistark', h2));
+      container.insertAdjacentHTML('afterBegin', this.pointsMarkup('h1', 'House Gryffinclaw', h1));
+    } else {
+      this.leaderboardIcon(h1, h2, h3);
+    }
   }
 
   updateLeaderboardDOM(body) {
@@ -97,14 +104,40 @@ class Points {
     let h2 = Math.floor(ls.points.current + ls.points.tips + ls.points.cheers + ls.points.subscriptions);
     let h3 = Math.floor(ib.points.current + ib.points.tips + ib.points.cheers + ib.points.subscriptions);
 
-    let container = document.querySelector(`#${this.pId}`);
-    if(!container.childNodes.length) {
-      this.initLeaderboardDOM(h1, h2, h3);
-    }
+    if(CHAT_ONLY) {
+      let container = document.querySelector(`#${this.pId}`);
+      if(!container.childNodes.length) {
+        this.initLeaderboardDOM(h1, h2, h3);
+      }
 
-    container.querySelectorAll(".points.h1")[0].innerText = formatNumber(h1);
-    container.querySelectorAll(".points.h2")[0].innerText = formatNumber(h2);
-    container.querySelectorAll(".points.h3")[0].innerText = formatNumber(h3);
+      container.querySelectorAll(".points.h1")[0].innerText = formatNumber(h1);
+      container.querySelectorAll(".points.h2")[0].innerText = formatNumber(h2);
+      container.querySelectorAll(".points.h3")[0].innerText = formatNumber(h3);
+    } else {
+      this.leaderboardIcon(h1, h2, h3);
+    }
+  }
+
+  leaderboardIcon(h1, h2, h3) {
+    let container = document.querySelector(`#${this.lId}`);
+    let icon = ''
+      + '<div class="slaw-lboard tw-tooltip-wrapper">'
+        + '<button aria-label="Leaderboard" class="tw-button-icon" data-a-target="leaderboard">'
+         + '<span class="tw-button-icon__icon">'
+            + `<i class="gamble icon-lboard">`
+              + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-center" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;"></div>`
+            + '</i>'
+          + '</span>'
+        + '</button>'
+      + '</div>'
+    ;
+
+    container.innerHTML = icon;
+
+    let label = container.querySelector('.title');
+    label.insertAdjacentHTML('afterBegin', this.tooltipPointsMarkup('h3', h3));
+    label.insertAdjacentHTML('afterBegin', this.tooltipPointsMarkup('h2', h2));
+    label.insertAdjacentHTML('afterBegin', this.tooltipPointsMarkup('h1', h1));
   }
 
   gambleMarkup(status) {
@@ -181,6 +214,15 @@ class Points {
         + `<i class="tw-tooltip-wrapper badge ${house}">`
           + `<div class="title tw-tooltip tw-tooltip--up tw-tooltip--align-center" data-a-target="tw-tooltip-label" style="margin-bottom: 0.9rem;">${title}</div>`
         + '</i>'
+        + `<span class="points ${house}">${formatNumber(points)}</span>`
+      + '</div>'
+    ;
+  }
+
+  tooltipPointsMarkup(house, points) {
+    return ''
+      + '<div class="slaw-points">'
+        + `<i class="tw-tooltip-wrapper badge ${house}"></i>`
         + `<span class="points ${house}">${formatNumber(points)}</span>`
       + '</div>'
     ;

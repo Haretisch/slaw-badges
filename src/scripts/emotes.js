@@ -12,7 +12,8 @@ class Emotes {
       'sirsFab',
       'sirsLips',
       'sirsFab3', 'sirsFab4', 'sirsLips3', 'sirsLips4',
-      'sirsSun'
+      'sirsSun',
+      'sirsChub',
     ];
     this.channelEmotes = {
       'sirsLove': '793552',

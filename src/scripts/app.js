@@ -36,12 +36,12 @@ function start() {
   if(!badges) badges = new Badges();
   if(!board) board = new Board();
   if(!commands) commands = new Commands();
-  if(!events) events = new Events(newApiSocket, board);
-  features = {badges, chat, commands, emotes, board, user, users, newApiSocket, events};
+  //if(!events) events = new Events(newApiSocket, board);
+  features = {badges, chat, commands, emotes, board, user, users, newApiSocket};
 
   chat.observeChat();
   user.initialize();
-  board.initialize();//.then(() => events.initialize(board));
+  board.initialize();
   commands.initialize();
   emotes.initialize();
 }

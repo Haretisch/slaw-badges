@@ -1,7 +1,5 @@
 class Commands {
   constructor() {
-    this.usernameHolder = 'div.top-nav-user-menu__username p';
-    this.username;
     this.commands = {
       '!giftlink': this.giftlink.bind(this),
       '!merch': this.sirslawtv.bind(this, 'merch'),
@@ -17,6 +15,7 @@ class Commands {
 
   destructor() {
     chat.unregisterListener('commands');
+    chat.unregisterListener('mentions');
   }
 
   disconnect() {
@@ -25,18 +24,18 @@ class Commands {
 
   initialize() {
     //Check if user is logged in, or if we can get the username at all
-    let username = document.querySelector(this.usernameHolder);
-    if(username){
-      this.username = username.innerText.toLowerCase();
+    user.registerListener('commands', () => {
       chat.registerListener('commands', this.listener.bind(this));
-    }
+      chat.registerListener('mentions', this.mentions.bind(this));
+      user.unregisterListener('commands');
+    });
   }
 
   listener(mutation) {
     if(mutation.addedNodes[0].classList) {
       const comment = mutation.addedNodes[0];
       const isSystemMessage = () => comment.classList.contains('admin') || !comment.classList.contains('chat-line__message');
-      const postedByCurrentUser = () => comment.querySelector('.chat-author__display-name').innerText.toLowerCase() === this.username;
+      const postedByCurrentUser = () => comment.querySelector('.chat-author__display-name').innerText.toLowerCase() === user.username;
       const hasMessageText = () => !!comment.querySelector('span[data-a-target=chat-message-text]');
       const isUserCommand = () => comment.querySelector('span[data-a-target=chat-message-text]').innerText.substring(0, 1) === '!';
 
@@ -49,6 +48,26 @@ class Commands {
         }
       }
     }
+  }
+
+  mentions(mutation) {
+    system.storage.sync.get('slaw_enableHouseMentions', data => {
+      if(('slaw_enableHouseMentions' in data) ? data.slaw_enableHouseMentions : true) {
+        if(mutation.addedNodes[0].classList) {
+          const comment = mutation.addedNodes[0];
+          let mentions = comment.querySelectorAll(".mention-fragment");
+          mentions.forEach(m => {
+            let gc = user.houseClass === 'h1' && m.innerText.containsOneOf(['@gc', '@gryffinclaw'], true);
+            let ls = user.houseClass === 'h2' && m.innerText.containsOneOf(['@ls', '@lannistark'], true);
+            let ib = user.houseClass === 'h3' && m.innerText.containsOneOf(['@ib', '@ironbeard'], true);
+
+            if(gc || ls || ib) {
+              m.classList.add('mention-fragment--recipient');
+            }
+          });
+        }
+      }
+    });
   }
 
   giftlink([giftee]) {

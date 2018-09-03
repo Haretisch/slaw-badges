@@ -22,8 +22,12 @@ Object.prototype.toQueryString = function(startQueryString = true) {
   return qs + params.join('&');
 }
 
-String.prototype.containsOneOf = function(array) {
-    return array.some(s => this.includes(s));
+String.prototype.containsOneOf = function(array, caseInsensitive = false) {
+  if(caseInsensitive) {
+    return array.some(s => this.toLowerCase().includes(s.toLowerCase()));
+  }
+
+  return array.some(s => this.includes(s));
 };
 
 String.prototype.capitalize = function() {

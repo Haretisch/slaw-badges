@@ -34,56 +34,62 @@
 .slaw-flex {
   display: flex !important; }
 
-#slaw-badges-points.float-left {
-  display: inline-block;
-  line-height: 3rem;
-  width: 100%; }
-  #slaw-badges-points.float-left .slaw-points {
-    float: left;
-    margin-right: 10px; }
-#slaw-badges-points .slaw-points {
+#slaw-board {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; }
+  #slaw-board.pull-left {
+    justify-content: flex-start; }
+    #slaw-board.pull-left > div {
+      margin: 0 4px; }
+
+.slaw-points {
   align-self: center; }
-  #slaw-badges-points .slaw-points .badge {
+  .slaw-points .badge {
     display: inline-block;
     vertical-align: middle;
     width: 22px;
     height: 18px; }
-    #slaw-badges-points .slaw-points .badge.h0 {
+    .slaw-points .badge.h0 {
       background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
-  #slaw-badges-points .slaw-points .badge.h0 {
+  .slaw-points .badge.h0 {
     background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; } }
-    #slaw-badges-points .slaw-points .badge.h1 {
+    .slaw-points .badge.h1 {
       background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
-  #slaw-badges-points .slaw-points .badge.h1 {
+  .slaw-points .badge.h1 {
     background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; } }
-    #slaw-badges-points .slaw-points .badge.h2 {
+    .slaw-points .badge.h2 {
       background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
-  #slaw-badges-points .slaw-points .badge.h2 {
+  .slaw-points .badge.h2 {
     background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; } }
-    #slaw-badges-points .slaw-points .badge.h3 {
+    .slaw-points .badge.h3 {
       background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; }
 @-moz-document url-prefix() {
-  #slaw-badges-points .slaw-points .badge.h3 {
+  .slaw-points .badge.h3 {
     background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
-  #slaw-badges-points .slaw-points .points {
+  .slaw-points .points {
     display: inline-block;
     vertical-align: middle;
     font-weight: bold; }
-    #slaw-badges-points .slaw-points .points.h0 {
+    .slaw-points .points.h0 {
       color: #000000; }
-    #slaw-badges-points .slaw-points .points.h1 {
+    .slaw-points .points.h1 {
       color: #faae15; }
-    #slaw-badges-points .slaw-points .points.h2 {
+    .slaw-points .points.h2 {
       color: #7f2527; }
-    #slaw-badges-points .slaw-points .points.h3 {
+    .slaw-points .points.h3 {
       color: #122a48; }
 
 #slaw-badges-gamble,
 #slaw-badges-lboard {
   max-height: 30px; }
+  #slaw-badges-gamble > .slaw-points,
+  #slaw-badges-lboard > .slaw-points {
+    margin: 0 4px; }
   #slaw-badges-gamble .slaw-gamble,
   #slaw-badges-gamble .slaw-lboard,
   #slaw-badges-lboard .slaw-gamble,

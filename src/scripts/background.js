@@ -1,5 +1,4 @@
 const system = getSystem();
-const targetUrl = 'https://www.twitch.tv/sirslaw';
 
 // Shows icon as active only when on https://www.twitch.tv/sirslaw
 if(system.declarativeContent){
@@ -8,7 +7,7 @@ if(system.declarativeContent){
       system.declarativeContent.onPageChanged.addRules([{
         conditions: [
           new system.declarativeContent.PageStateMatcher({
-            pageUrl: { urlContains: targetUrl },
+            pageUrl: { urlContains: STREAMER },
           })
         ],
         actions: [ new system.declarativeContent.ShowPageAction() ]
@@ -17,7 +16,7 @@ if(system.declarativeContent){
   });
 } else {
   function initializePageAction(tab) {
-    if(tab.url.includes(targetUrl)){
+    if(tab.url.includes(STREAMER)){
         system.pageAction.show(tab.id);
     }
   }

@@ -3,7 +3,7 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = context === 'chat';
-let badges, chat, commands, emotes, points, users, features, newApiSocket, events;
+let badges, chat, commands, emotes, board, user, users, features, newApiSocket, events;
 
 system.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if(sender.id === system.runtime.id) {
@@ -30,16 +30,18 @@ system.runtime.onMessage.addListener((message, sender, sendResponse) => {
 function start() {
   if(!newApiSocket) newApiSocket = new NewApiSocket();
   if(!chat) chat = new Chat();
+  if(!user) user = new User();
   if(!users) users = new Users();
   if(!emotes) emotes = new Emotes();
   if(!badges) badges = new Badges();
-  if(!points) points = new Points(newApiSocket);
+  if(!board) board = new Board();
   if(!commands) commands = new Commands();
-  if (!events) events = new Events(newApiSocket, points);
-  features = {badges, chat, commands, emotes, points, users, newApiSocket, events};
+  if(!events) events = new Events(newApiSocket, board);
+  features = {badges, chat, commands, emotes, board, user, users, newApiSocket, events};
 
   chat.observeChat();
-  points.initialize().then(() => events.initialize(points));
+  user.initialize();
+  board.initialize();//.then(() => events.initialize(board));
   commands.initialize();
   emotes.initialize();
 }
@@ -49,8 +51,8 @@ function stop() {
   twitchObserver.disconnect();
   //stop chat observation
   chat.disconnect();
-  //stop points fetching
-  points.disconnect();
+  //stop board fetching
+  board.disconnect();
   //unregister commands
   commands.disconnect();
 }

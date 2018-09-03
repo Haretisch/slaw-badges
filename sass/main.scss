@@ -60,24 +60,30 @@ $dark_grey : #303030;
   display: flex!important;
 }
 
-#slaw-badges-points {
-  &.float-left {
-    display: inline-block;
-    line-height: 3rem;
-    width: 100%;
+#slaw-board {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
-    .slaw-points {
-      float: left;
-      margin-right: 10px;
+  &.pull-left {
+    justify-content: flex-start;
+
+    & > div {
+      margin: 0 4px;
     }
   }
-
-  @include slawPoints();
 }
+
+@include slawPoints();
 
 #slaw-badges-gamble,
 #slaw-badges-lboard {
   max-height: 30px;
+
+  & > .slaw-points {
+    margin: 0 4px;
+  }
 
   .slaw-gamble,
   .slaw-lboard {

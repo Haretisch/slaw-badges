@@ -18,7 +18,7 @@ enableBackground.onchange = event => {
   let checked = event.target.checked;
   system.storage.sync.set({slaw_enableCoatOfArms: checked}, () => {
     system.tabs.query({active: true, currentWindow: true}, tabs => {
-      system.tabs.sendMessage(tabs[0].id, {action: "points.toggleCoatOfArms", display: checked});
+      system.tabs.sendMessage(tabs[0].id, {action: "board.toggleCoatOfArms", display: checked});
     })
   })
 }

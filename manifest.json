@@ -32,13 +32,24 @@
       "src/scripts/api.js",
       "src/scripts/phoenix.js",
       "src/scripts/newapisocket.js",
+
       "src/scripts/chat.js",
+
+      "src/scripts/user.js",
       "src/scripts/users.js",
+
       "src/scripts/emotes.js",
       "src/scripts/badges.js",
+
+      "src/scripts/house.js",
       "src/scripts/points.js",
+      "src/scripts/leaderboard.js",
+      "src/scripts/gamble.js",
+      "src/scripts/board.js",
+
       "src/scripts/commands.js",
       "src/scripts/events.js",
+
       "src/scripts/app.js"
     ],
     "matches": ["https://www.twitch.tv/*"]

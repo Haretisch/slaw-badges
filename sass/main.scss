@@ -152,15 +152,17 @@ html, body {
   }
 }
 
-body {
-  &:not(.tw-root--theme-dark) {
-    #slaw-badges-lboard {
-      .slaw-lboard {
-        .icon-lboard {
-          .slaw-points {
-            .points {
-              &.h1, &.h2, &.h3 {
-                color: $hx_dark;
+.tw-root--hover {
+  &:not(#root){
+    &:not(.tw-root--theme-dark) {
+      #slaw-badges-lboard {
+        .slaw-lboard {
+          .icon-lboard {
+            .slaw-points {
+              .points {
+                &.h1, &.h2, &.h3 {
+                  color: $hx_dark;
+                }
               }
             }
           }

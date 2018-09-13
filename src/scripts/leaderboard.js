@@ -44,9 +44,9 @@ class Leaderboard {
   leaderboardList(h1, h2, h3) {
     let container = document.querySelector(`#${this.lId}`);
     container.innerHTML = '';
-    container.insertAdjacentHTML('afterBegin', this.points.pointsMarkup('h3', 'House Ironbeard', h3));
-    container.insertAdjacentHTML('afterBegin', this.points.pointsMarkup('h2', 'House Lannistark', h2));
-    container.insertAdjacentHTML('afterBegin', this.points.pointsMarkup('h1', 'House Gryffinclaw', h1));
+    container.insertAdjacentHTML('beforeEnd', this.points.pointsMarkup('h1', 'House Gryffinclaw', h1));
+    container.insertAdjacentHTML('beforeEnd', this.points.pointsMarkup('h2', 'House Lannistark', h2));
+    container.insertAdjacentHTML('beforeEnd', this.points.pointsMarkup('h3', 'House Ironbeard', h3));
   }
 
   updateLeaderboardDOM(body) {

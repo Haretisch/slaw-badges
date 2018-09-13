@@ -33,7 +33,6 @@ class House {
     this.current = houseClass;
 
     let badge = document.querySelector(`#${this.pId} .badge`);
-    let title = document.querySelector(`#${this.pId} .title`);
     let points = document.querySelector(`#${this.pId} .points`);
 
     //Isn't updating properly
@@ -41,7 +40,6 @@ class House {
 
     badge.classList.remove('h1', 'h2', 'h3');
     badge.classList.add(houseClass);
-    title.innerText = `House ${user.house}`;
 
     points.classList.remove('h1', 'h2', 'h3');
     points.classList.add(houseClass);

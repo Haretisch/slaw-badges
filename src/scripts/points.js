@@ -25,7 +25,7 @@ class Points {
 
   initPointsDOM(house, title, points) {
     let container = document.querySelector(`#${this.pId}`);
-    container.insertAdjacentHTML('afterBegin', this.pointsMarkup(house, title, points));
+    container.innerHTML = this.pointsMarkup(house, title, points);
   }
 
   updatePointsDOM() {
@@ -36,15 +36,7 @@ class Points {
     });
     let points = user.points;
 
-    let container = document.querySelector(`#${this.pId}`);
-    if(!container.childNodes.length) {
-      this.initPointsDOM(house, title, points);
-    }
-
-    container = document.querySelector(`#${this.pId} .points`);
-    if(container){
-      container.innerText = formatNumber(points);
-    }
+    this.initPointsDOM(house, title, points);
 
     this.house.changeUserHouse();
   }

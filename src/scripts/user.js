@@ -68,7 +68,7 @@ class User {
 
   socketCallback(user) {
     if(user) {
-      let pointsMultiplier = Math.pow(2, Object.keys(user.pointFlags).filter(f => user.pointFlags[f]).length);
+      let multiplier = Math.pow(2, Object.keys(user.pointFlags).filter(f => user.pointFlags[f]).length);
       let flags = {
         'Subscriber': user.pointFlags.subscriber,
         'Notifications On': user.pointFlags.notifications,
@@ -81,7 +81,7 @@ class User {
         house: user.house.name,
         houseClass: HOUSES[user.house.name.toLowerCase()],
         points: Math.floor(user.points.current),
-        pointsMultiplier,
+        multiplier,
       };
     }
 

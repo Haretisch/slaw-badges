@@ -24,8 +24,10 @@ class Points {
   }
 
   initPointsDOM(house, title, points) {
-    let container = document.querySelector(`#${this.pId}`);
-    container.innerHTML = this.pointsMarkup(house, title, points);
+    let container;
+    if(container = document.querySelector(`#${this.pId}`)) {
+      container.innerHTML = this.pointsMarkup(house, title, points);
+    }
   }
 
   updatePointsDOM() {

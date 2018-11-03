@@ -71,7 +71,8 @@ class Leaderboard {
   }
 
   leaderboardIcon(h1, h2, h3) {
-    let container = document.querySelector(`#${this.lId}`);
+    let container
+    if(!(container = document.querySelector(`#${this.lId}`))) { return; }
     let icon = ''
       + '<div class="slaw-lboard tw-tooltip-wrapper">'
         + '<button aria-label="Leaderboard" class="tw-button-icon" data-a-target="leaderboard">'

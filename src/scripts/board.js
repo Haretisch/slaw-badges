@@ -13,6 +13,8 @@ class Board {
 
   initialize() {
     return this.waitForMarkup(CHAT_ONLY).then(({sibling}) => {
+      if(this.isInitialized()){ return; }
+
       let pullLeft = CHAT_ONLY ? 'pull-left' : '';
       sibling.insertAdjacentHTML('afterEnd', `<div id="slaw-board" class="${pullLeft}"></div>`);
       let board = document.querySelector("#slaw-board");
@@ -26,6 +28,10 @@ class Board {
       this.leaderboard.initialize();
       this.gamble.initialize();
     });
+  }
+
+  isInitialized() {
+    return !!document.querySelector("#slaw-board");
   }
 
   disconnect() {

@@ -9,7 +9,6 @@ system.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if(sender.id === system.runtime.id) {
     switch(message.action) {
       case 'contextChange':
-        console.log('change');
         context = message.context;
         CHAT_ONLY = context === 'chat';
         if(context){

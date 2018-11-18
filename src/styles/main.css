@@ -276,3 +276,6 @@ html.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr
   align-self: center;
   height: 25px;
   pointer-events: none; }
+
+.chat-line__message.slaw-vip-highlight {
+  background: rbga(153, 0, 0, 0.3); }

@@ -3,7 +3,7 @@
 const system = getSystem();
 let context = getContext();
 let CHAT_ONLY = context === 'chat';
-let badges, chat, commands, emotes, board, user, users, features, newApiSocket, events;
+let badges, chat, commands, emotes, board, user, users, features, newApiSocket, events, vip;
 
 system.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if(sender.id === system.runtime.id) {
@@ -35,6 +35,7 @@ function start() {
   if(!badges) badges = new Badges();
   if(!board) board = new Board();
   if(!commands) commands = new Commands();
+  if(!vip) vip = new VIP();
   //if(!events) events = new Events(newApiSocket, board);
   features = {badges, chat, commands, emotes, board, user, users, newApiSocket};
 

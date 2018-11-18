@@ -227,3 +227,9 @@ html, body {
     pointer-events: none;
   }
 }
+
+.chat-line__message {
+  &.slaw-vip-highlight {
+    background: rbga(153, 0, 0, 0.3);
+  }
+}

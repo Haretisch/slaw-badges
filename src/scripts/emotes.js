@@ -13,6 +13,8 @@ class Emotes {
       'sirsLips',
       'sirsFab3', 'sirsFab4', 'sirsLips3', 'sirsLips4',
       'sirsSun',
+      'sirsPromises',
+      'sirsLine',
       'sirsChub',
     ];
     this.channelEmotes = {

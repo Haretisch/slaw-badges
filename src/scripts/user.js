@@ -85,7 +85,9 @@ class User {
       };
     }
 
-    this.listeners.map(l => { l.callback(); });
+    if(this.username !== 'sirslaw') {
+      this.listeners.map(l => { l.callback(); });
+    }
   }
 
   unregisterListener(id) {

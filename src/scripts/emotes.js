@@ -16,7 +16,7 @@ class Emotes {
       'sirsPromises',
       'sirsLine',
       'sirsChub',
-      'sirsLazeh',
+      'sirsLezah',
     ];
     this.channelEmotes = {
       'sirsLove': '793552',

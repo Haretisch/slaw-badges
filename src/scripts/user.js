@@ -99,13 +99,22 @@ class User {
       const wait = () => {
         let markup = chatOnly
           ? 'div.chat-settings__content span[data-a-target="edit-display-name"]'
-          : 'div.top-nav-user-menu__username p'
+          : 'div.top-nav__menu .tw-avatar .tw-avatar__img'
         ;
         let username = document.querySelector(markup);
 
         if(username) {
-          username = username.innerText.toLowerCase();
+          if(chatOnly) {
+            username = username.innerText.toLowerCase();
+          } else {
+            // Twitch, please
+            username = username.attributes.getNamedItem('src').value;
+            username = username.substring(username.lastIndexOf('/') + 1);
+            username = username.substring(0, username.indexOf('-'));
+          }
+
           resolve({username});
+            console.log(`Welcome back, ${username}!`)
         } else {
           window.requestAnimationFrame(wait);
         }

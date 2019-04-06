@@ -27,7 +27,14 @@ class SlawAPI{
     return SlawAPI.fetch(
       new Request(
         SlawAPI.config().address + endpoint + data.toQueryString(),
-        {method: 'GET', mode: 'cors'}
+        {
+          method: 'GET',
+          mode: 'cors',
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
     );
   }
@@ -36,7 +43,15 @@ class SlawAPI{
     return SlawAPI.fetch(
       new Request(
         SlawAPI.config().address + endpoint,
-        {method: 'POST', mode: 'cors', body}
+        {
+          method: 'POST',
+          mode: 'cors',
+          cache: "no-cache",
+          body,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       )
     );
   }

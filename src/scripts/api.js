@@ -30,9 +30,9 @@ class SlawAPI{
         {
           method: 'GET',
           mode: 'cors',
-          cache: "no-cache",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
           },
         }
       )
@@ -46,10 +46,10 @@ class SlawAPI{
         {
           method: 'POST',
           mode: 'cors',
-          cache: "no-cache",
           body,
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
           },
         }
       )

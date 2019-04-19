@@ -55,24 +55,24 @@ class Users {
     this.updateUser(username, {fetching: true});
     let response = {username, ...this.lostChub, age: Date.now()}; // Assume the worst D:
 
-    SlawAPI.getCultist(username).then(json => {
-      user = (user||{greeted:false});
-      if(json.status === 'not_found' && !user.greeted){
-        chat.greet(UserName);
-        response.greeted = true;
+    system.runtime.sendMessage({action: 'getViewer', username}, ((json) => {
+      if(json.status.ok) {
+        user = (user||{greeted:false});
+        if(json.status === 'not_found' && !user.greeted){
+          chat.greet(UserName);
+          response.greeted = true;
+        }
+
+        response = {
+          ...response,
+          house: HOUSES[json.house.name.toLowerCase()],
+          title: json.rank.capitalize() + ' of House ' + json.house.name
+        }
       }
 
-      response = {
-        ...response,
-        house: HOUSES[json.house.name.toLowerCase()],
-        title: json.rank.capitalize() + ' of House ' + json.house.name
-      }
       this.save(username, response);
       callback(response);
-    }).catch(err => {
-      this.save(username, response);
-      callback(response);
-    });
+    }));
   }
 
   load({username, UserName}, callback) {

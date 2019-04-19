@@ -39,6 +39,12 @@ system.runtime.onMessage.addListener((message, sender, sendResponse) => {
             system.tabs.create({url: message.target});
           }
         });
+      case 'getViewer':
+        SlawAPI.getCultist(message.username)
+          .then(json => sendResponse({...json, status: {ok: true}}))
+          .catch(error => sendResponse({status: {ok: false}}))
+        ;
+        return true; // Necessary to return asynchronously
       default:
         //do nothing;
     }

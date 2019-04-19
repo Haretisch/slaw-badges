@@ -29,6 +29,8 @@ class User {
     }
 
     return this.waitForMarkup(CHAT_ONLY).then(({username}) => {
+      console.log(`Welcome back, ${username}!`)
+
       this.username = username;
       this.apiSocket = newApiSocket.currentSocket(username);
       this.socket();
@@ -97,27 +99,24 @@ class User {
   waitForMarkup(chatOnly) {
     return new Promise(resolve => {
       const wait = () => {
-        let markup = chatOnly
-          ? 'div.chat-settings__content span[data-a-target="edit-display-name"]'
-          : 'div.top-nav__menu .tw-avatar .tw-avatar__img'
-        ;
-        let username = document.querySelector(markup);
+        let element = document.querySelector('button[data-a-target="chat-settings"]');
 
-        if(username) {
-          if(chatOnly) {
-            username = username.innerText.toLowerCase();
-          } else {
-            // Twitch, please
-            username = username.attributes.getNamedItem('src').value;
-            username = username.substring(username.lastIndexOf('/') + 1);
-            username = username.substring(0, username.indexOf('-'));
+        if(element) {
+          // 'click' on the settings menu dropdown, opening it.
+          //  Allows the menu to be generated and username to be found;
+          //  (Is it going to work on all browsers?, previously this was blocked behavior)
+          element.click();
+          let username = document.querySelector('div.chat-settings__content span[data-a-target="edit-display-name"]');
+          if(username) {
+            // Once we have the username, close the menu, by swtiching the necessary class-names;
+            let menu = document.querySelector('div[data-a-target="chat-settings-balloon"');
+            menu.classList.remove('tw-block');
+            menu.classList.add('tw-hide');
+            return resolve({username: username.innerText.toLowerCase()});
           }
-
-          resolve({username});
-            console.log(`Welcome back, ${username}!`)
-        } else {
-          window.requestAnimationFrame(wait);
         }
+
+        window.requestAnimationFrame(wait);
       };
       wait();
     });

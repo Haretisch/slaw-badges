@@ -62,6 +62,10 @@ function getSystem() {
   return chrome || browser;
 }
 
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
 function storageAvailable(type) {
   try {
     var storage = window[type],

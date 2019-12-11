@@ -6,7 +6,9 @@ class House {
   }
 
   showHouseCoatOfArms(house = '') {
-    house = user.houseClass;
+    // house = user.houseClass;
+    // While user data cannot be fetch show a random BG
+    house = HOUSES[Object.keys(HOUSES).randomElement()];
 
     if(context){
       system.storage.sync.get('slaw_enableCoatOfArms', data => {
@@ -27,7 +29,9 @@ class House {
   }
 
   changeUserHouse() {
-    let houseClass = user.houseClass;
+    // let houseClass = user.houseClass;
+    // While user data cannot be fetch show a random BG
+    let houseClass = HOUSES[Object.keys(HOUSES).randomElement()];
     if(this.current === houseClass) return;
 
     this.current = houseClass;

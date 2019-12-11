@@ -10,6 +10,7 @@ class User {
     ]
     this.user = {};
     this.username;
+    this.clicked = false;
 
     return new Proxy(this, {
       get: (user, field) => {
@@ -98,20 +99,34 @@ class User {
 
   waitForMarkup(chatOnly) {
     return new Promise(resolve => {
-      const wait = () => {
+      const wait = async () => {
         let element = document.querySelector('button[data-a-target="chat-settings"]');
 
         if(element) {
           // 'click' on the settings menu dropdown, opening it.
           //  Allows the menu to be generated and username to be found;
           //  (Is it going to work on all browsers?, previously this was blocked behavior)
-          element.click();
-          let username = document.querySelector('div.chat-settings__content span[data-a-target="edit-display-name"]');
-          if(username) {
-            // Once we have the username, close the menu, by swtiching the necessary class-names;
-            let menu = document.querySelector('div[data-a-target="chat-settings-balloon"');
+          if(!this.clicked) {
+            await sleep(10);
+            element.click();
+            this.clicked = true;
+          }
+
+          // Mods chat settings version, return to regular user-mode to get username
+          let modeButton = document.querySelector('button[data-a-target="switch-chat-settings-mode"]');
+          if(modeButton) {
+            modeButton.click();
+          }
+
+          let menu = document.querySelector('div[data-a-target="chat-settings-balloon"]');
+          if(menu) {
+            // Close the menu, by swtiching the necessary class-names;
             menu.classList.remove('tw-block');
             menu.classList.add('tw-hide');
+          }
+
+          let username = document.querySelector('span[data-a-target="edit-display-name"]');
+          if(username) {
             return resolve({username: username.innerText.toLowerCase()});
           }
         }

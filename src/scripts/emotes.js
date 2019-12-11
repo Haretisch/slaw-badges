@@ -88,24 +88,31 @@ class Emotes {
   insertList() {
     if(document.querySelector("#slawmotes")) {return;}
 
-    this.waitForMarkup(".emote-picker__tab-content .tw-pd-1").then(emotesList => {
-      emotesList.insertAdjacentHTML('afterBegin', ''
-        + '<div id="slawmotes" class="emote-picker__content-block tw-pd-1 tw-relative">'
-          + '<div class="tw-flex tw-flex-wrap tw-justify-content-center"></div>'
+    this.waitForMarkup(".emote-picker__content-block").then(emotesList => {
+      emotesList.insertAdjacentHTML('afterEnd', ''
+        + '<div id="slawmotes" class="emote-picker__content-block">'
+          + '<div class="tw-pd-b-1 tw-pd-t-05 tw-pd-x-1 tw-relative">'
+            + '<div class="emote-grid-section__header-title tw-align-items-center tw-flex tw-pd-x-1 tw-pd-y-05">'
+              + '<p class="tw-align-middle tw-c-text-alt tw-strong">Cult Emotes</p>'
+           + '</div>'
+            + '<div id="slawmotes-list" class="tw-flex tw-flex-wrap"></div>'
+          + '</div>'
         + '</div>'
       );
 
-      const listHolder = document.querySelector("#slawmotes>div.tw-flex");
+      const listHolder = document.querySelector("#slawmotes-list");
       this.emotes.forEach(e => {
         listHolder.insertAdjacentHTML('beforeEnd', this.fillTemplate(''
-          + '<div class="emote-picker__emote">'
-            + '<div class="tw-inline-flex tw-tooltip-wrapper">'
-              + '<button class="emote-picker__emote-link tw-align-items-center tw-flex tw-justify-content-center" aria-label="TITLE" name="TITLE" data-a-target="TITLE">'
-                + '<figure class="emote-picker__emote-figure">'
-                  + '<img alt="TITLE" class="emote-picker__emote-image" src="URL28.png" srcset="URL28.png 1.0x, URL56.png 2.0x,URL112.png 3.0x">'
-                + '</figure>'
-              + '</button>'
-              + '<div class="tw-tooltip tw-tooltip--align-center tw-tooltip--down" data-a-target="tw-tooltip-label" role="tooltip">TITLE</div>'
+          + '<div class="tw-pd-x-05">'
+            + '<div class="emote-button">'
+              + '<div class="tw-inline-flex tw-relative tw-tooltip-wrapper">'
+                + '<button data-test-selector="emote-button-clickable" class="emote-button__link tw-align-items-center tw-flex tw-justify-content-center" aria-label="TITLE" name="TITLE" data-a-target="TITLE">'
+                  + '<figure>'
+                    + '<img class="emote-picker__emote-image tw-image" alt="TITLE" srcset="URL28.png 1.0x, URL56.png 2.0x, URL112.png 3.0x" src="URL28.png">'
+                  + '</figure>'
+                + '</button>'
+                + '<div class="tw-tooltip tw-tooltip--align-center tw-tooltip--down" data-a-target="tw-tooltip-label" role="tooltip">TITLE</div>'
+              + '</div>'
             + '</div>'
           + '</div>', e)
         );

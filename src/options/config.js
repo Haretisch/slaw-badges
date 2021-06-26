@@ -1,40 +1,30 @@
 const system = getSystem();
 
-let enableBackground = document.getElementById('enableCoatOfArms');
-let enableNewTabs = document.getElementById('enableNewTabs');
-let enableChubTracker = document.getElementById('enableChubTracker');
-let enableHouseMentions = document.getElementById('enableHouseMentions');
+let enableBanner = document.getElementById('enableBanner');
+let enableMentions = document.getElementById('enableMentions');
 
-system.storage.sync.get('slaw_enableCoatOfArms', data => {
-  enableBackground.checked = ('slaw_enableCoatOfArms' in data) ? data.slaw_enableCoatOfArms : true;
-});
-system.storage.sync.get('slaw_enableNewTabs', data => {
-  enableNewTabs.checked = ('slaw_enableNewTabs' in data) ? data.slaw_enableNewTabs : false;
-});
-system.storage.sync.get('slaw_enableChubTracker', data => {
-  enableChubTracker.checked = ('slaw_enableChubTracker' in data) ? data.slaw_enableChubTracker : true;
-});
-system.storage.sync.get('slaw_enableHouseMentions', data => {
-  enableHouseMentions.checked = ('slaw_enableHouseMentions' in data) ? data.slaw_enableHouseMentions : true;
+system.storage.sync.get('codeiaksFamilies_enableBanner', data => {
+  enableBanner.checked = ('codeiaksFamilies_enableBanner' in data) ? data.codeiaksFamilies_enableBanner : true;
 });
 
-enableBackground.onchange = event => {
+system.storage.sync.get('codeiaksFamilies_enableMentions', data => {
+  enableMentions.checked = ('codeiaksFamilies_enableMentions' in data) ? data.codeiaksFamilies_enableMentions : true;
+});
+
+enableBanner.onchange = event => {
   let checked = event.target.checked;
-  system.storage.sync.set({slaw_enableCoatOfArms: checked}, () => {
-    system.tabs.query({active: true, currentWindow: true}, tabs => {
-      system.tabs.sendMessage(tabs[0].id, {action: "board.toggleCoatOfArms", display: checked});
+  system.storage.sync.set({codeiaksFamilies_enableBanner: checked}, () => {
+    system.tabs.query({url: "*://*.twitch.tv/*"}, tabs => {
+      tabs.forEach(tab => system.tabs.sendMessage(tab.id, {action: "user.family.toggleBanner", display: checked}))
     })
-  })
+  });
 }
-enableNewTabs.onchange = event => {
+
+enableMentions.onchange = event => {
   let checked = event.target.checked;
-  system.storage.sync.set({slaw_enableNewTabs: checked});
-}
-enableChubTracker.onchange = event => {
-  let checked = event.target.checked;
-  system.storage.sync.set({slaw_enableChubTracker: checked});
-}
-enableHouseMentions.onchange = event => {
-  let checked = event.target.checked;
-  system.storage.sync.set({slaw_enableHouseMentions: checked});
+  system.storage.sync.set({codeiaksFamilies_enableMentions: checked}, () => {
+    system.tabs.query({url: "*://*.twitch.tv/*"}, tabs => {
+      tabs.forEach(tab => system.tabs.sendMessage(tab.id, {action: "user.family.toggleMentions", listen: checked}))
+    })
+  });
 }

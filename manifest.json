@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "SlawBadges",
-  "description": "Adds members' house icon as a twitch badge and other features in the chat feed.",
-  "version": "3.3.8",
+  "version": "0.1.0",
+
+  "name": "Codeiaks Families",
+  "description": "Channel family integration features",
 
   "applications": {
     "gecko": {
@@ -11,12 +12,13 @@
     }
   },
 
+
   "background": {
     "scripts": [
-      "src/scripts/config.js",
-      "src/scripts/helpers.js",
-      "src/scripts/api.js",
-      "src/scripts/background.js"
+      "src/scripts/helpers/functions.getSystem.js",
+      "src/scripts/helpers/prototypes.objects.js",
+      "src/scripts/background/api.js",
+      "src/scripts/background/background.js"
     ],
     "persistent": false
   },
@@ -27,34 +29,27 @@
       "src/styles/main.css"
     ],
     "js": [
-      "src/scripts/config.js",
-      "src/scripts/timer.js",
-      "src/scripts/helpers.js",
-      "src/scripts/api.js",
-      "src/scripts/phoenix.js",
-      "src/scripts/newapisocket.js",
+      "src/scripts/helpers/functions.js",
+      "src/scripts/helpers/functions.getSystem.js",
+      "src/scripts/helpers/functions.scriptInjector.js",
+      "src/scripts/helpers/prototypes.arrays.js",
+      "src/scripts/helpers/prototypes.objects.js",
+      "src/scripts/helpers/prototypes.strings.js",
 
-      "src/scripts/chat.js",
+      "src/scripts/features/chat/chat.js",
+      "src/scripts/features/chat/badges.js",
+      "src/scripts/features/chat/users.js",
 
-      "src/scripts/user.js",
-      "src/scripts/users.js",
+      "src/scripts/features/user/user.js",
+      "src/scripts/features/user/family.js",
+      "src/scripts/features/user/points.js",
 
-      "src/scripts/emotes.js",
-      "src/scripts/badges.js",
-      "src/scripts/vip.js",
+      "src/scripts/features/board/board.js",
 
-      "src/scripts/house.js",
-      "src/scripts/points.js",
-      "src/scripts/leaderboard.js",
-      "src/scripts/gamble.js",
-      "src/scripts/board.js",
-
-      "src/scripts/commands.js",
-      "src/scripts/events.js",
-
-      "src/scripts/app.js"
+      "src/scripts/app.js",
+      "src/scripts/run.js"
     ],
-    "matches": ["https://www.twitch.tv/*"]
+    "matches": ["*://*.twitch.tv/*"]
   }],
 
   "icons": {
@@ -73,7 +68,7 @@
       "32": "src/assets/meta/i-32.png",
       "128": "src/assets/meta/i-128.png"
     },
-    "default_title": "SlawBadges"
+    "default_title": "Codeiaks Families"
   },
 
   "options_ui": {
@@ -83,9 +78,7 @@
   "options_page": "src/options/config.html",
 
   "permissions": [
-    "https://www.twitch.tv/*",
-    "https://mighty-citadel-48930.herokuapp.com/*",
-    "https://api.sirlsaw.com/*",
+    "*://*.twitch.tv/*",
     "declarativeContent",
     "activeTab",
     "tabs",
@@ -94,9 +87,14 @@
   ],
 
   "web_accessible_resources": [
+    "src/scripts/helpers/functions.react.js",
     "src/assets/*.png",
     "src/assets/fonts/*"
   ],
+
+  "externally_connectable": {
+    "matches": ["*://*.twitch.tv/*"]
+  },
 
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlWVKDIggrJ/pY4cAEO5Kzy8cFV2nXBD40+ciO/u/zXNqDbR+2jXuKriVJO8ard/PNxUQmXbHslsgbfKehKCCN6DsFG5evMO4MXDAkL2rzGZhED8gVI8uTVZtO7zq0qa9fpvxTXLRi3UbKj0qEI0pdyil4rTAhQDU82QeffMO9RFxe+b/FHLzjdyqlP2NdgS5zb70l/TIOjmDLjiAfTdxSWSY46MfRmpBK/us7X/7c2VcBL40Qa7twH5aNUaAIN//g/ynIzNQfBPx+lJcNL9SvIvP6coc3Y0B2Ci0NrBcWAJZkiLweAzLnJCUeMXoLuVEZCf13VHOktQ7L86Xi3mfMwIDAQAB"
 }

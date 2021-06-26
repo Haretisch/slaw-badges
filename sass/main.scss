@@ -1,230 +1,24 @@
-@import 'fonts';
-
-$h0 : #000000;
-$h1 : #faae15;
-$h2 : #7f2527;
-$h3 : #122a48;
-$hx_dark : #dad8de;
-$dark_grey : #303030;
-
-@mixin badge($house) {
-  background: url('chrome-extension://__MSG_@@extension_id__/src/assets/badges/#{$house}/18.png') left center no-repeat;
-  @-moz-document url-prefix() {
-    & {
-        background: url('moz-extension://__MSG_@@extension_id__/src/assets/badges/#{$house}/18.png') left center no-repeat;
-    }
-  }
-}
-
-@mixin background($house) {
-  background: transparent url('chrome-extension://__MSG_@@extension_id__/src/assets/backgrounds/#{$house}.png') no-repeat right center;
-  @-moz-document url-prefix() {
-    & {
-      background: transparent url('moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/#{$house}.png') no-repeat right center;
-    }
-  }
-  background-size: contain;
-  background-attachment: fixed;
-}
-
-@mixin slawPoints() {
-  .slaw-points {
-    align-self: center;
-
-    .badge {
-      display: inline-block;
-      vertical-align: middle;
-      width: 22px;
-      height: 18px;
-
-      &.h0 {@include badge('h0');}
-      &.h1 {@include badge('h1');}
-      &.h2 {@include badge('h2');}
-      &.h3 {@include badge('h3');}
-    }
-
-    .points {
-      display: inline-block;
-      vertical-align: middle;
-      font-weight: bold;
-
-      &.h0 {color: $h0;}
-      &.h1 {color: $h1;}
-      &.h2 {color: $h2;}
-      &.h3 {color: $h3;}
-    }
-  }
-}
-
-.slaw-flex {
-  display: flex!important;
-}
-
-#slaw-board {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-
-  &.pull-left {
-    justify-content: flex-start;
-
-    & > div {
-      margin: 0 4px;
-    }
-  }
-}
-
-@include slawPoints();
-
-#slaw-badges-gamble,
-#slaw-badges-lboard {
-  max-height: 30px;
-
-  & > .slaw-points {
-    margin: 0 4px;
-  }
-
-  .slaw-gamble,
-  .slaw-lboard {
-    align-self: center;
-
-    .gamble {
-      position: relative;
-      font-size: 24px;
-      display: inline-block;
-      vertical-align: middle;
-
-      &.off {
-        color: $dark_grey;
-      }
-
-      .tw-tooltip {
-        font-family: Arial;
-
-        hr {
-          border: 0.5px #ffffff solid;
-          margin-bottom: 5px;
-        }
-      }
-    }
-
-    .icon-lboard {
-      position: relative;
-      font-size: 16px;
-      display: inline-block;
-      vertical-align: middle;
-
-      @include slawPoints();
-      .slaw-points {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 3px 0;
-      }
-    }
-  }
-}
-
-html, body {
-  &.tw-root--theme-dark {
-    #slaw-badges-points {
-      .slaw-points {
-        .points {
-          &.h1, &.h2, &.h3 {
-            color: $hx_dark;
-          }
-        }
-      }
-    }
-
-    #slaw-badges-gamble {
-      .slaw-gamble {
-        .gamble {
-          .tw-tooltip {
-            hr {
-              border-color:#0e0c13;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.tw-root--hover {
-  &:not(#root){
-    &:not(.tw-root--theme-dark) {
-      #slaw-badges-lboard {
-        .slaw-lboard {
-          .icon-lboard {
-            .slaw-points {
-              .points {
-                &.h1, &.h2, &.h3 {
-                  color: $hx_dark;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.slaw-extension {
-  .tw-tooltip {
-    display: none;
-  }
-
-  &:hover {
-    .tw-tooltip {
-      display: block;
-    }
-  }
-}
-
-.chat-list__lines {
-  .simplebar-content {
-    position: relative;
-    &:before {
-      content: "";
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 370px;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.17;
-      pointer-events: none;
-    }
-
-    &.h1 { &:before { @include background('h1'); } }
-    &.h2 { &:before { @include background('h2'); } }
-    &.h3 { &:before { @include background('h3'); } }
-  }
-}
-
-.right-column--theatre {
-  .chat-list__lines {
-    .simplebar-content {
-      &:before {
-        width: 339px;
-      }
-    }
-  }
-}
-
-.viewer-card__banner {
-  .viewer-card__display-name {
-    max-width: 180px;
-  }
-
-  div[data-a-target="chat-badge"] {
-    align-self: center;
-    height: 25px;
+.stream-chat {
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.17;
     pointer-events: none;
+    z-index: -1;
+
+    background: transparent var(--family-banner) no-repeat right center;
+    background-size: auto 100%;
+  }
+
+  .stream-chat-header,
+  .chat-room {
+    background: unset !important;
   }
 }
 
@@ -233,3 +27,66 @@ html, body {
     background: rgba(85, 54, 124, 0.5);
   }
 }
+
+.custom-badge {
+  position: relative;
+  width: 21.2px;
+  height: 21px;
+
+  .custom-tooltip {
+    padding: 3px 6px;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--color-background-tooltip);
+    color: var(--color-text-tooltip);
+    display: none;
+    position: absolute;
+    font-size: var(--font-size-6);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    text-align: left;
+    z-index: var(--z-index-balloon);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    top: auto;
+    bottom: 100%;
+    left: 0px;
+    margin-bottom: 0.9rem;
+
+    &::before, &::after {
+      position: absolute;
+      content: "";
+    }
+
+    &::before {
+      top: -6px;
+      left: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+      z-index: var(--z-index-below);
+    }
+
+    &::after {
+      border-radius: 0 0 var(--border-radius-small);
+      top: 100%;
+      left: 6px;
+      margin-top: -3px;
+      background-color: var(--color-background-tooltip);
+      width: 6px;
+      height: 6px;
+      transform: rotate(45deg);
+      z-index: var(--z-index-below);
+    }
+  }
+
+  &:hover {
+    .custom-tooltip {
+      display: block;
+    }
+  }
+}
+
+// user-notice-line user-notice-line--highlighted
+/*
+<div data-test-selector="user-notice-line" class="InjectLayout-sc-588ddc-0 qfuHB user-notice-line user-notice-line--highlighted" style="border-left-color: rgb(208, 157, 14);"><span class="sc-AxirZ eHztpT"><span class="chatter-name" role="button" tabindex="0"><span class="sc-AxirZ gXXnDo">reign_man34</span></span> gifted a Tier 1 Sub to <span class="chatter-name" role="button" tabindex="0"><span class="sc-AxirZ gXXnDo">Pharem</span></span>! They've given 27 Gift Subs in the channel!</span></div>
+*/

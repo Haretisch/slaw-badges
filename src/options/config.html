@@ -2,41 +2,25 @@
 <html>
   <head>
     <link href="config.css" rel="stylesheet" />
-    <script src="../scripts/helpers.js"></script>
+    <script src="../scripts/helpers/functions.getSystem.js"></script>
   </head>
   <body>
-    <h2>SirSlaw Twitch browser extension</h2>
+    <h2>Codeiaks Families Twitch browser extension</h2>
     <form>
       <div class="fieldLine">
         <div class="slideBox">
-          <input type="checkbox" value="1" id="enableCoatOfArms" name="enableCoatOfArms" />
-          <label for="enableCoatOfArms"></label>
+          <input type="checkbox" value="1" id="enableBanner" name="enableBanner" />
+          <label for="enableBanner"></label>
         </div>
-        <label for="enableCoatOfArms">Display my House's Coat of Arms in chat background</label>
+        <label for="enableBanner">Display my families's Coat of Arms in chat background</label>
       </div>
 
       <div class="fieldLine">
         <div class="slideBox">
-          <input type="checkbox" value="1" id="enableNewTabs" name="enableNewTabs" />
-          <label for="enableNewTabs"></label>
+          <input type="checkbox" value="1" id="enableMentions" name="enableMentions" />
+          <label for="enableMentions"></label>
         </div>
-        <label for="enableNewTabs">Allow certain commands to open new tabs in my browser</label>
-      </div>
-
-      <div class="fieldLine">
-        <div class="slideBox">
-          <input type="checkbox" value="1" id="enableChubTracker" name="enableChubTracker" />
-          <label for="enableChubTracker"></label>
-        </div>
-        <label for="enableChubTracker">Enable new user tracking and notify me when a new user speaks up for the first time</label>
-      </div>
-
-      <div class="fieldLine">
-        <div class="slideBox">
-          <input type="checkbox" value="1" id="enableHouseMentions" name="enableHouseMentions" />
-          <label for="enableHouseMentions"></label>
-        </div>
-        <label for="enableHouseMentions">Enable highlighting of house mentions (e.g. "@gc", "@Ironbeard"). Applies only to your own house.</label>
+        <label for="enableMentions">Enable highlighting of family mentions (e.g. "@[family_name]"). Applies only to your own family.</label>
       </div>
     </form>
 

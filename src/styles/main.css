@@ -1,281 +1,69 @@
-@font-face {
-  font-family: 'icomoon';
-  font-weight: normal;
-  font-style: normal;
-  src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
-  src: url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("chrome-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); }
-@-moz-document url-prefix() {
-  @font-face {
-    font-family: 'icomoon';
-    font-weight: normal;
-    font-style: normal;
-    src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj");
-    src: url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.eot?m64orj#iefix") format("embedded-opentype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.ttf?m64orj") format("truetype"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.woff?m64orj") format("woff"), url("moz-extension://__MSG_@@extension_id__/src/assets/fonts/icomoon.svg?m64orj#icomoon") format("svg"); } }
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-
-/*"Dice" icon by Rohith M S, from thenounproject.com.*/
-.icon-dice:before {
-  content: "\e915"; }
-
-.icon-lboard:before {
-  content: "\e902"; }
-
-.slaw-flex {
-  display: flex !important; }
-
-#slaw-board {
+.stream-chat:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around; }
-  #slaw-board.pull-left {
-    justify-content: flex-start; }
-    #slaw-board.pull-left > div {
-      margin: 0 4px; }
-
-.slaw-points {
-  align-self: center; }
-  .slaw-points .badge {
-    display: inline-block;
-    vertical-align: middle;
-    width: 22px;
-    height: 18px; }
-    .slaw-points .badge.h0 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  .slaw-points .badge.h0 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; } }
-    .slaw-points .badge.h1 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  .slaw-points .badge.h1 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; } }
-    .slaw-points .badge.h2 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  .slaw-points .badge.h2 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; } }
-    .slaw-points .badge.h3 {
-      background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  .slaw-points .badge.h3 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
-  .slaw-points .points {
-    display: inline-block;
-    vertical-align: middle;
-    font-weight: bold; }
-    .slaw-points .points.h0 {
-      color: #000000; }
-    .slaw-points .points.h1 {
-      color: #faae15; }
-    .slaw-points .points.h2 {
-      color: #7f2527; }
-    .slaw-points .points.h3 {
-      color: #122a48; }
-
-#slaw-badges-gamble,
-#slaw-badges-lboard {
-  max-height: 30px; }
-  #slaw-badges-gamble > .slaw-points,
-  #slaw-badges-lboard > .slaw-points {
-    margin: 0 4px; }
-  #slaw-badges-gamble .slaw-gamble,
-  #slaw-badges-gamble .slaw-lboard,
-  #slaw-badges-lboard .slaw-gamble,
-  #slaw-badges-lboard .slaw-lboard {
-    align-self: center; }
-    #slaw-badges-gamble .slaw-gamble .gamble,
-    #slaw-badges-gamble .slaw-lboard .gamble,
-    #slaw-badges-lboard .slaw-gamble .gamble,
-    #slaw-badges-lboard .slaw-lboard .gamble {
-      position: relative;
-      font-size: 24px;
-      display: inline-block;
-      vertical-align: middle; }
-      #slaw-badges-gamble .slaw-gamble .gamble.off,
-      #slaw-badges-gamble .slaw-lboard .gamble.off,
-      #slaw-badges-lboard .slaw-gamble .gamble.off,
-      #slaw-badges-lboard .slaw-lboard .gamble.off {
-        color: #303030; }
-      #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip,
-      #slaw-badges-gamble .slaw-lboard .gamble .tw-tooltip,
-      #slaw-badges-lboard .slaw-gamble .gamble .tw-tooltip,
-      #slaw-badges-lboard .slaw-lboard .gamble .tw-tooltip {
-        font-family: Arial; }
-        #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr,
-        #slaw-badges-gamble .slaw-lboard .gamble .tw-tooltip hr,
-        #slaw-badges-lboard .slaw-gamble .gamble .tw-tooltip hr,
-        #slaw-badges-lboard .slaw-lboard .gamble .tw-tooltip hr {
-          border: 0.5px #ffffff solid;
-          margin-bottom: 5px; }
-    #slaw-badges-gamble .slaw-gamble .icon-lboard,
-    #slaw-badges-gamble .slaw-lboard .icon-lboard,
-    #slaw-badges-lboard .slaw-gamble .icon-lboard,
-    #slaw-badges-lboard .slaw-lboard .icon-lboard {
-      position: relative;
-      font-size: 16px;
-      display: inline-block;
-      vertical-align: middle; }
-      #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points,
-      #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points,
-      #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points,
-      #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points {
-        align-self: center; }
-        #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge,
-        #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge,
-        #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge,
-        #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge {
-          display: inline-block;
-          vertical-align: middle;
-          width: 22px;
-          height: 18px; }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h0,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h0,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h0,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h0 {
-            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h0,
-  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h0,
-  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h0,
-  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h0 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h0/18.png") left center no-repeat; } }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h1,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h1,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h1,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h1 {
-            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h1,
-  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h1,
-  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h1,
-  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h1 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h1/18.png") left center no-repeat; } }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h2,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h2,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h2,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h2 {
-            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h2,
-  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h2,
-  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h2,
-  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h2 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h2/18.png") left center no-repeat; } }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h3,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h3,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h3,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h3 {
-            background: url("chrome-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; }
-@-moz-document url-prefix() {
-  #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .badge.h3,
-  #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .badge.h3,
-  #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .badge.h3,
-  #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .badge.h3 {
-    background: url("moz-extension://__MSG_@@extension_id__/src/assets/badges/h3/18.png") left center no-repeat; } }
-        #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points,
-        #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points,
-        #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points,
-        #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points {
-          display: inline-block;
-          vertical-align: middle;
-          font-weight: bold; }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h0,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h0,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h0,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h0 {
-            color: #000000; }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h1,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h1,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h1,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h1 {
-            color: #faae15; }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h2,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h2,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h2,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h2 {
-            color: #7f2527; }
-          #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points .points.h3,
-          #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points .points.h3,
-          #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points .points.h3,
-          #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h3 {
-            color: #122a48; }
-      #slaw-badges-gamble .slaw-gamble .icon-lboard .slaw-points,
-      #slaw-badges-gamble .slaw-lboard .icon-lboard .slaw-points,
-      #slaw-badges-lboard .slaw-gamble .icon-lboard .slaw-points,
-      #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 3px 0; }
-
-html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, html.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h1, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h2, body.tw-root--theme-dark #slaw-badges-points .slaw-points .points.h3 {
-  color: #dad8de; }
-html.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr, body.tw-root--theme-dark #slaw-badges-gamble .slaw-gamble .gamble .tw-tooltip hr {
-  border-color: #0e0c13; }
-
-.tw-root--hover:not(#root):not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h1, .tw-root--hover:not(#root):not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h2, .tw-root--hover:not(#root):not(.tw-root--theme-dark) #slaw-badges-lboard .slaw-lboard .icon-lboard .slaw-points .points.h3 {
-  color: #dad8de; }
-
-.slaw-extension .tw-tooltip {
-  display: none; }
-.slaw-extension:hover .tw-tooltip {
-  display: block; }
-
-.chat-list__lines .simplebar-content {
-  position: relative; }
-  .chat-list__lines .simplebar-content:before {
-    content: "";
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 370px;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.17;
-    pointer-events: none; }
-  .chat-list__lines .simplebar-content.h1:before {
-    background: transparent url("chrome-extension://__MSG_@@extension_id__/src/assets/backgrounds/h1.png") no-repeat right center;
-    background-size: contain;
-    background-attachment: fixed; }
-@-moz-document url-prefix() {
-  .chat-list__lines .simplebar-content.h1:before {
-    background: transparent url("moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/h1.png") no-repeat right center; } }
-  .chat-list__lines .simplebar-content.h2:before {
-    background: transparent url("chrome-extension://__MSG_@@extension_id__/src/assets/backgrounds/h2.png") no-repeat right center;
-    background-size: contain;
-    background-attachment: fixed; }
-@-moz-document url-prefix() {
-  .chat-list__lines .simplebar-content.h2:before {
-    background: transparent url("moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/h2.png") no-repeat right center; } }
-  .chat-list__lines .simplebar-content.h3:before {
-    background: transparent url("chrome-extension://__MSG_@@extension_id__/src/assets/backgrounds/h3.png") no-repeat right center;
-    background-size: contain;
-    background-attachment: fixed; }
-@-moz-document url-prefix() {
-  .chat-list__lines .simplebar-content.h3:before {
-    background: transparent url("moz-extension://__MSG_@@extension_id__/src/assets/backgrounds/h3.png") no-repeat right center; } }
-.right-column--theatre .chat-list__lines .simplebar-content:before {
-  width: 339px; }
-
-.viewer-card__banner .viewer-card__display-name {
-  max-width: 180px; }
-.viewer-card__banner div[data-a-target="chat-badge"] {
-  align-self: center;
-  height: 25px;
-  pointer-events: none; }
+  height: 100%;
+  opacity: 0.17;
+  pointer-events: none;
+  z-index: -1;
+  background: transparent var(--family-banner) no-repeat right center;
+  background-size: auto 100%; }
+.stream-chat .stream-chat-header,
+.stream-chat .chat-room {
+  background: unset !important; }
 
 .chat-line__message.slaw-vip-highlight {
   background: rgba(85, 54, 124, 0.5); }
+
+.custom-badge {
+  position: relative;
+  width: 21.2px;
+  height: 21px; }
+  .custom-badge .custom-tooltip {
+    padding: 3px 6px;
+    border-radius: var(--border-radius-medium);
+    background-color: var(--color-background-tooltip);
+    color: var(--color-text-tooltip);
+    display: none;
+    position: absolute;
+    font-size: var(--font-size-6);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    text-align: left;
+    z-index: var(--z-index-balloon);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    top: auto;
+    bottom: 100%;
+    left: 0px;
+    margin-bottom: 0.9rem; }
+    .custom-badge .custom-tooltip::before, .custom-badge .custom-tooltip::after {
+      position: absolute;
+      content: ""; }
+    .custom-badge .custom-tooltip::before {
+      top: -6px;
+      left: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+      z-index: var(--z-index-below); }
+    .custom-badge .custom-tooltip::after {
+      border-radius: 0 0 var(--border-radius-small);
+      top: 100%;
+      left: 6px;
+      margin-top: -3px;
+      background-color: var(--color-background-tooltip);
+      width: 6px;
+      height: 6px;
+      transform: rotate(45deg);
+      z-index: var(--z-index-below); }
+  .custom-badge:hover .custom-tooltip {
+    display: block; }
+
+/*
+<div data-test-selector="user-notice-line" class="InjectLayout-sc-588ddc-0 qfuHB user-notice-line user-notice-line--highlighted" style="border-left-color: rgb(208, 157, 14);"><span class="sc-AxirZ eHztpT"><span class="chatter-name" role="button" tabindex="0"><span class="sc-AxirZ gXXnDo">reign_man34</span></span> gifted a Tier 1 Sub to <span class="chatter-name" role="button" tabindex="0"><span class="sc-AxirZ gXXnDo">Pharem</span></span>! They've given 27 Gift Subs in the channel!</span></div>
+*/
